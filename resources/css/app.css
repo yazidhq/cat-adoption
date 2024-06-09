@@ -1,0 +1,35 @@
+/* btn */
+.btn-info {
+    background-color: #32a5bb !important;
+    border-color: #32a5bb !important;
+    color: white !important;
+}
+.btn-info:hover {
+    background-color: #2d95a8 !important;
+    color: white !important;
+}
+.btn-outline-info {
+    border-color: #32a5bb !important;
+    color: #32a5bb !important;
+}
+.btn-outline-info:hover {
+    background-color: #32a5bb !important;
+    border-color: #32a5bb !important;
+    color: white !important;
+}
+/* btn */
+
+/* bg */
+.bg-light {
+    background-color: white !important;
+}
+.bg-orange {
+    background-color: #f8d571 !important;
+}
+/* bg */
+
+/* text */
+.text-dark-info {
+    color: #32a5bb !important;
+}
+/* text */
