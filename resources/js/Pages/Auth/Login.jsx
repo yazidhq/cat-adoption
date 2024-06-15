@@ -48,7 +48,7 @@ export default function Login({ status, canResetPassword }) {
             onChange={(e) => setData("email", e.target.value)}
           />
 
-          <InputError message={errors.email} className="mt-2" />
+          <InputError message={errors.email} className="mt-2 text-red" />
         </div>
 
         <div className="mt-4">
@@ -68,7 +68,7 @@ export default function Login({ status, canResetPassword }) {
             onChange={(e) => setData("password", e.target.value)}
           />
 
-          <InputError message={errors.password} className="mt-2" />
+          <InputError message={errors.password} className="mt-2 text-red" />
         </div>
 
         <div className="block mt-4">
@@ -104,7 +104,7 @@ export default function Login({ status, canResetPassword }) {
             </Link>
           </div>
 
-          <button className="btn btn-info px-5" disabled={processing}>
+          <button className="btn btn-rd-red" disabled={processing}>
             Login
           </button>
         </div>

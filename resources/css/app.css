@@ -1,35 +1,50 @@
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: white;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ce2b2b;
+}
+/* scrollbar */
+
 /* btn */
-.btn-info {
-    background-color: #32a5bb !important;
-    border-color: #32a5bb !important;
+.btn-rd-red {
+    background-color: #ce2b2b !important;
+    border-color: #ce2b2b !important;
     color: white !important;
+    border-radius: 100px !important;
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
 }
-.btn-info:hover {
-    background-color: #2d95a8 !important;
-    color: white !important;
-}
-.btn-outline-info {
-    border-color: #32a5bb !important;
-    color: #32a5bb !important;
-}
-.btn-outline-info:hover {
-    background-color: #32a5bb !important;
-    border-color: #32a5bb !important;
+.btn-rd-red:hover {
+    background-color: #c22727 !important;
     color: white !important;
 }
 /* btn */
 
 /* bg */
-.bg-light {
+.bg-white {
     background-color: white !important;
 }
-.bg-orange {
-    background-color: #f8d571 !important;
+.bg-red-orange {
+    background-image: linear-gradient(
+        to left,
+        #ff9d00,
+        #f78210,
+        #ec661c,
+        #de4a25,
+        #ce2b2b
+    ) !important;
 }
 /* bg */
 
 /* text */
-.text-dark-info {
-    color: #32a5bb !important;
+.text-red {
+    color: #ce2b2b !important;
 }
 /* text */
