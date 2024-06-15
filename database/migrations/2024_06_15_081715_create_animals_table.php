@@ -11,15 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('kucings', function (Blueprint $table) {
+        Schema::create('animals', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("perlindungan_id");
-            $table->string("nama");
-            $table->string("usia");
-            $table->string("kelamin");
+            $table->unsignedBigInteger("shelter_id");
+            $table->string("name");
+            $table->string("type");
+            $table->string("age");
+            $table->string("gender");
             $table->timestamps();
 
-            $table->foreign("perlindungan_id")->references("id")->on("perlindungans")->onDelete("cascade");
+            $table->foreign("shelter_id")->references("id")->on("shelters")->onDelete("cascade");
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('kucings');
+        Schema::dropIfExists('animals');
     }
 };

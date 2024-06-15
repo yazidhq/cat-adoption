@@ -1,3 +1,3 @@
-export default function UserProfile() {
-    return <p>test</p>;
+export default function UserProfile({ auth }) {
+  return <p>{auth.user.name}</p>;
 }

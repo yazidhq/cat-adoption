@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShelterController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\UserRole;
 use Illuminate\Foundation\Application;
@@ -21,9 +22,13 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
 });
 
 Route::middleware([UserRole::class . ':admin'])->group(function () {
-    Route::get('/dashboard', function () {
-        return Inertia::render('AdminPages/Dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('/dashboard', function () {
+            return Inertia::render('AdminPages/Dashboard');
+        })->name('dashboard');
+    
+        Route::resource('/shelter', ShelterController::class);
+    });
 });
 
 Route::middleware('auth')->group(function () {
