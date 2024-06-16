@@ -19,11 +19,13 @@ class ShelterFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->catchPhrase(),
-            'city' => fake()->city(),
-            'address' => fake()->streetAddress(),
-            'phone' => fake()->phoneNumber(),
-            'category' => fake()->randomElement(['cat', 'dog']),
+            'nama' => fake()->catchPhrase(),
+            'provinsi' => fake()->city(),
+            'kota' => fake()->city(),
+            'alamat' => fake()->streetAddress(),
+            'nomor_wa' => fake()->phoneNumber(),
+            'khusus' => fake()->randomElement(['kucing', 'anjing']),
+            'deskripsi' => fake()->word(),
         ];
     }
 }

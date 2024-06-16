@@ -1,8 +1,8 @@
 <?php
 
+use App\Http\Controllers\HewanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShelterController;
-use App\Http\Controllers\UserController;
 use App\Http\Middleware\UserRole;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -18,7 +18,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware([UserRole::class . ':user'])->group(function () {
-    Route::resource('/user', UserController::class);
+
 });
 
 Route::middleware([UserRole::class . ':admin'])->group(function () {
@@ -28,6 +28,10 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
         })->name('dashboard');
     
         Route::resource('/shelter', ShelterController::class);
+        
+        Route::resource('/hewan', HewanController::class);
+        Route::get('/shelter/hewan/{id}', [HewanController::class, 'show_by_shelter_id'])->name("show_by_shelter_id");
+        Route::get('/shelter/add_hewan/{id}', [HewanController::class, 'add_by_shelter_id'])->name("add_by_shelter_id");
     });
 });
 

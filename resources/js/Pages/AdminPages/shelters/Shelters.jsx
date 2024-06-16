@@ -1,12 +1,36 @@
 import Pagination from "@/Components/Pagination";
+import RedButton from "@/Components/RedButton";
 import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
-import { useState } from "react";
-import { GoPlus } from "react-icons/go";
+import { useEffect, useState } from "react";
+import { GoPlus, GoTrash } from "react-icons/go";
+import { IoLogoOctocat, IoEyeOutline } from "react-icons/io5";
+import Swal from "sweetalert2";
+import { TfiPencilAlt } from "react-icons/tfi";
 
-export default function Shelters({ auth, shelters, filters }) {
+export default function Shelters({
+  auth,
+  shelters,
+  filters,
+  successMessage,
+  errorMessage,
+}) {
   const [searchTerm, setSearchTerm] = useState(filters.search || "");
+
+  useEffect(() => {
+    if (successMessage || errorMessage) {
+      Swal.fire({
+        position: "top-end",
+        icon: successMessage ? "success" : "error",
+        title: successMessage || errorMessage,
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        router.reload({ preserveState: false });
+      });
+    }
+  }, [successMessage, errorMessage]);
 
   const handleSearch = (e) => {
     const query = e.target.value;
@@ -20,6 +44,10 @@ export default function Shelters({ auth, shelters, filters }) {
         replace: true,
       }
     );
+  };
+
+  const capitalize = (word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
   };
 
   return (
@@ -42,11 +70,11 @@ export default function Shelters({ auth, shelters, filters }) {
                   <div className="p-1.5 min-w-full inline-block align-middle">
                     <div className="overflow-hidden">
                       <div className="d-flex justify-content-between">
-                        <Link href="#">
-                          <button className="bg-red p-2 text-white rounded-lg flex items-center space-x-1">
+                        <Link href={route("shelter.create")}>
+                          <RedButton>
                             <GoPlus className="text-white" />
                             <span className="pr-2">New shelter</span>
-                          </button>
+                          </RedButton>
                         </Link>
                         <TextInput
                           type="text"
@@ -64,29 +92,29 @@ export default function Shelters({ auth, shelters, filters }) {
                               scope="col"
                               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
                             >
-                              Name
+                              Nama
                             </th>
                             <th
                               scope="col"
                               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
                             >
-                              City
+                              Povinsi - Kota
                             </th>
                             <th
                               scope="col"
                               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
                             >
-                              Phone
+                              WhatsApp
                             </th>
                             <th
                               scope="col"
                               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
                             >
-                              Category
+                              Khusus
                             </th>
                             <th
                               scope="col"
-                              className="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
+                              className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
                             >
                               Actions
                             </th>
@@ -96,33 +124,45 @@ export default function Shelters({ auth, shelters, filters }) {
                           {shelters.data.map((item) => (
                             <tr key={item.id}>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                {item.name}
+                                {capitalize(item.nama)}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                {item.city}
+                                {capitalize(item.provinsi)} -{" "}
+                                {capitalize(item.kota)}
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                {item.phone}
+                                {item.nomor_wa}
                               </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                                {item.category}
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
-                                <Link href={route("shelter.show", item.id)}>
-                                  Detail
-                                </Link>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 flex">
+                                {capitalize(item.khusus)}: {item.hewan.length}
                                 <Link
-                                  href={route("shelter.edit", item.id)}
-                                  className="mx-2"
+                                  href={route("show_by_shelter_id", item.id)}
                                 >
-                                  Edit
+                                  <IoLogoOctocat
+                                    className="ml-4 fs-4"
+                                    title={`Lihat daftar ${item.khusus}`}
+                                  />
                                 </Link>
-                                <Link
-                                  href={route("shelter.destroy", item.id)}
-                                  className="text-red"
-                                >
-                                  Delete
-                                </Link>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div className="flex">
+                                  <Link href={route("shelter.show", item.id)}>
+                                    <IoEyeOutline className="fs-5" />
+                                  </Link>
+                                  <Link
+                                    href={route("shelter.edit", item.id)}
+                                    className="mx-2"
+                                  >
+                                    <TfiPencilAlt className="fs-5" />
+                                  </Link>
+                                  <Link
+                                    href={route("shelter.destroy", item.id)}
+                                    method="delete"
+                                    as="button"
+                                  >
+                                    <GoTrash className="fs-5" />
+                                  </Link>
+                                </div>
                               </td>
                             </tr>
                           ))}

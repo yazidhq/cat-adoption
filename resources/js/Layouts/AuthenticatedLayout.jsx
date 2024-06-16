@@ -31,7 +31,7 @@ export default function Authenticated({ user, header, children }) {
                 </NavLink>
                 <NavLink
                   href={route("shelter.index")}
-                  active={route().current("shelter.index")}
+                  active={route().current("shelter.*")}
                 >
                   Shelters
                 </NavLink>

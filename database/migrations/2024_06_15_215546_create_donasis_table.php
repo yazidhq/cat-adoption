@@ -11,16 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('animals', function (Blueprint $table) {
+        Schema::create('donasis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("shelter_id");
-            $table->string("name");
-            $table->string("type");
-            $table->string("age");
-            $table->string("gender");
+            $table->string("nama");
+            $table->string("deskripsi");
+            $table->string("batas_waktu");
             $table->timestamps();
-
-            $table->foreign("shelter_id")->references("id")->on("shelters")->onDelete("cascade");
         });
     }
 
@@ -29,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('animals');
+        Schema::dropIfExists('donasis');
     }
 };

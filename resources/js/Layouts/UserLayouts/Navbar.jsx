@@ -76,9 +76,7 @@ export default function Navbar({ auth }) {
                       <Link
                         className="dropdown-item"
                         href={
-                          auth.user.role == "user"
-                            ? route("user.index")
-                            : route("dashboard")
+                          auth.user.role == "user" ? "" : route("dashboard")
                         }
                       >
                         Profile

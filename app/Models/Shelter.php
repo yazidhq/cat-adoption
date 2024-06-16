@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Shelter extends Model
 {
@@ -16,11 +17,18 @@ class Shelter extends Model
     public $incrementing = true;
 
     protected $fillable = [
-        "name",
-        "city",
-        "address",
-        "phone",
-        "category",
-        "picture",
+        "nama",
+        "provinsi",
+        "kota",
+        "alamat",
+        "nomor_wa",
+        "khusus",
+        "deskripsi",
+        "foto",
     ];
+
+    public function hewan(): HasMany
+    {
+        return $this->hasMany(Hewan::class, 'shelter_id');
+    }
 }

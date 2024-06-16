@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shelters', function (Blueprint $table) {
+        Schema::create('beritas', function (Blueprint $table) {
             $table->id();
-            $table->string("nama");
-            $table->string("provinsi");
-            $table->string("kota");
-            $table->string("alamat");
-            $table->string("nomor_wa");
-            $table->string("khusus");
+            $table->string("judul");
             $table->string("deskripsi");
-            $table->string("foto")->nullable();
+            $table->string("gambar");
             $table->timestamps();
         });
     }
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shelters');
+        Schema::dropIfExists('beritas');
     }
 };

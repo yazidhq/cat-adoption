@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('shelters', function (Blueprint $table) {
+        Schema::create('peserta_events', function (Blueprint $table) {
             $table->id();
-            $table->string("nama");
-            $table->string("provinsi");
-            $table->string("kota");
-            $table->string("alamat");
-            $table->string("nomor_wa");
-            $table->string("khusus");
-            $table->string("deskripsi");
-            $table->string("foto")->nullable();
+            $table->unsignedBigInteger("user_id");
+            $table->unsignedBigInteger("event_id");
             $table->timestamps();
+
+            $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
+            $table->foreign("event_id")->references("id")->on("events")->onDelete("cascade");
         });
     }
 
@@ -30,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shelters');
+        Schema::dropIfExists('peserta_events');
     }
 };
