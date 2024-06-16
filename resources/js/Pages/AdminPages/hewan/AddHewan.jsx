@@ -47,7 +47,7 @@ export default function AddHewan({ auth, shelter, user }) {
       user={auth.user}
       header={
         <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-          Tambah Hewan di {shelter.nama}
+          Tambah hewan di {shelter ? shelter.nama : user.name}
         </h2>
       }
     >
@@ -279,9 +279,16 @@ export default function AddHewan({ auth, shelter, user }) {
                         </div>
 
                         <div className="flex justify-between mt-4">
-                          <Link href={route("show_by_shelter_id", shelter.id)}>
+                          <Link
+                            href={
+                              shelter
+                                ? route("show_by_shelter_id", shelter.id)
+                                : route("user.index", user.id)
+                            }
+                          >
                             <RedButton>
                               <IoCaretBackOutline />
+                              <span className="pr-2">Back</span>
                             </RedButton>
                           </Link>
                           <RedButton type="submit">

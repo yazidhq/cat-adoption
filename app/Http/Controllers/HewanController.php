@@ -4,17 +4,35 @@ namespace App\Http\Controllers;
 
 use App\Models\Hewan;
 use App\Models\Shelter;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class HewanController extends Controller
 {
-    public function show_by_shelter_id(string $id)
+    public function show_by_shelter_id(Request $request, int $id)
     {
+        $query = Hewan::query()->where('shelter_id', $id);
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                    ->orWhere('jenis_hewan', 'like', "%{$search}%")
+                    ->orWhere('kelamin', 'like', "%{$search}%")
+                    ->orWhere('usia', 'like', "%{$search}%")
+                    ->orWhere('berat_badan', 'like', "%{$search}%")
+                    ->orWhere('syarat_ketentuan', 'like', "%{$search}%");
+            });
+        }
+
+        $hewans = $query->orderBy('id', 'DESC')->paginate(4)->withQueryString();
+
         return Inertia::render("AdminPages/hewan/Hewan", [
             "shelter" => Shelter::findOrFail($id),
-            "hewans" => Hewan::where('shelter_id', $id)->get(),
+            "hewans" => $hewans,
+            "filters" => $request->only('search'),
             "successMessage" => session('success'),
             "errorMessage" => session('error'),
         ]);
@@ -24,6 +42,40 @@ class HewanController extends Controller
     {
         return Inertia::render("AdminPages/hewan/AddHewan", [
             "shelter" => Shelter::findOrFail($id),
+        ]);
+    }
+
+    public function show_by_user_id(Request $request, int $id)
+    {
+        $query = Hewan::query()->where('user_id', $id);
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                    ->orWhere('jenis_hewan', 'like', "%{$search}%")
+                    ->orWhere('kelamin', 'like', "%{$search}%")
+                    ->orWhere('usia', 'like', "%{$search}%")
+                    ->orWhere('berat_badan', 'like', "%{$search}%")
+                    ->orWhere('syarat_ketentuan', 'like', "%{$search}%");
+            });
+        }
+
+        $hewans = $query->orderBy('id', 'DESC')->paginate(4)->withQueryString();
+
+        return Inertia::render("AdminPages/hewan/Hewan", [
+            "user" => User::findOrFail($id),
+            "hewans" => $hewans,
+            "filters" => $request->only('search'),
+            "successMessage" => session('success'),
+            "errorMessage" => session('error'),
+        ]);
+    }
+
+    public function add_by_user_id(string $id)
+    {
+        return Inertia::render("AdminPages/hewan/AddHewan", [
+            "user" => User::findOrFail($id),
         ]);
     }
 
@@ -61,7 +113,7 @@ class HewanController extends Controller
             Hewan::create($validated);
 
             DB::commit();
-            return redirect()->route('show_by_shelter_id', $validated['shelter_id'])->with('success', 'Hewan has been created successfully!');
+            return redirect()->route($validated['shelter_id'] ? 'show_by_shelter_id' : 'show_by_user_id', $validated['shelter_id'] ? $validated['shelter_id'] : $validated['user_id'])->with('success', 'Hewan has been created successfully!');
         } catch (\Throwable $e) {
             DB::rollback();
             return redirect()->route('shelter.index')->with('error', $e->getMessage());
@@ -122,7 +174,7 @@ class HewanController extends Controller
             $hewan->update($validated);
 
             DB::commit();
-            return redirect()->route('show_by_shelter_id', $validated['shelter_id'])->with('success', 'Hewan has been updated successfully!');
+            return redirect()->route($validated['shelter_id'] ? 'show_by_shelter_id' : 'show_by_user_id', $validated['shelter_id'] ? $validated['shelter_id'] : $validated['user_id'])->with('success', 'Hewan has been updated successfully!');
         } catch (\Throwable $e) {
             DB::rollback();
             return back()->withErrors(['error' => $e->getMessage()]);

@@ -60,7 +60,8 @@ export default function DetailShelter({ auth, shelter }) {
                               <div className="flex">
                                 <Link href={route("shelter.index")}>
                                   <RedButton className={"mt-20"}>
-                                    <IoCaretBackOutline />
+                                    <IoCaretBackOutline />{" "}
+                                    <span className="pr-2">Back</span>
                                   </RedButton>
                                 </Link>
                               </div>

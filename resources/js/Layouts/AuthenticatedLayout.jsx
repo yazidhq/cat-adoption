@@ -35,6 +35,12 @@ export default function Authenticated({ user, header, children }) {
                 >
                   Shelters
                 </NavLink>
+                <NavLink
+                  href={route("user.index")}
+                  active={route().current("user.*")}
+                >
+                  Users
+                </NavLink>
               </div>
             </div>
 

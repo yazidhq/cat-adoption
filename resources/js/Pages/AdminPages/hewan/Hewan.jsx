@@ -1,7 +1,9 @@
+import Pagination from "@/Components/Pagination";
 import RedButton from "@/Components/RedButton";
+import TextInput from "@/Components/TextInput";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head, Link, router } from "@inertiajs/react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { GoPlus } from "react-icons/go";
 import { IoCaretBackOutline } from "react-icons/io5";
 import Swal from "sweetalert2";
@@ -9,10 +11,14 @@ import Swal from "sweetalert2";
 export default function Hewan({
   auth,
   shelter,
+  user,
   hewans,
+  filters,
   successMessage,
   errorMessage,
 }) {
+  const [searchTerm, setSearchTerm] = useState(filters.search || "");
+
   useEffect(() => {
     if (successMessage || errorMessage) {
       Swal.fire({
@@ -27,12 +33,30 @@ export default function Hewan({
     }
   }, [successMessage, errorMessage]);
 
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchTerm(query);
+
+    console.log(searchTerm);
+
+    router.get(
+      route(shelter ? "show_by_shelter_id" : "show_by_user_id", {
+        id: shelter ? shelter.id : user.id,
+      }),
+      { search: query },
+      {
+        preserveState: true,
+        replace: true,
+      }
+    );
+  };
+
   return (
     <AuthenticatedLayout
       user={auth.user}
       header={
         <h2 className="font-semibold text-xl text-gray-800 leading-tight">
-          {shelter.nama}
+          {shelter ? shelter.nama : user.name}
         </h2>
       }
     >
@@ -46,22 +70,45 @@ export default function Hewan({
                 <div className="-m-1.5 overflow-x-auto">
                   <div className="p-1.5 min-w-full inline-block align-middle">
                     <div className="overflow-hidden">
-                      <div className="flex gap-3">
-                        <Link href={route("shelter.index")}>
-                          <RedButton className={"mb-4"}>
-                            <IoCaretBackOutline />{" "}
-                            <span className="pr-2">Back</span>
-                          </RedButton>
-                        </Link>
-                        <Link href={route("add_by_shelter_id", shelter.id)}>
-                          <RedButton>
-                            <GoPlus className="text-white" />
-                            <span className="pr-2">Tambah Hewan</span>
-                          </RedButton>
-                        </Link>
+                      <div className="flex justify-content-between gap-3">
+                        <div className="flex gap-3">
+                          <Link
+                            href={
+                              shelter
+                                ? route("shelter.index")
+                                : route("user.index")
+                            }
+                          >
+                            <RedButton className={"mb-4"}>
+                              <IoCaretBackOutline />{" "}
+                              <span className="pr-2">Back</span>
+                            </RedButton>
+                          </Link>
+                          <Link
+                            href={
+                              shelter
+                                ? route("add_by_shelter_id", shelter.id)
+                                : route("add_by_user_id", user.id)
+                            }
+                          >
+                            <RedButton>
+                              <GoPlus className="text-white" />
+                              <span className="pr-2">Tambah Hewan</span>
+                            </RedButton>
+                          </Link>
+                        </div>
+                        <div>
+                          <TextInput
+                            type="text"
+                            value={searchTerm}
+                            onChange={handleSearch}
+                            className="mb-2 pr-20"
+                            placeholder="Find something"
+                          />
+                        </div>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {hewans.map((item) => (
+                        {hewans.data.map((item) => (
                           <div
                             className="max-w-sm rounded overflow-hidden border"
                             key={item.id}
@@ -100,6 +147,7 @@ export default function Hewan({
                           </div>
                         ))}
                       </div>
+                      <Pagination links={hewans.links} />
                     </div>
                   </div>
                 </div>
