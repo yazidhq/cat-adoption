@@ -15,13 +15,13 @@ export default function Hero() {
                 <Img src={"/core-img/hero-img.png"} />
               </div>
             </div>
-            <div className="col-lg-8 pt-5">
+            <div className="col-lg-8 pt-4">
               <div className="mb-4 pt-5 mt-5">
                 <SuperHeading>
                   Satu Langkah Kecil Kita <br /> Menyelamatkan Satu Kehidupan
                 </SuperHeading>
               </div>
-              <div className="mb-5">
+              <div className="mb-4">
                 <Description size={"fs-5"}>
                   Mari bersama-sama memberikan mereka kesempatan hidup yang
                   layak dan membangun ikatan yang tak tergantikan dengan

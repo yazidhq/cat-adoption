@@ -13,7 +13,7 @@ export default function WhyUs() {
             <Img src={"/core-img/why-us.png"} />
           </div>
           <div className="col-md-6 mt-5">
-            <SuperHeading color={"text-blue"}>
+            <SuperHeading color={"text-blue"} size={"fs-2"}>
               Kenapa sih Harus Pilih REPAW?
             </SuperHeading>
             <div className="pt-5">

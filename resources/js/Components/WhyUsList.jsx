@@ -9,7 +9,7 @@ export default function WhyUsList({ img, head, children }) {
         <Img src={img} width={"120px"} />
       </div>
       <div className="col-md-9">
-        <Heading color={"text-dark-orange mb-"} size={"fs-4"}>
+        <Heading color={"text-dark-orange mb-0"} size={"fs-4"}>
           {head}
         </Heading>
         <Description size={"fs-6"}>{children}</Description>

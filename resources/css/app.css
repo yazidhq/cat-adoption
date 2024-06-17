@@ -64,6 +64,12 @@
     background-size: cover !important;
     background-image: url("/core-img/bg/hero.png") !important;
 }
+.bg-orange-paw-list {
+    background-color: #f8d571 !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-image: url("/core-img/bg/list.png") !important;
+}
 /* bg */
 
 /* text */
