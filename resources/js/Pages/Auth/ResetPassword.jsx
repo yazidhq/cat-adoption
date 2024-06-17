@@ -89,7 +89,7 @@ export default function ResetPassword({ token, email }) {
         </div>
 
         <div className="d-flex justify-content-center mt-4">
-          <button className="btn btn-rd-red" disabled={processing}>
+          <button className="btn btn-blue" disabled={processing}>
             Reset Password
           </button>
         </div>

@@ -118,7 +118,7 @@ export default function Register() {
             </Link>
           </div>
 
-          <button className="btn btn-rd-red" disabled={processing}>
+          <button className="btn btn-blue" disabled={processing}>
             Register
           </button>
         </div>

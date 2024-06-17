@@ -104,7 +104,7 @@ export default function Login({ status, canResetPassword }) {
             </Link>
           </div>
 
-          <button className="btn btn-rd-red" disabled={processing}>
+          <button className="btn btn-blue" disabled={processing}>
             Login
           </button>
         </div>
