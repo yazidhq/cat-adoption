@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Hewan::class, 'user_id');
     }
+
+    public function komentar(): HasMany
+    {
+        return $this->hasMany(KomentarBerita::class, 'user_id');
+    }
 }

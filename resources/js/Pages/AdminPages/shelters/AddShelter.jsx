@@ -170,7 +170,7 @@ export default function AddShelter({ auth }) {
         <div className="flex justify-content-between">
           <Link href={route("shelter.index")}>
             <RedButton className={"mt-20"}>
-              <IoCaretBackOutline />
+              <IoCaretBackOutline /> <span className="pr-2">Back</span>
             </RedButton>
           </Link>
           <RedButton className={"mt-20"} type={"submit"}>

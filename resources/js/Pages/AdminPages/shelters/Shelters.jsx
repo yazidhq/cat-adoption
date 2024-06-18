@@ -54,7 +54,7 @@ export default function Shelters({
         <Link href={route("shelter.create")}>
           <RedButton>
             <GoPlus className="text-white" />
-            <span className="pr-2">New shelter</span>
+            <span className="pr-2">Tambah Shelter</span>
           </RedButton>
         </Link>
         <TextInput

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Shelter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class ShelterController extends Controller
@@ -31,8 +30,8 @@ class ShelterController extends Controller
         return Inertia::render("AdminPages/shelters/Shelters", [
             "shelters" => $shelters,
             "filters" => $request->only('search'),
-            'successMessage' => session('success'),
-            'errorMessage' => session('error'),
+            "successMessage" => session("success"),
+            "errorMessage" => session("error"),
         ]);
     }
 
