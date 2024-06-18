@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\HewanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShelterController;
@@ -37,6 +38,8 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
         ROute::post("/user/{id}", [UserController::class, 'make_user_to_admin_or_reverse'])->name("make_user_to_admin_or_reverse");
         Route::get('/user/hewan/{id}', [HewanController::class, 'show_by_user_id'])->name("show_by_user_id");
         Route::get('/user/add_hewan/{id}', [HewanController::class, 'add_by_user_id'])->name("add_by_user_id");
+
+        Route::resource('/berita', BeritaController::class);
     });
 });
 
