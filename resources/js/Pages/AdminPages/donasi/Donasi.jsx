@@ -7,6 +7,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { GoPlus } from "react-icons/go";
 import Swal from "sweetalert2";
+import { IoMdSettings } from "react-icons/io";
 
 export default function Donasi({
   auth,
@@ -52,12 +53,19 @@ export default function Donasi({
   return (
     <DashboardSection auth={auth.user} heading={"Donasi"} title={"Donasi"}>
       <div className="d-flex justify-content-between">
-        <Link href={route("donasi.create")}>
-          <RedButton>
-            <GoPlus className="text-white" />
-            <span className="pr-2">Tambah Donasi</span>
-          </RedButton>
-        </Link>
+        <div className="flex gap-2">
+          <Link>
+            <RedButton>
+              <IoMdSettings className="text-white m-1" />
+            </RedButton>
+          </Link>
+          <Link href={route("donasi.create")}>
+            <RedButton>
+              <GoPlus className="text-white" />
+              <span className="pr-2">Tambah Donasi</span>
+            </RedButton>
+          </Link>
+        </div>
         <TextInput
           type="text"
           value={searchTerm}

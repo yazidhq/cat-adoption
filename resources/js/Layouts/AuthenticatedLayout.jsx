@@ -53,6 +53,12 @@ export default function Authenticated({ user, header, children }) {
                 >
                   Donasi
                 </NavLink>
+                <NavLink
+                  href={route("event.index")}
+                  active={route().current("event.*")}
+                >
+                  Event
+                </NavLink>
               </div>
             </div>
 
