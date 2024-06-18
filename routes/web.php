@@ -30,15 +30,18 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
         })->name('dashboard');
     
         Route::resource('/shelter', ShelterController::class);
+
         Route::resource('/hewan', HewanController::class);
-        Route::get('/shelter/hewan/{id}', [HewanController::class, 'show_by_shelter_id'])->name("show_by_shelter_id");
-        Route::get('/shelter/add_hewan/{id}', [HewanController::class, 'add_by_shelter_id'])->name("add_by_shelter_id");
+        Route::controller(HewanController::class)->group(function() {
+            Route::get('/shelter/hewan/{id}', 'show_by_shelter_id')->name('show_by_shelter_id');
+            Route::get('/shelter/add_hewan/{id}', 'add_by_shelter_id')->name('add_by_shelter_id');
+            Route::get('/user/hewan/{id}', 'show_by_user_id')->name("show_by_user_id");
+            Route::get('/user/add_hewan/{id}', 'add_by_user_id')->name("add_by_user_id");
+        });
 
         Route::resource('/user', UserController::class);
         Route::post("/user/{id}", [UserController::class, 'make_user_to_admin_or_reverse'])->name("make_user_to_admin_or_reverse");
-        Route::get('/user/hewan/{id}', [HewanController::class, 'show_by_user_id'])->name("show_by_user_id");
-        Route::get('/user/add_hewan/{id}', [HewanController::class, 'add_by_user_id'])->name("add_by_user_id");
-
+        
         Route::resource('/berita', BeritaController::class);
         Route::delete("/berita/komentar/{id}", [BeritaController::class, 'destroy_komentar'])->name("destroy_komentar");
     });
