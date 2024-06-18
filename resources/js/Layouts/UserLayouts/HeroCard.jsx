@@ -3,23 +3,33 @@ import IconedImg from "@/Components/IconedImg";
 
 export default function HeroCard() {
   return (
-    <div className="container" style={{ marginTop: "-8%" }}>
-      <div className="row row-cols-5">
-        <IconedCard>
-          <IconedImg text={"Anjing"} img={"dog"} />
-        </IconedCard>
-        <IconedCard>
-          <IconedImg text={"Kucing"} img={"cat"} />
-        </IconedCard>
-        <IconedCard>
-          <IconedImg text={"Donasi"} img={"donate"} />
-        </IconedCard>
-        <IconedCard>
-          <IconedImg text={"Event"} img={"event"} />
-        </IconedCard>
-        <IconedCard>
-          <IconedImg text={"Shelter"} img={"shelter"} />
-        </IconedCard>
+    <div className="container hero-card">
+      <div className="row">
+        <div className="col-lg">
+          <IconedCard>
+            <IconedImg text={"Anjing"} img={"dog"} />
+          </IconedCard>
+        </div>
+        <div className="col-lg">
+          <IconedCard>
+            <IconedImg text={"Kucing"} img={"cat"} />
+          </IconedCard>
+        </div>
+        <div className="col-lg">
+          <IconedCard>
+            <IconedImg text={"Donasi"} img={"donate"} />
+          </IconedCard>
+        </div>
+        <div className="col-lg">
+          <IconedCard>
+            <IconedImg text={"Event"} img={"event"} />
+          </IconedCard>
+        </div>
+        <div className="col-lg">
+          <IconedCard>
+            <IconedImg text={"Shelter"} img={"shelter"} />
+          </IconedCard>
+        </div>
       </div>
     </div>
   );

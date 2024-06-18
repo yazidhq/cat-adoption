@@ -17,10 +17,16 @@ export default function Story() {
           </Heading>
         </div>
 
-        <div className="d-flex justify-content-center">
-          <Img src={"/core-img/testimonial/1.png"} width={"300px"} />
-          <Img src={"/core-img/testimonial/2.png"} width={"300px"} />
-          <Img src={"/core-img/testimonial/3.png"} width={"300px"} />
+        <div className="row">
+          <div className="col-lg-4 text-end">
+            <Img src={"/core-img/testimonial/1.png"} width={"300px"} />
+          </div>
+          <div className="col-lg-4">
+            <Img src={"/core-img/testimonial/2.png"} width={"300px"} />
+          </div>
+          <div className="col-lg-4 text-start">
+            <Img src={"/core-img/testimonial/3.png"} width={"300px"} />
+          </div>
         </div>
       </div>
     </div>

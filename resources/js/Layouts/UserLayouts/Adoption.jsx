@@ -54,7 +54,7 @@ export default function Adoption() {
                         classes="rounded-top-5"
                       />
                       <div className="card-body">
-                        <p className="card-text p-3">
+                        <div className="card-text p-3">
                           <Heading color={"text-blue"} size={"fs-4"}>
                             Milo dan Miko
                           </Heading>
@@ -67,7 +67,7 @@ export default function Adoption() {
                           <Description size={"text-muted mb-0 mt-2"}>
                             <FaLocationDot /> Bandung, Jawa Barat
                           </Description>
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -84,7 +84,7 @@ export default function Adoption() {
                         classes="rounded-top-5"
                       />
                       <div className="card-body">
-                        <p className="card-text p-3">
+                        <div className="card-text p-3">
                           <Heading color={"text-blue"} size={"fs-4"}>
                             Milo dan Miko
                           </Heading>
@@ -97,7 +97,7 @@ export default function Adoption() {
                           <Description size={"text-muted mb-0 mt-2"}>
                             <FaLocationDot /> Bandung, Jawa Barat
                           </Description>
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -114,7 +114,7 @@ export default function Adoption() {
                         classes="rounded-top-5"
                       />
                       <div className="card-body">
-                        <p className="card-text p-3">
+                        <div className="card-text p-3">
                           <Heading color={"text-blue"} size={"fs-4"}>
                             Milo dan Miko
                           </Heading>
@@ -127,7 +127,7 @@ export default function Adoption() {
                           <Description size={"text-muted mb-0 mt-2"}>
                             <FaLocationDot /> Bandung, Jawa Barat
                           </Description>
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -144,7 +144,7 @@ export default function Adoption() {
                         classes="rounded-top-5"
                       />
                       <div className="card-body">
-                        <p className="card-text p-3">
+                        <div className="card-text p-3">
                           <Heading color={"text-blue"} size={"fs-4"}>
                             Milo dan Miko
                           </Heading>
@@ -157,7 +157,7 @@ export default function Adoption() {
                           <Description size={"text-muted mb-0 mt-2"}>
                             <FaLocationDot /> Bandung, Jawa Barat
                           </Description>
-                        </p>
+                        </div>
                       </div>
                     </div>
                   </div>

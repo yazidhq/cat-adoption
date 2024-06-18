@@ -9,12 +9,7 @@ export default function Hero() {
     <div className="bg-orange-paw pt-5">
       <div className="pt-4">
         <div className="container">
-          <div className="row flex-lg-row-reverse">
-            <div className="col-lg-4">
-              <div className="lc-block">
-                <Img src={"/core-img/hero-img.png"} />
-              </div>
-            </div>
+          <div className="row flex-lg-row">
             <div className="col-lg-8 pt-4">
               <div className="mb-4 pt-5 mt-5">
                 <SuperHeading>
@@ -30,6 +25,11 @@ export default function Hero() {
                 </Description>
               </div>
               <RoundedBlueButton>ADOPSI SEKARANG</RoundedBlueButton>
+            </div>
+            <div className="col-lg-4">
+              <div className="lc-block">
+                <Img src={"/core-img/hero-img.png"} />
+              </div>
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@
     width: 5px;
 }
 ::-webkit-scrollbar-track {
-    background: white;
+    background: #f8d571;
 }
 ::-webkit-scrollbar-thumb {
     background: #32a5bb;
@@ -92,3 +92,15 @@
     border-color: #ce2b2b !important;
 }
 /* border */
+
+/* hero card */
+.hero-card {
+    margin-top: -7%;
+}
+
+@media (max-width: 768px) {
+    .hero-card {
+        margin-top: 0;
+    }
+}
+/* hero card */
