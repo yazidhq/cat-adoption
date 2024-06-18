@@ -60,4 +60,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PembayaranDonasi::class, 'user_id');
     }
+
+    public function peserta_event(): HasMany
+    {
+        return $this->hasMany(PesertaEvent::class, 'user_id');
+    }
 }
