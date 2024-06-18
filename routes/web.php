@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\BeritaController;
+use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\HewanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShelterController;
@@ -44,6 +45,8 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
         
         Route::resource('/berita', BeritaController::class);
         Route::delete("/berita/komentar/{id}", [BeritaController::class, 'destroy_komentar'])->name("destroy_komentar");
+
+        Route::resource('/donasi', DonasiController::class);
     });
 });
 

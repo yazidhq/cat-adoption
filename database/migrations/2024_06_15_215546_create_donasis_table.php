@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string("tema_donasi");
             $table->string("deskripsi");
-            $table->string("tipe_donasi");
             $table->string("target_dana");
             $table->string("batas_waktu");
             $table->string("gambar");

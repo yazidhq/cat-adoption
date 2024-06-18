@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("donasi_id");
             $table->string("status");
+            $table->string("tipe_donasi");
             $table->string("snap_token");
             $table->timestamps();
 
