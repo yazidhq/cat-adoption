@@ -50,6 +50,13 @@ export default function Donasi({
     return word.charAt(0).toUpperCase() + word.slice(1);
   };
 
+  const formatToRupiah = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(number);
+  };
+
   return (
     <DashboardSection auth={auth.user} heading={"Donasi"} title={"Donasi"}>
       <div className="d-flex justify-content-between">
@@ -116,7 +123,7 @@ export default function Donasi({
                 </Link>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                {item.target_dana}
+                0/{formatToRupiah(item.target_dana)}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                 {moment(item.batas_waktu).format("DD/MM/YY HH:mm")}

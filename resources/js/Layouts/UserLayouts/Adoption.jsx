@@ -50,7 +50,7 @@ export default function Adoption() {
                       style={{ width: "18rem" }}
                     >
                       <Img
-                        src={"/hewan-img/1718522205_666e915d5065f.png"}
+                        src={"/hewan-img/1718781080_667284982ce31.png"}
                         classes="rounded-top-5"
                       />
                       <div className="card-body">
@@ -80,7 +80,7 @@ export default function Adoption() {
                       style={{ width: "18rem" }}
                     >
                       <Img
-                        src={"/hewan-img/1718522205_666e915d5065f.png"}
+                        src={"/hewan-img/1718781080_667284982ce31.png"}
                         classes="rounded-top-5"
                       />
                       <div className="card-body">
@@ -110,7 +110,7 @@ export default function Adoption() {
                       style={{ width: "18rem" }}
                     >
                       <Img
-                        src={"/hewan-img/1718522205_666e915d5065f.png"}
+                        src={"/hewan-img/1718781080_667284982ce31.png"}
                         classes="rounded-top-5"
                       />
                       <div className="card-body">
@@ -140,7 +140,7 @@ export default function Adoption() {
                       style={{ width: "18rem" }}
                     >
                       <Img
-                        src={"/hewan-img/1718522205_666e915d5065f.png"}
+                        src={"/hewan-img/1718781080_667284982ce31.png"}
                         classes="rounded-top-5"
                       />
                       <div className="card-body">

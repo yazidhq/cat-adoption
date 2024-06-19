@@ -24,6 +24,8 @@ class Hewan extends Model
         "kelamin",
         "usia",
         "berat_badan",
+        "provinsi",
+        "kota",
         "steril",
         "vaksin",
         "syarat_ketentuan",

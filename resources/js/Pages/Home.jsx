@@ -6,18 +6,16 @@ import WhyUs from "@/Layouts/UserLayouts/WhyUs";
 import Footer from "@/Layouts/UserLayouts/Footer";
 import Adoption from "@/Layouts/UserLayouts/Adoption";
 import Story from "@/Layouts/UserLayouts/Story";
+import SectionPage from "@/Layouts/UserLayouts/SectionPage";
 
 export default function Home({ auth }) {
   return (
-    <>
-      <Head title="Home" />
-      <Navbar auth={auth} />
+    <SectionPage title={"Home"} auth={auth}>
       <Hero />
       <HeroCard />
       <WhyUs />
       <Adoption />
       <Story />
-      <Footer />
-    </>
+    </SectionPage>
   );
 }

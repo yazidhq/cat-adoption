@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string("kelamin");
             $table->string("usia");
             $table->string("berat_badan");
+            $table->string("provinsi");
+            $table->string("kota");
             $table->boolean("steril")->default(false);
             $table->boolean("vaksin")->default(false);
             $table->string("syarat_ketentuan");

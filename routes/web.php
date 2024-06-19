@@ -7,6 +7,7 @@ use App\Http\Controllers\HewanController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShelterController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserController\PagesController;
 use App\Http\Middleware\UserRole;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -21,8 +22,15 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::middleware([UserRole::class . ':user'])->group(function () {
+Route::controller(PagesController::class)->group(function() {
+    Route::get('/adopsi', 'adopsi')->name('adopsi');
+    Route::get('/detail_adopsi', 'detail_adopsi')->name('detail_adopsi');
+});
 
+Route::middleware([UserRole::class . ':user'])->group(function () {
+    Route::controller(PagesController::class)->group(function() {
+        Route::get('/pendaftaran_adopsi', 'pendaftaran_adopsi')->name('pendaftaran_adopsi');
+    });
 });
 
 Route::middleware([UserRole::class . ':admin'])->group(function () {

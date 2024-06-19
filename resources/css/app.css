@@ -104,3 +104,32 @@
     }
 }
 /* hero card */
+
+/* hover hero card */
+.iconed-card {
+    transition: background-color 0.3s ease !important;
+}
+
+.iconed-card:hover {
+    background-color: #f29762 !important;
+}
+
+.iconed-img {
+    color: #32a5bb !important;
+    transition: color 0.3s ease !important;
+    text-align: center !important;
+}
+
+.iconed-img img {
+    transition: filter 0.3s ease !important;
+}
+
+.iconed-card:hover .iconed-img {
+    color: white !important;
+}
+
+.iconed-card:hover .iconed-img img {
+    filter: brightness(0) invert(1) !important;
+}
+
+/* hover hero card */

@@ -19,6 +19,8 @@ export default function AddHewan({ auth, shelter, user }) {
     kelamin: "",
     usia: "",
     berat_badan: "",
+    provinsi: shelter ? shelter.provinsi : "",
+    kota: shelter ? shelter.kota : "",
     steril: "",
     vaksin: "",
     syarat_ketentuan: "",
@@ -156,6 +158,54 @@ export default function AddHewan({ auth, shelter, user }) {
           </div>
 
           <div className="sm:col-span-2">
+            <InputLabel htmlFor="provinsi">Provinsi Penempatan</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="text"
+                name="provinsi"
+                id="provinsi"
+                className="w-full"
+                value={data.provinsi}
+                onChange={(e) => setData("provinsi", e.target.value)}
+              />
+              <InputError message={errors.provinsi} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <InputLabel htmlFor="kota">Kota</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="text"
+                name="kota"
+                id="kota"
+                className="w-full"
+                value={data.kota}
+                onChange={(e) => setData("kota", e.target.value)}
+              />
+              <InputError message={errors.kota} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <InputLabel htmlFor="vaksin">Sudah Vaksin?</InputLabel>
+            <div className="mt-2">
+              <SelectOption
+                nameId={"vaksin"}
+                value={data.vaksin}
+                onChange={(e) => setData("vaksin", e.target.value)}
+              >
+                <option hidden value="">
+                  Pilih Opsi
+                </option>
+                <option value="1">Sudah</option>
+                <option value="0">Belum</option>
+              </SelectOption>
+              <InputError message={errors.vaksin} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
             <InputLabel htmlFor="syarat_ketentuan">
               Syarat dan Ketentuan
             </InputLabel>
@@ -184,24 +234,6 @@ export default function AddHewan({ auth, shelter, user }) {
                 message={errors.deskripsi}
                 className="mt-2 text-red"
               />
-            </div>
-          </div>
-
-          <div className="sm:col-span-2">
-            <InputLabel htmlFor="vaksin">Sudah Vaksin?</InputLabel>
-            <div className="mt-2">
-              <SelectOption
-                nameId={"vaksin"}
-                value={data.vaksin}
-                onChange={(e) => setData("vaksin", e.target.value)}
-              >
-                <option hidden value="">
-                  Pilih Opsi
-                </option>
-                <option value="1">Sudah</option>
-                <option value="0">Belum</option>
-              </SelectOption>
-              <InputError message={errors.vaksin} className="mt-2 text-red" />
             </div>
           </div>
 

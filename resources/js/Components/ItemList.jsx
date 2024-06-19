@@ -1,9 +1,7 @@
-export default function ItemList({ route, children }) {
+export default function ItemList({ route, children, active }) {
   return (
     <li className="nav-item mx-2">
-      <a className="nav-link active" aria-current="page" href={route}>
-        {children}
-      </a>
+      <div className={`nav-link ${active}`}>{children}</div>
     </li>
   );
 }
