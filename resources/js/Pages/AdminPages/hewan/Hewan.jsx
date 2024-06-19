@@ -1,4 +1,5 @@
 import DashboardSection from "@/Components/DashboardSection";
+import Img from "@/Components/Img";
 import Pagination from "@/Components/Pagination";
 import RedButton from "@/Components/RedButton";
 import TextInput from "@/Components/TextInput";
@@ -93,7 +94,15 @@ export default function Hewan({
             className="max-w-sm rounded overflow-hidden border"
             key={item.id}
           >
-            <img className="w-full" src={`/hewan-img/${item.foto}`} alt="" />
+            <div
+              className="position-relative"
+              style={{ width: "100%", paddingTop: "90%" }}
+            >
+              <Img
+                src={`/hewan-img/${item.foto}`}
+                className="img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
+              />
+            </div>
             <div className="px-6 py-4">
               <div className="font-bold text-xl mb-2">
                 {item.nama} |{" "}
@@ -104,7 +113,9 @@ export default function Hewan({
               <p className="text-gray-700 text-base">
                 Jenis Kelamin : {item.kelamin}
               </p>
-              <p className="text-gray-700 text-base">Usia : {item.usia}</p>
+              <p className="text-gray-700 text-base">
+                Usia : {item.usia} Bulan
+              </p>
             </div>
             <div className="px-6 pb-3 flex justify-content-end gap-3">
               <Link href={route("hewan.edit", item.id)}>Edit</Link>

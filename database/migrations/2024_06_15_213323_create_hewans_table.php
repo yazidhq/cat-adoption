@@ -16,10 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger("shelter_id")->nullable();
             $table->unsignedBigInteger("user_id")->nullable();
             $table->string("nama");
+            $table->string("kategori");
             $table->string("jenis_hewan");
             $table->string("kelamin");
             $table->string("usia");
             $table->string("berat_badan");
+            $table->string("biaya");
             $table->string("provinsi");
             $table->string("kota");
             $table->boolean("steril")->default(false);

@@ -83,13 +83,13 @@ export default function Users({
               scope="col"
               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
             >
-              Role - Actions
+              Adopsi
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
             >
-              Adopsi
+              Role - Actions
             </th>
           </tr>
         </thead>
@@ -114,17 +114,6 @@ export default function Users({
                     {item.nomor_wa ? <>{item.nomor_wa}</> : <p>belum dibuat</p>}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    <Link
-                      href={route("make_user_to_admin_or_reverse", item.id)}
-                      method="post"
-                    >
-                      {capitalize(item.role)} -{" "}
-                      <span className="text-primary">
-                        {item.role == "user" ? "Jadikan Admin" : "Jadikan User"}
-                      </span>
-                    </Link>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                     {item.hewan.length > 0 ? (
                       <Link
                         href={route("show_by_user_id", item.id)}
@@ -140,6 +129,17 @@ export default function Users({
                         Buka adopsi
                       </Link>
                     )}
+                  </td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                    <Link
+                      href={route("make_user_to_admin_or_reverse", item.id)}
+                      method="post"
+                    >
+                      {capitalize(item.role)} -{" "}
+                      <span className="text-primary">
+                        {item.role == "user" ? "Jadikan Admin" : "Jadikan User"}
+                      </span>
+                    </Link>
                   </td>
                 </>
               )}

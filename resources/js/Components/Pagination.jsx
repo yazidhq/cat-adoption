@@ -8,7 +8,9 @@ export default function Pagination({ links }) {
           preserveScroll
           href={link.url}
           key={link.label}
-          className={`mx-2 ${link.active ? "text-red" : "text-muted"}`}
+          className={`mx-2 ${
+            link.active ? "text-red" : "text-muted"
+          }  text-decoration-none`}
           dangerouslySetInnerHTML={{ __html: link.label }}
         ></Link>
       ))}

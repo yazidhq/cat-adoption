@@ -15,10 +15,12 @@ export default function AddHewan({ auth, shelter, user }) {
     shelter_id: shelter ? shelter.id : null,
     user_id: user ? user.id : null,
     nama: "",
+    kategori: shelter ? shelter.khusus : "",
     jenis_hewan: "",
     kelamin: "",
     usia: "",
     berat_badan: "",
+    biaya: user ? "0" : "",
     provinsi: shelter ? shelter.provinsi : "",
     kota: shelter ? shelter.kota : "",
     steril: "",
@@ -69,6 +71,29 @@ export default function AddHewan({ auth, shelter, user }) {
           </div>
 
           <div className="sm:col-span-2">
+            <InputLabel htmlFor="kategori">Kategori</InputLabel>
+            <div className="mt-2">
+              <SelectOption
+                nameId="kategori"
+                value={data.kategori}
+                onChange={(e) => setData("kategori", e.target.value)}
+                disabled={shelter}
+              >
+                {shelter ? (
+                  <option value={data.kategori}>{data.kategori}</option>
+                ) : (
+                  <option hidden value="">
+                    Pilih Opsi
+                  </option>
+                )}
+                <option value="kucing">Kucing</option>
+                <option value="anjing">Anjing</option>
+              </SelectOption>
+              <InputError message={errors.kategori} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
             <InputLabel htmlFor="jenis_hewan">Jenis Hewan</InputLabel>
             <div className="mt-2">
               <TextInput
@@ -103,14 +128,13 @@ export default function AddHewan({ auth, shelter, user }) {
               <InputError message={errors.kelamin} className="mt-2 text-red" />
             </div>
           </div>
-        </div>
 
-        <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
           <div className="sm:col-span-2">
-            <InputLabel htmlFor="usia">Usia (ex: 3 Bulan)</InputLabel>
+            <InputLabel htmlFor="usia">Usia (bulan)</InputLabel>
             <div className="mt-2">
               <TextInput
-                type="text"
+                type="number"
+                min="1"
                 name="usia"
                 id="usia"
                 className="w-full"
@@ -122,10 +146,11 @@ export default function AddHewan({ auth, shelter, user }) {
           </div>
 
           <div className="sm:col-span-2">
-            <InputLabel htmlFor="berat_badan">Berat Badan (ex: 5kg)</InputLabel>
+            <InputLabel htmlFor="berat_badan">Berat Badan (gram)</InputLabel>
             <div className="mt-2">
               <TextInput
-                type="text"
+                type="number"
+                min="1"
                 name="berat_badan"
                 id="berat_badan"
                 className="w-full"
@@ -136,6 +161,38 @@ export default function AddHewan({ auth, shelter, user }) {
                 message={errors.berat_badan}
                 className="mt-2 text-red"
               />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <InputLabel htmlFor="provinsi">Provinsi Penempatan</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="text"
+                name="provinsi"
+                id="provinsi"
+                className="w-full"
+                value={data.provinsi}
+                onChange={(e) => setData("provinsi", e.target.value)}
+                disabled={shelter ? true : false}
+              />
+              <InputError message={errors.provinsi} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <InputLabel htmlFor="kota">Kota</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="text"
+                name="kota"
+                id="kota"
+                className="w-full"
+                value={data.kota}
+                onChange={(e) => setData("kota", e.target.value)}
+                disabled={shelter ? true : false}
+              />
+              <InputError message={errors.kota} className="mt-2 text-red" />
             </div>
           </div>
 
@@ -154,54 +211,6 @@ export default function AddHewan({ auth, shelter, user }) {
                 <option value="0">Belum</option>
               </SelectOption>
               <InputError message={errors.steril} className="mt-2 text-red" />
-            </div>
-          </div>
-
-          <div className="sm:col-span-2">
-            <InputLabel htmlFor="provinsi">Provinsi Penempatan</InputLabel>
-            <div className="mt-2">
-              <TextInput
-                type="text"
-                name="provinsi"
-                id="provinsi"
-                className="w-full"
-                value={data.provinsi}
-                onChange={(e) => setData("provinsi", e.target.value)}
-              />
-              <InputError message={errors.provinsi} className="mt-2 text-red" />
-            </div>
-          </div>
-
-          <div className="sm:col-span-2">
-            <InputLabel htmlFor="kota">Kota</InputLabel>
-            <div className="mt-2">
-              <TextInput
-                type="text"
-                name="kota"
-                id="kota"
-                className="w-full"
-                value={data.kota}
-                onChange={(e) => setData("kota", e.target.value)}
-              />
-              <InputError message={errors.kota} className="mt-2 text-red" />
-            </div>
-          </div>
-
-          <div className="sm:col-span-2">
-            <InputLabel htmlFor="vaksin">Sudah Vaksin?</InputLabel>
-            <div className="mt-2">
-              <SelectOption
-                nameId={"vaksin"}
-                value={data.vaksin}
-                onChange={(e) => setData("vaksin", e.target.value)}
-              >
-                <option hidden value="">
-                  Pilih Opsi
-                </option>
-                <option value="1">Sudah</option>
-                <option value="0">Belum</option>
-              </SelectOption>
-              <InputError message={errors.vaksin} className="mt-2 text-red" />
             </div>
           </div>
 
@@ -234,6 +243,41 @@ export default function AddHewan({ auth, shelter, user }) {
                 message={errors.deskripsi}
                 className="mt-2 text-red"
               />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <InputLabel htmlFor="vaksin">Sudah Vaksin?</InputLabel>
+            <div className="mt-2">
+              <SelectOption
+                nameId={"vaksin"}
+                value={data.vaksin}
+                onChange={(e) => setData("vaksin", e.target.value)}
+              >
+                <option hidden value="">
+                  Pilih Opsi
+                </option>
+                <option value="1">Sudah</option>
+                <option value="0">Belum</option>
+              </SelectOption>
+              <InputError message={errors.vaksin} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <InputLabel htmlFor="biaya">Biaya Adopsi</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="number"
+                min="1"
+                name="biaya"
+                id="biaya"
+                className="w-full"
+                value={data.biaya}
+                onChange={(e) => setData("biaya", e.target.value)}
+                disabled={user ? true : false}
+              />
+              <InputError message={errors.biaya} className="mt-2 text-red" />
             </div>
           </div>
 

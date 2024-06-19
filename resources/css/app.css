@@ -131,5 +131,11 @@
 .iconed-card:hover .iconed-img img {
     filter: brightness(0) invert(1) !important;
 }
-
 /* hover hero card */
+
+/* suqare img */
+.object-fit-cover {
+    object-fit: cover;
+}
+
+/* suqare img */

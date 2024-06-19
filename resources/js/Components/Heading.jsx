@@ -1,3 +1,3 @@
 export default function Heading({ size, color, children }) {
-  return <p className={`fw-bold ${size} ${color}`}>{children}</p>;
+  return <h2 className={`fw-bold ${size} ${color}`}>{children}</h2>;
 }

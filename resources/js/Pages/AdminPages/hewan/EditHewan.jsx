@@ -9,17 +9,20 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { Link, useForm } from "@inertiajs/react";
 import { GoPlus } from "react-icons/go";
 import { IoCaretBackOutline } from "react-icons/io5";
-import Swal from "sweetalert2";
 
-export default function AddHewan({ auth, hewan }) {
+export default function EditHewan({ auth, hewan }) {
   const { data, setData, post, errors } = useForm({
     shelter_id: hewan.shelter_id ? hewan.shelter_id : null,
     user_id: hewan.user_id ? hewan.user_id : null,
     nama: hewan.nama || "",
+    kategori: hewan.shelter.khusus || "",
     jenis_hewan: hewan.jenis_hewan || "",
     kelamin: hewan.kelamin || "",
     usia: hewan.usia || "",
     berat_badan: hewan.berat_badan || "",
+    biaya: hewan.biaya || "",
+    provinsi: hewan.shelter.provinsi || "",
+    kota: hewan.shelter.kota || "",
     steril: hewan.steril || "",
     vaksin: hewan.vaksin || "",
     syarat_ketentuan: hewan.syarat_ketentuan || "",
@@ -69,6 +72,29 @@ export default function AddHewan({ auth, hewan }) {
           </div>
 
           <div className="sm:col-span-2">
+            <InputLabel htmlFor="kategori">Kategori</InputLabel>
+            <div className="mt-2">
+              <SelectOption
+                nameId={"kategori"}
+                value={data.kategori}
+                onChange={(e) => setData("kategori", e.target.value)}
+                disabled={hewan.shelter_id ? true : false}
+              >
+                {hewan.shelter_id ? (
+                  <option value={data.kategori}>{data.kategori}</option>
+                ) : (
+                  <option hidden value="">
+                    Pilih Opsi
+                  </option>
+                )}
+                <option value="kucing">Kucing</option>
+                <option value="anjing">Anjing</option>
+              </SelectOption>
+              <InputError message={errors.kategori} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
             <InputLabel htmlFor="jenis_hewan">Jenis Hewan</InputLabel>
             <div className="mt-2">
               <TextInput
@@ -97,20 +123,19 @@ export default function AddHewan({ auth, hewan }) {
                 <option hidden value="">
                   Pilih Opsi
                 </option>
-                <option value="laki-laki">Laki-Laki</option>
-                <option value="perempuan">Perempuan</option>
+                <option value="jantan">Jantan</option>
+                <option value="betina">Betina</option>
               </SelectOption>
               <InputError message={errors.kelamin} className="mt-2 text-red" />
             </div>
           </div>
-        </div>
 
-        <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
           <div className="sm:col-span-2">
-            <InputLabel htmlFor="usia">Usia</InputLabel>
+            <InputLabel htmlFor="usia">Usia (bulan)</InputLabel>
             <div className="mt-2">
               <TextInput
-                type="text"
+                type="number"
+                min="1"
                 name="usia"
                 id="usia"
                 className="w-full"
@@ -122,10 +147,11 @@ export default function AddHewan({ auth, hewan }) {
           </div>
 
           <div className="sm:col-span-2">
-            <InputLabel htmlFor="berat_badan">Berat Badan</InputLabel>
+            <InputLabel htmlFor="berat_badan">Berat Badan (gram)</InputLabel>
             <div className="mt-2">
               <TextInput
-                type="text"
+                type="number"
+                min="1"
                 name="berat_badan"
                 id="berat_badan"
                 className="w-full"
@@ -136,6 +162,38 @@ export default function AddHewan({ auth, hewan }) {
                 message={errors.berat_badan}
                 className="mt-2 text-red"
               />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <InputLabel htmlFor="provinsi">Provinsi Penempatan</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="text"
+                name="provinsi"
+                id="provinsi"
+                className="w-full"
+                value={data.provinsi}
+                onChange={(e) => setData("provinsi", e.target.value)}
+                disabled={hewan.shelter_id ? true : false}
+              />
+              <InputError message={errors.provinsi} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
+            <InputLabel htmlFor="kota">Kota</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="text"
+                name="kota"
+                id="kota"
+                className="w-full"
+                value={data.kota}
+                onChange={(e) => setData("kota", e.target.value)}
+                disabled={hewan.shelter_id ? true : false}
+              />
+              <InputError message={errors.kota} className="mt-2 text-red" />
             </div>
           </div>
 
@@ -208,6 +266,23 @@ export default function AddHewan({ auth, hewan }) {
           </div>
 
           <div className="sm:col-span-2">
+            <InputLabel htmlFor="biaya">Biaya Adopsi</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="number"
+                min="1"
+                name="biaya"
+                id="biaya"
+                className="w-full"
+                value={data.biaya}
+                onChange={(e) => setData("biaya", e.target.value)}
+                disabled={hewan.user_id ? true : false}
+              />
+              <InputError message={errors.biaya} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-2">
             <InputLabel htmlFor="foto">Foto</InputLabel>
             <div className="mt-2">
               <TextInput
@@ -215,21 +290,7 @@ export default function AddHewan({ auth, hewan }) {
                 name="foto"
                 id="foto"
                 className="w-full rounded-0"
-                onChange={(e) => {
-                  const file = e.target.files[0];
-                  if (file && file.type.startsWith("image/")) {
-                    setData("foto", file);
-                  } else {
-                    Swal.fire({
-                      position: "center",
-                      icon: "error",
-                      title: "Yang anda pilih bukan gambar",
-                      showConfirmButton: false,
-                      timer: 1500,
-                    });
-                    e.target.value = null;
-                  }
-                }}
+                onChange={(e) => setData("foto", e.target.files[0])}
               />
               <InputError message={errors.foto} className="mt-2 text-red" />
             </div>

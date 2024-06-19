@@ -31,13 +31,23 @@ export default function Authenticated({ user, header, children }) {
                 </NavLink>
                 <NavLink
                   href={route("user.index")}
-                  active={route().current("user.*")}
+                  active={
+                    route().current("user.*") ||
+                    route().current("show_by_user_id") ||
+                    route().current("add_by_user_id") ||
+                    route().current("hewan.edit")
+                  }
                 >
                   Users
                 </NavLink>
                 <NavLink
                   href={route("shelter.index")}
-                  active={route().current("shelter.*")}
+                  active={
+                    route().current("shelter.*") ||
+                    route().current("show_by_shelter_id") ||
+                    route().current("add_by_shelter_id") ||
+                    route().current("hewan.edit")
+                  }
                 >
                   Shelters
                 </NavLink>

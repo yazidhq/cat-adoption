@@ -21,7 +21,7 @@ class PagesController extends Controller
             });
         }
 
-        $hewan = $query->paginate(20)->withQueryString();
+        $hewan = $query->orderBy("id", "DESC")->paginate(20)->withQueryString();
 
         return Inertia::render("UserPages/adopsi/Adopsi", [
             "hewan" => $hewan,
