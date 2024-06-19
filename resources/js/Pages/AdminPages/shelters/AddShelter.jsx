@@ -36,8 +36,8 @@ export default function AddShelter({ auth }) {
   return (
     <DashboardSection
       auth={auth.user}
-      heading={"Add new shelter"}
-      title={"Add Shelter"}
+      heading={"Tambah shelter"}
+      title={"Tambah Shelter"}
     >
       <form onSubmit={submit} encType="multipart/form-data">
         <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
