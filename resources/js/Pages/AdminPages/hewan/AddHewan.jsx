@@ -95,8 +95,8 @@ export default function AddHewan({ auth, shelter, user }) {
                 <option hidden value="">
                   Pilih Opsi
                 </option>
-                <option value="laki-laki">Laki-Laki</option>
-                <option value="perempuan">Perempuan</option>
+                <option value="jantan">Jantan</option>
+                <option value="betina">Betina</option>
               </SelectOption>
               <InputError message={errors.kelamin} className="mt-2 text-red" />
             </div>
@@ -105,7 +105,7 @@ export default function AddHewan({ auth, shelter, user }) {
 
         <div className="mt-4 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
           <div className="sm:col-span-2">
-            <InputLabel htmlFor="usia">Usia</InputLabel>
+            <InputLabel htmlFor="usia">Usia (ex: 3 Bulan)</InputLabel>
             <div className="mt-2">
               <TextInput
                 type="text"
@@ -120,7 +120,7 @@ export default function AddHewan({ auth, shelter, user }) {
           </div>
 
           <div className="sm:col-span-2">
-            <InputLabel htmlFor="berat_badan">Berat Badan</InputLabel>
+            <InputLabel htmlFor="berat_badan">Berat Badan (ex: 5kg)</InputLabel>
             <div className="mt-2">
               <TextInput
                 type="text"
