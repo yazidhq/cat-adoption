@@ -1,8 +1,49 @@
 import Heading from "@/Components/Heading";
+import Img from "@/Components/Img";
+import InputError from "@/Components/InputError";
+import TextInput from "@/Components/TextInput";
+import BlueRdButton from "@/Components/UserComponents/BlueRdButton";
+import BlueRdOutlineButton from "@/Components/UserComponents/BlueRdOutlineButton";
+import LinkButton from "@/Components/UserComponents/LinkButton";
 import SectionPage from "@/Layouts/UserLayouts/SectionPage";
-import { Link } from "@inertiajs/react";
+import { Link, useForm } from "@inertiajs/react";
+import { useRef, useState } from "react";
 
 export default function Profile({ auth, title, children }) {
+  const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
+  const passwordInput = useRef();
+
+  const {
+    data,
+    setData,
+    delete: destroy,
+    processing,
+    reset,
+    errors,
+  } = useForm({
+    password: "",
+  });
+
+  const confirmingDeletion = () => {
+    setConfirmingUserDeletion(true);
+  };
+
+  const deleteUser = (e) => {
+    e.preventDefault();
+
+    destroy(route("profile.destroy"), {
+      preserveScroll: true,
+      onSuccess: () => closeModal(),
+      onError: () => passwordInput.current.focus(),
+      onFinish: () => reset(),
+    });
+  };
+
+  const closeModal = () => {
+    setConfirmingUserDeletion(false);
+    reset();
+  };
+
   return (
     <SectionPage title={title} auth={auth}>
       <div className="bg-light pt-5">
@@ -45,12 +86,71 @@ export default function Profile({ auth, title, children }) {
                 >
                   Favorit
                 </Link>
-                <Link
-                  href={""}
-                  className="text-decoration-none text-danger mt-5"
+                <LinkButton
+                  btnClick={confirmingDeletion}
+                  className="fw-bold text-start text-danger px-0 text-decoration-none mt-5"
                 >
                   Hapus Akun
-                </Link>
+                </LinkButton>
+                {confirmingUserDeletion && (
+                  <div
+                    className="modal fade show"
+                    style={{ display: "block" }}
+                    tabIndex="-1"
+                    role="dialog"
+                  >
+                    <div
+                      className="modal-dialog shadow rounded-5"
+                      role="document"
+                    >
+                      <div className="modal-content border-0 rounded-5">
+                        <div className="modal-body p-5 text-center">
+                          <Img src={"/core-img/sad-cat.png"} />
+                          <Heading size={"fs-5 mt-4"}>
+                            Apakah kamu yakin ingin menghapus akunmu? semua data
+                            dan riwayat akan hilang secara permanen
+                          </Heading>
+                          <div className="mt-4">
+                            <form onSubmit={deleteUser} className="p-6">
+                              <div className="mb-4">
+                                <TextInput
+                                  id="password"
+                                  type="password"
+                                  name="password"
+                                  ref={passwordInput}
+                                  value={data.password}
+                                  onChange={(e) =>
+                                    setData("password", e.target.value)
+                                  }
+                                  className="form-control"
+                                  isFocused
+                                  placeholder="Password"
+                                />
+                                <InputError
+                                  message={errors.password}
+                                  className="mt-2 text-red"
+                                />
+                              </div>
+                              <BlueRdButton
+                                type={"submit"}
+                                disabled={processing}
+                              >
+                                Hapus
+                              </BlueRdButton>
+                              <span className="mx-3"></span>
+                              <BlueRdOutlineButton
+                                type="button"
+                                onClick={closeModal}
+                              >
+                                Tutup
+                              </BlueRdOutlineButton>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
               <div className="col-md-10 border-start border-3">{children}</div>
             </div>

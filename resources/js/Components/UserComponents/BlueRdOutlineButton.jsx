@@ -1,4 +1,4 @@
-export default function BlueRdButton({
+export default function BlueRdOutlineButton({
   type = "button",
   children,
   onClick = () => {},
@@ -7,7 +7,7 @@ export default function BlueRdButton({
   return (
     <button
       type={type}
-      className="btn btn-rd-blue"
+      className="btn btn-rd-outline-blue"
       onClick={onClick}
       {...props}
     >

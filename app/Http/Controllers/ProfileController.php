@@ -42,6 +42,22 @@ class ProfileController extends Controller
 
         $user = $request->user();
 
+        if ($user->foto) {
+            $image_path = public_path() . '/user-img/' . $user->foto;
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+        }
+
+        foreach ($user->hewan as $hewan) {
+            if ($hewan->foto) {
+                $image_path = public_path('hewan-img/' . $hewan->foto);
+                if (file_exists($image_path)) {
+                    unlink($image_path);
+                }
+            }
+        }
+
         Auth::logout();
 
         $user->delete();
