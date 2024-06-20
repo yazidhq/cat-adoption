@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string("alamat");
             $table->string("nomor_wa");
             $table->string("khusus");
-            $table->string("deskripsi");
+            $table->longText("deskripsi");
             $table->string("foto")->nullable();
             $table->timestamps();
         });

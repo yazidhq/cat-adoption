@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('donasis', function (Blueprint $table) {
             $table->id();
             $table->string("tema_donasi");
-            $table->string("deskripsi");
+            $table->longText("deskripsi");
             $table->string("target_dana");
             $table->string("batas_waktu");
             $table->string("gambar");

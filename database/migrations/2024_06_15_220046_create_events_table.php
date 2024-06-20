@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string("waktu_mulai");
             $table->string("waktu_selesai");
             $table->string("lokasi");
-            $table->string("deskripsi");
-            $table->string("syarat_partisipasi");
-            $table->string("hadiah_event");
+            $table->longText("deskripsi");
+            $table->longText("syarat_partisipasi");
+            $table->longText("hadiah_event");
             $table->string("poster");
             $table->timestamps();
         });

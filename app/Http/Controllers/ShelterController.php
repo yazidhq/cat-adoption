@@ -66,6 +66,7 @@ class ShelterController extends Controller
             return redirect()->route('shelter.index')->with('success', 'Shelter has been created successfully!');
         } catch (\Throwable $e) {
             DB::rollback();
+            dd($e);
             return redirect()->route('shelter.index')->with('error', $e->getMessage());
         }
     }

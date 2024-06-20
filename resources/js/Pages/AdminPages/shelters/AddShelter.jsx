@@ -109,6 +109,7 @@ export default function AddShelter({ auth }) {
             <div className="mt-2">
               <TextInput
                 type="number"
+                min="0"
                 name="nomor_wa"
                 id="nomor_wa"
                 className="w-full"
