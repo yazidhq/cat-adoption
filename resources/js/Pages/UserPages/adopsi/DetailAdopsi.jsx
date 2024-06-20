@@ -86,8 +86,22 @@ export default function DetailAdopsi({ auth, hewan }) {
                     </div>
                   </div>
                   <div className="d-flex gap-3 mt-5 mx-3">
-                    <Link href={route("pendaftaran_adopsi")}>
-                      <OrangeButton>ADOPSI SEKARANG</OrangeButton>
+                    <Link
+                      href={
+                        auth.user
+                          ? hewan.user_id === auth.user.id
+                            ? ""
+                            : route("pendaftaran_adopsi")
+                          : route("login")
+                      }
+                    >
+                      <OrangeButton
+                        is_users_adoption={
+                          auth.user ? hewan.user_id === auth.user.id : false
+                        }
+                      >
+                        ADOPSI SEKARANG
+                      </OrangeButton>
                     </Link>
                     <OrangeOutlineButton>TAMBAH FAVORIT</OrangeOutlineButton>
                   </div>
