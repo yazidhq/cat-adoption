@@ -72,4 +72,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PesertaEvent::class, 'user_id');
     }
+
+    public function adopsi(): HasMany
+    {
+        return $this->hasMany(Adopsi::class, 'user_id');
+    }
 }

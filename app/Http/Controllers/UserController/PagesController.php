@@ -50,7 +50,6 @@ class PagesController extends Controller
         ]);
     }
 
-
     public function detail_adopsi(string $id)
     {
         return Inertia::render('UserPages/adopsi/DetailAdopsi', [
