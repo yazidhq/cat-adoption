@@ -2,9 +2,15 @@ import Description from "@/Components/Description";
 import Heading from "@/Components/Heading";
 import Img from "@/Components/Img";
 import SuperHeading from "@/Components/SuperHeading";
+import ImgCard from "@/Components/UserComponents/ImgCard";
+import { Link } from "@inertiajs/react";
 import { FaLocationDot } from "react-icons/fa6";
 
-export default function Adoption() {
+export default function Adoption({ hewan }) {
+  const capitalize = (word) => {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  };
+
   return (
     <div className="bg-orange-paw-list">
       <div className="container">
@@ -41,126 +47,49 @@ export default function Adoption() {
                     scrollbarColor: "rgba(0, 0, 0, 0) transparent",
                   }}
                 >
-                  <div
-                    className="d-inline-block"
-                    style={{ width: "18rem", marginRight: "1rem" }}
-                  >
+                  {hewan.map((item) => (
                     <div
-                      className="card border-0 rounded-5"
-                      style={{ width: "18rem" }}
+                      className="d-inline-block"
+                      style={{ width: "18rem", marginRight: "1rem" }}
                     >
-                      <Img
-                        src={"/hewan-img/1718781080_667284982ce31.png"}
-                        classes="rounded-top-5"
-                      />
-                      <div className="card-body">
-                        <div className="card-text p-3">
-                          <Heading color={"text-blue"} size={"fs-4"}>
-                            Milo dan Miko
-                          </Heading>
-                          <Description size={"mb-0"}>
-                            Jenis Kelamin : Jantan
-                          </Description>
-                          <Description size={"mb-0"}>
-                            Usia : 3 Bulan
-                          </Description>
-                          <Description size={"text-muted mb-0 mt-2"}>
-                            <FaLocationDot /> Bandung, Jawa Barat
-                          </Description>
+                      <div
+                        className="card border-0 rounded-5"
+                        style={{ width: "18rem" }}
+                      >
+                        <Link
+                          href={route("detail_adopsi", item.id)}
+                          className="text-decoration-none"
+                        >
+                          <ImgCard
+                            img={item.foto}
+                            shelterId={item.shelter_id}
+                          />
+                        </Link>
+                        <div className="card-body">
+                          <div className="card-text p-3">
+                            <Link
+                              href={route("detail_adopsi", item.id)}
+                              className="text-decoration-none"
+                            >
+                              <Heading color={"text-blue"} size={"fs-4"}>
+                                {capitalize(item.nama)}
+                              </Heading>
+                            </Link>
+                            <Description size={"mb-0"}>
+                              Jenis Kelamin : {capitalize(item.kelamin)}
+                            </Description>
+                            <Description size={"mb-0"}>
+                              Usia : {item.usia} Bulan
+                            </Description>
+                            <Description size={"text-muted mb-0 mt-2"}>
+                              <FaLocationDot /> {capitalize(item.kota)},{" "}
+                              {capitalize(item.provinsi)}
+                            </Description>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div
-                    className="d-inline-block"
-                    style={{ width: "18rem", marginRight: "1rem" }}
-                  >
-                    <div
-                      className="card border-0 rounded-5"
-                      style={{ width: "18rem" }}
-                    >
-                      <Img
-                        src={"/hewan-img/1718781080_667284982ce31.png"}
-                        classes="rounded-top-5"
-                      />
-                      <div className="card-body">
-                        <div className="card-text p-3">
-                          <Heading color={"text-blue"} size={"fs-4"}>
-                            Milo dan Miko
-                          </Heading>
-                          <Description size={"mb-0"}>
-                            Jenis Kelamin : Jantan
-                          </Description>
-                          <Description size={"mb-0"}>
-                            Usia : 3 Bulan
-                          </Description>
-                          <Description size={"text-muted mb-0 mt-2"}>
-                            <FaLocationDot /> Bandung, Jawa Barat
-                          </Description>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="d-inline-block"
-                    style={{ width: "18rem", marginRight: "1rem" }}
-                  >
-                    <div
-                      className="card border-0 rounded-5"
-                      style={{ width: "18rem" }}
-                    >
-                      <Img
-                        src={"/hewan-img/1718781080_667284982ce31.png"}
-                        classes="rounded-top-5"
-                      />
-                      <div className="card-body">
-                        <div className="card-text p-3">
-                          <Heading color={"text-blue"} size={"fs-4"}>
-                            Milo dan Miko
-                          </Heading>
-                          <Description size={"mb-0"}>
-                            Jenis Kelamin : Jantan
-                          </Description>
-                          <Description size={"mb-0"}>
-                            Usia : 3 Bulan
-                          </Description>
-                          <Description size={"text-muted mb-0 mt-2"}>
-                            <FaLocationDot /> Bandung, Jawa Barat
-                          </Description>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    className="d-inline-block"
-                    style={{ width: "18rem", marginRight: "1rem" }}
-                  >
-                    <div
-                      className="card border-0 rounded-5"
-                      style={{ width: "18rem" }}
-                    >
-                      <Img
-                        src={"/hewan-img/1718781080_667284982ce31.png"}
-                        classes="rounded-top-5"
-                      />
-                      <div className="card-body">
-                        <div className="card-text p-3">
-                          <Heading color={"text-blue"} size={"fs-4"}>
-                            Milo dan Miko
-                          </Heading>
-                          <Description size={"mb-0"}>
-                            Jenis Kelamin : Jantan
-                          </Description>
-                          <Description size={"mb-0"}>
-                            Usia : 3 Bulan
-                          </Description>
-                          <Description size={"text-muted mb-0 mt-2"}>
-                            <FaLocationDot /> Bandung, Jawa Barat
-                          </Description>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>

@@ -46,6 +46,29 @@
     background-color: #2c97ab !important;
     color: white !important;
 }
+.btn-orange {
+    background-color: #f29762 !important;
+    border-color: #f29762 !important;
+    color: white !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+.btn-orange:hover {
+    background-color: #e68d5a !important;
+    border-color: #e68d5a !important;
+    color: white !important;
+}
+.btn-outline-orange {
+    border-color: #f29762 !important;
+    color: #f29762 !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+.btn-outline-orange:hover {
+    background-color: #f29762 !important;
+    border-color: #f29762 !important;
+    color: white !important;
+}
 /* btn */
 
 /* bg */

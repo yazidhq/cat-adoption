@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('nama_depan')->nullable();
             $table->string('nama_belakang')->nullable();
             $table->string('role')->default("user");
-            $table->string('lokasi')->nullable();
+            $table->string('alamat')->nullable();
             $table->string('kode_pos')->nullable();
             $table->string('nomor_wa')->nullable();
             $table->string('email')->unique();

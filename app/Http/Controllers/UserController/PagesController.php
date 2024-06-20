@@ -13,29 +13,53 @@ class PagesController extends Controller
     {
         $query = Hewan::query();
 
-        if ($request->has('search')) {
-            $search = $request->get('search');
-            $query->where(function ($q) use ($search) {
-                $q->where('provinsi', 'like', "%{$search}%")
-                    ->orWhere('kota', 'like', "%{$search}%");
+        if ($request->filled('lokasi')) {
+            $lokasi = $request->input('lokasi');
+            $query->where(function ($q) use ($lokasi) {
+                $q->where('provinsi', 'like', "%{$lokasi}%")
+                ->orWhere('kota', 'like', "%{$lokasi}%");
             });
         }
 
-        $hewan = $query->orderBy("id", "DESC")->paginate(20)->withQueryString();
+        if ($request->filled('kelamin')) {
+            $kelamin = $request->input('kelamin');
+            $query->where('kelamin', $kelamin);
+        }
 
-        return Inertia::render("UserPages/adopsi/Adopsi", [
-            "hewan" => $hewan,
-            "filters" => $request->only("search"),
+        if ($request->filled('usia')) {
+            $usia = (int)$request->input('usia');
+            if ($usia === 11) {
+                $query->where('usia', '<=', 11);
+            } elseif ($usia === 60) {
+                $query->whereBetween('usia', [12, 60]);
+            } elseif ($usia === 120) {
+                $query->whereBetween('usia', [61, 120]);
+            }
+        }
+
+        if ($request->filled('kategori')) {
+            $kategori = $request->input('kategori');
+            $query->where('kategori', $kategori);
+        }
+
+        $hewan = $query->orderBy('id', 'DESC')->paginate(10)->withQueryString();
+
+        return Inertia::render('UserPages/adopsi/Adopsi', [
+            'hewan' => $hewan,
+            'filters' => $request->all(),
         ]);
     }
 
-    public function detail_adopsi()
+
+    public function detail_adopsi(string $id)
     {
-        
+        return Inertia::render('UserPages/adopsi/DetailAdopsi', [
+            'hewan' => Hewan::with("shelter", "user")->findOrFail($id),
+        ]);
     }
 
     public function pendaftaran_adopsi()
     {
-
+        return Inertia::render('UserPages/adopsi/PendaftaranAdopsi');
     }
 }

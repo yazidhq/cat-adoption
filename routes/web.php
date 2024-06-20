@@ -9,6 +9,7 @@ use App\Http\Controllers\ShelterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserController\PagesController;
 use App\Http\Middleware\UserRole;
+use App\Models\Hewan;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -19,6 +20,7 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'hewan' => Hewan::orderBy('id', 'DESC')->limit(10)->get(),
     ]);
 })->name('home');
 
@@ -30,6 +32,10 @@ Route::controller(PagesController::class)->group(function() {
 Route::middleware([UserRole::class . ':user'])->group(function () {
     Route::controller(PagesController::class)->group(function() {
         Route::get('/pendaftaran_adopsi', 'pendaftaran_adopsi')->name('pendaftaran_adopsi');
+    });
+
+    Route::controller(ProfileController::class)->group(function () {
+
     });
 });
 

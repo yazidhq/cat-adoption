@@ -26,8 +26,8 @@ return new class extends Migration
             $table->string("kota");
             $table->boolean("steril")->default(false);
             $table->boolean("vaksin")->default(false);
-            $table->string("syarat_ketentuan");
-            $table->string("deskripsi");
+            $table->longText("syarat_ketentuan");
+            $table->longText("deskripsi");
             $table->boolean("is_adopsi")->default(false);
             $table->string("foto");
             $table->timestamps(); 

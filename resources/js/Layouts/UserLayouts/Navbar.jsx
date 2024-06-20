@@ -1,12 +1,14 @@
 import HamburgerButton from "@/Components/HamburgerButton";
 import Img from "@/Components/Img";
 import ItemList from "@/Components/ItemList";
+import BlueButton from "@/Components/UserComponents/BlueButton";
+import BlueOutlineButton from "@/Components/UserComponents/BlueOutlineButton";
 import { Link } from "@inertiajs/react";
 import { IoIosNotifications } from "react-icons/io";
 
 export default function Navbar({ auth }) {
   return (
-    <div className="fixed-top">
+    <div className="fixed-top shadow-sm">
       <nav className="navbar navbar-expand-lg bg-white">
         <div className="container">
           <Link href={"/"} className="navbar-brand">
@@ -17,7 +19,13 @@ export default function Navbar({ auth }) {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <Link href={route("adopsi")} className="text-decoration-none">
                 <ItemList
-                  active={route().current("adopsi") ? "fw-bold text-blue" : ""}
+                  active={
+                    route().current("adopsi") ||
+                    route().current("detail_adopsi") ||
+                    route().current("pendaftaran_adopsi")
+                      ? "fw-bold text-blue"
+                      : ""
+                  }
                 >
                   ADOPSI
                 </ItemList>
@@ -76,17 +84,14 @@ export default function Navbar({ auth }) {
                 </div>
               ) : (
                 <>
-                  <Link
-                    href={route("login")}
-                    className="btn btn-outline-blue text-decoration-none"
-                  >
-                    MASUK
+                  <Link href={route("login")} className="text-decoration-none">
+                    <BlueOutlineButton>MASUK</BlueOutlineButton>
                   </Link>
                   <Link
                     href={route("register")}
-                    className="btn btn-blue text-decoration-none"
+                    className="text-decoration-none"
                   >
-                    DAFTAR
+                    <BlueButton>DAFTAR</BlueButton>
                   </Link>
                 </>
               )}

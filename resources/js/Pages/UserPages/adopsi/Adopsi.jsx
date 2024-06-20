@@ -7,52 +7,67 @@ import { IoMdSearch } from "react-icons/io";
 import { FaLocationDot } from "react-icons/fa6";
 import Heading from "@/Components/Heading";
 import Description from "@/Components/Description";
-import Img from "@/Components/Img";
 import Pagination from "@/Components/Pagination";
 import { CiHeart } from "react-icons/ci";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
+import ImgCard from "@/Components/UserComponents/ImgCard";
 
-export default function Home({ auth, hewan }) {
-  const [searchResult, setSearchResult] = useState(hewan.data);
-  const [lokasi, setLokasi] = useState("");
-  const [kelamin, setKelamin] = useState("");
-  const [usia, setUsia] = useState("");
+export default function Adopsi({ auth, hewan, filters }) {
+  const [lokasi, setLokasi] = useState(filters.lokasi || "");
+  const [kelamin, setKelamin] = useState(filters.kelamin || "");
+  const [usia, setUsia] = useState(filters.usia || "");
+  const [kategori, setKategori] = useState(filters.kategori || "");
+  const [activeCategory, setActiveCategory] = useState(filters.kategori || "");
 
   const handleSearch = (e) => {
     e.preventDefault();
-
-    const filteredHewan = hewan.data.filter((item) => {
-      const provinsiLowerCase = item.provinsi.toLowerCase();
-      const kotaLowerCase = item.kota.toLowerCase();
-      const lokasiLowerCase = lokasi.toLowerCase();
-      const kelaminFilter = kelamin.toLowerCase();
-      const usiaFilter = parseInt(usia);
-
-      const lokasiMatch =
-        provinsiLowerCase.includes(lokasiLowerCase) ||
-        kotaLowerCase.includes(lokasiLowerCase);
-
-      const kelaminMatch = kelaminFilter
-        ? item.kelamin.toLowerCase() === kelaminFilter
-        : true;
-
-      const usiaMatch = usiaFilter
-        ? (usiaFilter === 11 && item.usia <= 11) ||
-          (usiaFilter === 60 && item.usia >= 11 && item.usia <= 60) ||
-          (usiaFilter === 120 && item.usia >= 61 && item.usia <= 120)
-        : true;
-
-      return lokasiMatch && kelaminMatch && usiaMatch;
-    });
-
-    setSearchResult(filteredHewan);
+    router.get(
+      route(route().current()),
+      {
+        lokasi,
+        kelamin,
+        usia,
+        kategori,
+      },
+      {
+        preserveState: true,
+        replace: true,
+      }
+    );
   };
 
   const resetSearch = () => {
-    setSearchResult(hewan.data);
     setLokasi("");
     setKelamin("");
     setUsia("");
+    setKategori("");
+    setActiveCategory("");
+    router.get(
+      route(route().current()),
+      {},
+      {
+        preserveState: true,
+        replace: true,
+      }
+    );
+  };
+
+  const handleCategoryClick = (category) => {
+    setKategori(category);
+    setActiveCategory(category);
+    router.get(
+      route(route().current()),
+      {
+        lokasi,
+        kelamin,
+        usia,
+        kategori: category,
+      },
+      {
+        preserveState: true,
+        replace: true,
+      }
+    );
   };
 
   const capitalize = (word) => {
@@ -66,15 +81,30 @@ export default function Home({ auth, hewan }) {
           <div className="container">
             <div className="d-flex justify-content-between mb-2 pt-5">
               <div>
-                <LinkButton>Semua</LinkButton>
-                <LinkButton>Anjing</LinkButton>
-                <LinkButton>Kucing</LinkButton>
+                <LinkButton
+                  btnClick={resetSearch}
+                  className={activeCategory === "" && "fw-bold"}
+                >
+                  Semua
+                </LinkButton>
+                <LinkButton
+                  btnClick={() => handleCategoryClick("anjing")}
+                  className={activeCategory === "anjing" && "fw-bold"}
+                >
+                  Anjing
+                </LinkButton>
+                <LinkButton
+                  btnClick={() => handleCategoryClick("kucing")}
+                  className={activeCategory === "kucing" && "fw-bold"}
+                >
+                  Kucing
+                </LinkButton>
               </div>
               <div>
                 <LinkButton btnClick={resetSearch}>RESET</LinkButton>
               </div>
             </div>
-            <form action="" onSubmit={(e) => handleSearch(e)}>
+            <form action="" onSubmit={handleSearch}>
               <div className="row">
                 <div className="col-md-6">
                   <TextInput
@@ -133,70 +163,60 @@ export default function Home({ auth, hewan }) {
         </div>
         <div className="py-4">
           <div className="container">
-            <div className="row row-cols-1 row-cols-md-4 g-4 pb-4">
-              {searchResult.map((item) => (
-                <div className="col" key={item.id}>
-                  <div
-                    className="card border-0 rounded-5 shadow"
-                    style={{ width: "19rem" }}
-                  >
-                    <Link
-                      href={route("detail_adopsi", item.id)}
-                      className="text-decoration-none"
+            {hewan.data.length === 0 ? (
+              <div className="text-center">
+                <h4 className="py-5">
+                  OOPS.. NO <span className="fw-bold text-blue">PAW PAW</span>{" "}
+                  FOUND!
+                </h4>
+              </div>
+            ) : (
+              <div className="row row-cols-1 row-cols-md-4 g-4 pb-4">
+                {hewan.data.map((item) => (
+                  <div className="col" key={item.id}>
+                    <div
+                      className="card border-0 rounded-5 shadow"
+                      style={{ width: "19rem" }}
                     >
-                      <div
-                        className="position-relative"
-                        style={{ width: "100%", paddingTop: "90%" }}
+                      <Link
+                        href={route("detail_adopsi", item.id)}
+                        className="text-decoration-none"
                       >
-                        <Img
-                          src={`/hewan-img/${item.foto}`}
-                          className="img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-top-5"
-                        />
-                        {item.user_id && (
-                          <Img
-                            src={`/core-img/is_user.png`}
-                            className="position-absolute py-3 px-3 mt-3 mx-3 rounded-4"
-                            style={{
-                              top: "10px",
-                              right: "10px",
-                              backgroundColor: "rgba(30, 30, 30, 0.7)",
-                            }}
-                          />
-                        )}
-                      </div>
-                    </Link>
-                    <div className="card-body">
-                      <div className="card-text p-2">
-                        <Heading color={"text-blue"} size={"fs-4 mb-1"}>
-                          <div className="d-flex justify-content-between">
-                            <Link
-                              href={route("detail_adopsi", item.id)}
-                              className="text-decoration-none text-blue"
-                            >
-                              {capitalize(item.nama)}
-                            </Link>
-                            <Link>
-                              <CiHeart className="fs-2" />
-                            </Link>
-                          </div>
-                        </Heading>
-                        <Description size={"mb-0"}>
-                          Jenis Kelamin : {capitalize(item.kelamin)}
-                        </Description>
-                        <Description size={"mb-0"}>
-                          Usia : {item.usia} Bulan
-                        </Description>
-                        <Description size={"text-muted mb-0 mt-2"}>
-                          <FaLocationDot /> {capitalize(item.kota)},{" "}
-                          {capitalize(item.provinsi)}
-                        </Description>
+                        <ImgCard img={item.foto} shelterId={item.shelter_id} />
+                      </Link>
+                      <div className="card-body">
+                        <div className="card-text p-2">
+                          <Heading color={"text-blue"} size={"fs-4 mb-1"}>
+                            <div className="d-flex justify-content-between">
+                              <Link
+                                href={route("detail_adopsi", item.id)}
+                                className="text-decoration-none text-blue"
+                              >
+                                {capitalize(item.nama)}
+                              </Link>
+                              <Link>
+                                <CiHeart className="fs-2" />
+                              </Link>
+                            </div>
+                          </Heading>
+                          <Description size={"mb-0"}>
+                            Jenis Kelamin : {capitalize(item.kelamin)}
+                          </Description>
+                          <Description size={"mb-0"}>
+                            Usia : {item.usia} Bulan
+                          </Description>
+                          <Description size={"text-muted mb-0 mt-2"}>
+                            <FaLocationDot /> {capitalize(item.kota)},{" "}
+                            {capitalize(item.provinsi)}
+                          </Description>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
-            <Pagination links={hewan.links} />
+                ))}
+              </div>
+            )}
+            <Pagination links={hewan.links} user={true} />
           </div>
         </div>
       </div>
