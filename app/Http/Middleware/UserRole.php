@@ -19,7 +19,7 @@ class UserRole
         $user = Auth::user();
 
         if ($user === null || $user->role !== $role) {
-            return redirect()->route('home'); 
+            return redirect()->route('login'); 
         }
 
         return $next($request);
