@@ -62,6 +62,8 @@ class PagesController extends Controller
     {
         return Inertia::render('UserPages/adopsi/PendaftaranAdopsi', [
             'hewan' => Hewan::with("shelter", "user")->findOrFail($id),
+            "successMessage" => session("success"),
+            "errorMessage" => session("error"),
         ]);
     }
 }

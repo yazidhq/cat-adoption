@@ -90,7 +90,19 @@
     padding-right: 6rem !important;
 }
 .btn-rd-orange:hover {
+    background-color: #db7f4b !important;
+    color: white !important;
+}
+.btn-rd-outline-orange {
+    border-color: #e68d5a !important;
+    color: #e68d5a !important;
+    border-radius: 100px !important;
+    padding-left: 2.5rem !important;
+    padding-right: 2.5rem !important;
+}
+.btn-rd-outline-orange:hover {
     background-color: #e68d5a !important;
+    border-color: #e68d5a !important;
     color: white !important;
 }
 /* btn */

@@ -6,11 +6,20 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import OrangeButton from "@/Components/UserComponents/OrangeButton";
 import OrangeOutlineButton from "@/Components/UserComponents/OrangeOutlineButton";
+import OrangeRdButton from "@/Components/UserComponents/OrangeRdButton";
+import OrangeRdOutlineButton from "@/Components/UserComponents/OrangeRdOutlineButton";
 import SectionPage from "@/Layouts/UserLayouts/SectionPage";
-import { Link, useForm } from "@inertiajs/react";
+import { Link, router, useForm } from "@inertiajs/react";
+import { useEffect, useState } from "react";
+import { FaCircleCheck } from "react-icons/fa6";
 import Swal from "sweetalert2";
 
-export default function PendaftaranAdopsi({ auth, hewan }) {
+export default function PendaftaranAdopsi({
+  auth,
+  hewan,
+  successMessage,
+  errorMessage,
+}) {
   const { data, setData, post, errors } = useForm({
     usia: "",
     dokumen_foto: "",
@@ -18,14 +27,31 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
     berapa_orang_yang_tinggal_bersama: "",
   });
 
+  const [modalVisible, setModalVisible] = useState(false);
+
   const submit = (e) => {
     e.preventDefault();
-
     post(route("proses_pendaftaran_adopsi", hewan.id));
   };
 
   const capitalize = (word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
+  };
+
+  useEffect(() => {
+    if (successMessage || errorMessage) {
+      setModalVisible(true);
+    }
+  }, [successMessage, errorMessage]);
+
+  const handleBack = () => {
+    setModalVisible(false);
+    router.get(route("detail_adopsi", hewan.id));
+  };
+
+  const handleCheckStatus = () => {
+    setModalVisible(false);
+    router.get(route("user_profile"));
   };
 
   return (
@@ -59,7 +85,7 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
                   <div className="col-md-6 mt-2">
                     <InputLabel className="form-label">Nama Depan</InputLabel>
                     <TextInput
-                      value={auth.user.nama_depan}
+                      value={auth.user.nama_depan || ""}
                       className="form-control"
                       disabled
                     />
@@ -70,7 +96,7 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
                       Nama Belakang
                     </InputLabel>
                     <TextInput
-                      value={auth.user.nama_belakang}
+                      value={auth.user.nama_belakang || ""}
                       className="form-control"
                       disabled
                     />
@@ -80,7 +106,7 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
                   <div className="col-md-6 mt-2">
                     <InputLabel className="form-label">Email</InputLabel>
                     <TextInput
-                      value={auth.user.email}
+                      value={auth.user.email || ""}
                       className="form-control"
                       disabled
                     />
@@ -91,7 +117,7 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
                       Nomor Telepon
                     </InputLabel>
                     <TextInput
-                      value={auth.user.nomor_wa}
+                      value={auth.user.nomor_wa || ""}
                       className="form-control"
                       disabled
                     />
@@ -112,13 +138,16 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
                       isFocused={true}
                     />
 
-                    <InputError message={errors.usia} className="mt-2" />
+                    <InputError
+                      message={errors.usia}
+                      className="mt-2 text-red"
+                    />
                   </div>
 
                   <div className="col-md-6 mt-2">
                     <InputLabel className="form-label">Alamat</InputLabel>
                     <TextInput
-                      value={auth.user.email}
+                      value={auth.user.email || ""}
                       className="form-control"
                       disabled
                     />
@@ -174,7 +203,7 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
                   />
                   <InputError
                     message={errors.apakah_ada_peliharaan_lain}
-                    className="mt-2"
+                    className="mt-2 text-red"
                   />
                 </div>
 
@@ -199,16 +228,14 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
                   />
                   <InputError
                     message={errors.berapa_orang_yang_tinggal_bersama}
-                    className="mt-2"
+                    className="mt-2 text-red"
                   />
                 </div>
 
                 <div className="d-flex gap-3 mt-5">
                   <OrangeButton type={"submit"}>Kirim</OrangeButton>
                   <Link href={route("detail_adopsi", hewan.id)}>
-                    <OrangeOutlineButton type={"submit"}>
-                      Batal
-                    </OrangeOutlineButton>
+                    <OrangeOutlineButton>Batal</OrangeOutlineButton>
                   </Link>
                 </div>
               </form>
@@ -223,6 +250,37 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
           </div>
         </div>
       </div>
+
+      {modalVisible && (
+        <div className="modal fade show d-block" tabIndex="-1" role="dialog">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content border-0 shadow rounded-5">
+              <div className="modal-body p-5">
+                <div className="d-flex justify-content-center mb-4">
+                  <FaCircleCheck
+                    className="text-blue"
+                    style={{ fontSize: "7rem" }}
+                  />
+                </div>
+                <Heading size={"fs-4 text-center mb-2 text-blue"}>
+                  Berhasil Terkirim
+                </Heading>
+                <Heading size={"fs-6 text-center mb-5"}>
+                  {successMessage || errorMessage}
+                </Heading>
+                <div className="d-grid d-flex flex-column gap-3">
+                  <OrangeRdButton onClick={handleCheckStatus}>
+                    Cek Status Adopsi
+                  </OrangeRdButton>
+                  <OrangeRdOutlineButton onClick={handleBack}>
+                    Kembali
+                  </OrangeRdOutlineButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </SectionPage>
   );
 }
