@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string("dokumen_foto");
             $table->string("apakah_ada_peliharaan_lain");
             $table->string("berapa_orang_yang_tinggal_bersama");
+            $table->string("status");
             $table->timestamps();
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
