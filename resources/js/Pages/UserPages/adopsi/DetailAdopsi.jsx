@@ -110,7 +110,9 @@ export default function DetailAdopsi({ auth, hewan }) {
                   <div className="d-flex flex-column justify-content-center">
                     <Heading size={"fs-4"}>
                       {capitalize(
-                        hewan.shelter_id ? hewan.shelter.nama : hewan.user.name
+                        hewan.shelter_id
+                          ? hewan.shelter.nama
+                          : hewan.user.nama_depan
                       )}
                     </Heading>
                     <div className="d-flex gap-2">

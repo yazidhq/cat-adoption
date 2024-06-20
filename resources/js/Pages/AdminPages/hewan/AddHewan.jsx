@@ -49,7 +49,7 @@ export default function AddHewan({ auth, shelter, user }) {
   return (
     <DashboardSection
       auth={auth.user}
-      heading={`Tambah hewan di ${shelter ? shelter.nama : user.name}`}
+      heading={`Tambah hewan di ${shelter ? shelter.nama : user.nama_depan}`}
       title={"Add Hewan"}
     >
       <form onSubmit={submit} encType="multipart/form-data">

@@ -58,14 +58,16 @@ export default function Navbar({ auth }) {
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
                   >
-                    {auth.user.name.toUpperCase()}
+                    {auth.user.nama_depan.toUpperCase()}
                   </button>
                   <ul className="dropdown-menu">
                     <li>
                       <Link
                         className="dropdown-item"
                         href={
-                          auth.user.role == "user" ? "" : route("dashboard")
+                          auth.user.role == "user"
+                            ? route("user_profile")
+                            : route("dashboard")
                         }
                       >
                         Profile

@@ -55,7 +55,7 @@ export default function Hewan({
   return (
     <DashboardSection
       auth={auth.user}
-      heading={shelter ? shelter.nama : user.name}
+      heading={shelter ? shelter.nama : user.nama_depan}
       title={"Hewan Shelter"}
     >
       <div className="flex justify-content-between gap-3">

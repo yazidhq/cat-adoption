@@ -47,7 +47,7 @@ export default function DetailBerita({
                 {komentar.map((item) => (
                   <div className="mt-3 p-3 border rounded-lg" key={item.id}>
                     <div className="flex justify-content-between">
-                      <p className="fw-bold">{item.user.name}</p>
+                      <p className="fw-bold">{item.user.nama_depan}</p>
                       <Link
                         href={route("destroy_komentar", item.id)}
                         className="text-red"

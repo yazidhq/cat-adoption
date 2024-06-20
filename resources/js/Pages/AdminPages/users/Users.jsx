@@ -99,7 +99,7 @@ export default function Users({
               {item.role == "user" && (
                 <>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    {capitalize(item.name)} - {item.email}
+                    {capitalize(item.nama_depan)} - {item.email}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                     {item.lokaso || item.kode_pos ? (

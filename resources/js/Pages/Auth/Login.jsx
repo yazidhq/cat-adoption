@@ -94,19 +94,19 @@ export default function Login({ status, canResetPassword }) {
           </label>
         </div>
 
-        <div className="d-flex justify-content-between mt-5">
-          <div>
+        <div className="text-center mt-5">
+          <button className="btn btn-rd-orange" disabled={processing}>
+            Login
+          </button>
+          <div className="mt-3">
             <Link
               href={route("register")}
               className="text-decoration-none text-dark mt-4 fs-6"
             >
-              Register
+              Belum punya akun?{" "}
+              <span className="text-blue fw-bold">Daftar</span>
             </Link>
           </div>
-
-          <button className="btn btn-blue" disabled={processing}>
-            Login
-          </button>
         </div>
       </form>
     </GuestLayout>

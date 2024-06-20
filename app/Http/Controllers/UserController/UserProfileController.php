@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
-class ProfileController extends Controller
+class UserProfileController extends Controller
 {
-    public function profile()
+    public function user_profile()
     {
-        return Inertia::render("");
+        return Inertia::render("UserPages/profile/UserProfile");
     }
 
     public function update_profile()

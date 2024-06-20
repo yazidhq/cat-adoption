@@ -69,6 +69,18 @@
     border-color: #f29762 !important;
     color: white !important;
 }
+.btn-rd-orange {
+    background-color: #e68d5a !important;
+    border-color: #e68d5a !important;
+    color: white !important;
+    border-radius: 100px !important;
+    padding-left: 6rem !important;
+    padding-right: 6rem !important;
+}
+.btn-rd-orange:hover {
+    background-color: #e68d5a !important;
+    color: white !important;
+}
 /* btn */
 
 /* bg */

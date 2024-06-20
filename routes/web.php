@@ -4,6 +4,7 @@ use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HewanController;
+use App\Http\Controllers\UserController\UserProfileController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShelterController;
 use App\Http\Controllers\UserController;
@@ -34,8 +35,8 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
         Route::get('/pendaftaran_adopsi', 'pendaftaran_adopsi')->name('pendaftaran_adopsi');
     });
 
-    Route::controller(ProfileController::class)->group(function () {
-
+    Route::controller(UserProfileController::class)->group(function () {
+        Route::get('/user_profile', 'user_profile')->name('user_profile');
     });
 });
 

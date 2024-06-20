@@ -51,6 +51,7 @@ export default function Adoption({ hewan }) {
                     <div
                       className="d-inline-block"
                       style={{ width: "18rem", marginRight: "1rem" }}
+                      key={item.id}
                     >
                       <div
                         className="card border-0 rounded-5"
