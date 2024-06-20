@@ -1,4 +1,5 @@
 export default function LinkButton({
+  color,
   children,
   className,
   btnClick = () => {},
@@ -6,7 +7,7 @@ export default function LinkButton({
 }) {
   return (
     <button
-      className={`btn btn-link ${
+      className={`btn btn-link ${color} ${
         className ? className : "text-decoration-none"
       }`}
       onClick={btnClick}

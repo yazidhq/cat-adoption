@@ -84,18 +84,21 @@ export default function Adopsi({ auth, hewan, filters }) {
                 <LinkButton
                   btnClick={resetSearch}
                   className={activeCategory === "" && "fw-bold"}
+                  color={"text-dark"}
                 >
                   Semua
                 </LinkButton>
                 <LinkButton
                   btnClick={() => handleCategoryClick("anjing")}
                   className={activeCategory === "anjing" && "fw-bold"}
+                  color={"text-dark"}
                 >
                   Anjing
                 </LinkButton>
                 <LinkButton
                   btnClick={() => handleCategoryClick("kucing")}
                   className={activeCategory === "kucing" && "fw-bold"}
+                  color={"text-dark"}
                 >
                   Kucing
                 </LinkButton>

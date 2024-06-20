@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShelterController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserController\PagesController;
+use App\Http\Controllers\UserController\ProsesController;
 use App\Http\Middleware\UserRole;
 use App\Models\Hewan;
 use Illuminate\Foundation\Application;
@@ -32,7 +33,11 @@ Route::controller(PagesController::class)->group(function() {
 
 Route::middleware([UserRole::class . ':user'])->group(function () {
     Route::controller(PagesController::class)->group(function() {
-        Route::get('/pendaftaran_adopsi', 'pendaftaran_adopsi')->name('pendaftaran_adopsi');
+        Route::get('/pendaftaran_adopsi/{id}', 'pendaftaran_adopsi')->name('pendaftaran_adopsi');
+    });
+
+    Route::controller(ProsesController::class)->group(function() {
+        Route::post('/proses_pendaftaran_adopsi', 'proses_pendaftaran_adopsi')->name('proses_pendaftaran_adopsi');
     });
 
     Route::controller(UserProfileController::class)->group(function () {

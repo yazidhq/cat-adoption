@@ -58,8 +58,10 @@ class PagesController extends Controller
         ]);
     }
 
-    public function pendaftaran_adopsi()
+    public function pendaftaran_adopsi(string $id)
     {
-        return Inertia::render('UserPages/adopsi/PendaftaranAdopsi');
+        return Inertia::render('UserPages/adopsi/PendaftaranAdopsi', [
+            'hewan' => Hewan::with("shelter", "user")->findOrFail($id),
+        ]);
     }
 }

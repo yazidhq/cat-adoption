@@ -140,6 +140,16 @@ class ShelterController extends Controller
                     $image_path = public_path() . '/shelter-img/' . $shelter->foto;
                     unlink($image_path);
                 }
+
+                foreach ($shelter->hewan as $hewan) {
+                    if ($hewan->foto) {
+                        $image_path = public_path() . '/hewan-img/' . $hewan->foto;
+                        if (file_exists($image_path)) {
+                            unlink($image_path);
+                        }
+                    }
+                }
+
                 $shelter->delete();
             } else {
                 return back()->with('success', 'Shelter has been deleted failed!');

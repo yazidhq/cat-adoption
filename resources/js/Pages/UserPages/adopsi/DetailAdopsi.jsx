@@ -92,7 +92,7 @@ export default function DetailAdopsi({ auth, hewan }) {
                       </Heading>
                     ) : (
                       <>
-                        <Link href={route("pendaftaran_adopsi")}>
+                        <Link href={route("pendaftaran_adopsi", hewan.id)}>
                           <OrangeButton>ADOPSI SEKARANG</OrangeButton>
                         </Link>
                         <OrangeOutlineButton>
