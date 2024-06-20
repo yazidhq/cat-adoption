@@ -21,7 +21,7 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
   const submit = (e) => {
     e.preventDefault();
 
-    post(route("proses_pendaftaran_adopsi"));
+    post(route("proses_pendaftaran_adopsi", hewan.id));
   };
 
   const capitalize = (word) => {
@@ -43,6 +43,16 @@ export default function PendaftaranAdopsi({ auth, hewan }) {
                 Apabila telah disetujui oleh pemilik hewan selanjutnya akan
                 ditentukan jadwal kunjungan ataupun pengantaran hewan sesuai
                 kebijakan masing-masing.
+              </Description>
+              <Description color={"text-dark-orange"}>
+                Note: Akses{" "}
+                <Link
+                  href={route("user_profile")}
+                  className="text-dark-orange fw-bold text-decoration-none"
+                >
+                  profile
+                </Link>{" "}
+                untuk merubah data diri Anda
               </Description>
               <form onSubmit={submit} className="mt-4">
                 <div className="row">

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("hewan_id");
             $table->unsignedBigInteger("shelter_id");
+            $table->string("usia");
             $table->string("dokumen_foto");
             $table->string("apakah_ada_peliharaan_lain");
             $table->string("berapa_orang_yang_tinggal_bersama");

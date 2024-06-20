@@ -37,7 +37,7 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
     });
 
     Route::controller(ProsesController::class)->group(function() {
-        Route::post('/proses_pendaftaran_adopsi', 'proses_pendaftaran_adopsi')->name('proses_pendaftaran_adopsi');
+        Route::post('/proses_pendaftaran_adopsi/{id}', 'proses_pendaftaran_adopsi')->name('proses_pendaftaran_adopsi');
     });
 
     Route::controller(UserProfileController::class)->group(function () {
