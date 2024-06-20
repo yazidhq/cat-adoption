@@ -13,31 +13,41 @@ export default function Profile({ auth, title, children }) {
               <div className="d-flex flex-column gap-4 col-md-2">
                 <Link
                   href={""}
-                  className="text-muted fw-bolder text-decoration-none text-dark"
+                  className={`text-decoration-none ${
+                    route().current("user_profile")
+                      ? "text-blue fw-bold"
+                      : "text-secondary"
+                  }`}
                 >
                   Profil Saya
                 </Link>
                 <Link
                   href={""}
-                  className="text-muted fw-bolder text-decoration-none text-dark"
+                  className={`text-decoration-none ${
+                    route().current("...") ? "text-blue" : "text-secondary"
+                  }`}
                 >
                   Status Adopsi
                 </Link>
                 <Link
                   href={""}
-                  className="text-muted fw-bolder text-decoration-none text-dark"
+                  className={`text-decoration-none ${
+                    route().current("...") ? "text-blue" : "text-secondary"
+                  }`}
                 >
                   Event Terdaftar
                 </Link>
                 <Link
                   href={""}
-                  className="text-muted fw-bolder text-decoration-none text-dark"
+                  className={`text-decoration-none ${
+                    route().current("...") ? "text-blue" : "text-secondary"
+                  }`}
                 >
                   Favorit
                 </Link>
                 <Link
                   href={""}
-                  className="fw-bolder text-decoration-none text-danger mt-5"
+                  className="text-decoration-none text-danger mt-5"
                 >
                   Hapus Akun
                 </Link>

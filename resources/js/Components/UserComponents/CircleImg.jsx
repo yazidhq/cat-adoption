@@ -1,9 +1,17 @@
+import React from "react";
+
 export default function CircleImg({ img, width }) {
   return (
-    <img
-      src={img}
-      className="img-fluid rounded-circle img-thumbnail border-dark"
-      width={width}
-    />
+    <div
+      className="position-relative"
+      style={{ width, paddingTop: width, height: 0 }}
+    >
+      <img
+        src={img}
+        className="position-absolute top-0 start-0 w-100 h-100 rounded-circle"
+        style={{ objectFit: "cover" }}
+        alt="Profile"
+      />
+    </div>
   );
 }

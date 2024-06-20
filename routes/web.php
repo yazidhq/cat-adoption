@@ -37,6 +37,7 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
 
     Route::controller(UserProfileController::class)->group(function () {
         Route::get('/user_profile', 'user_profile')->name('user_profile');
+        Route::post('/update_profile/{id}', 'update_profile')->name('update_profile');
     });
 });
 

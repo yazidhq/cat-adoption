@@ -45,15 +45,25 @@ export default function Navbar({ auth }) {
             </ul>
             <div className="d-flex gap-2">
               {auth.user ? (
-                <div className="dropdown">
-                  <IoIosNotifications className="mx-3 fs-3 text-blue" />
-                  <Img
-                    src={"/core-img/default-profile.jpg"}
-                    classes={"rounded-circle"}
-                    width={"30px"}
-                  />
+                <div className="dropdown d-flex align-items-center">
+                  <IoIosNotifications className="mx-4 fs-3 text-blue" />
+                  <div
+                    className="position-relative"
+                    style={{ width: "35px", height: "35px" }}
+                  >
+                    <img
+                      src={
+                        auth.user.foto
+                          ? `/user-img/${auth.user.foto}`
+                          : `/core-img/default-profile.jpg`
+                      }
+                      className="w-100 h-100 rounded-circle"
+                      style={{ objectFit: "cover" }}
+                      alt="Profile"
+                    />
+                  </div>
                   <button
-                    className="btn btn-link dropdown-toggle text-decoration-none text-dark"
+                    className="btn btn-link dropdown-toggle text-decoration-none text-dark mx-2"
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"
@@ -65,7 +75,7 @@ export default function Navbar({ auth }) {
                       <Link
                         className="dropdown-item"
                         href={
-                          auth.user.role == "user"
+                          auth.user.role === "user"
                             ? route("user_profile")
                             : route("dashboard")
                         }
@@ -78,6 +88,7 @@ export default function Navbar({ auth }) {
                         className="dropdown-item"
                         href={route("logout")}
                         method="post"
+                        as="button"
                       >
                         Logout
                       </Link>
