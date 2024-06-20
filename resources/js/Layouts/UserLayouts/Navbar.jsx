@@ -63,7 +63,12 @@ export default function Navbar({ auth }) {
                     />
                   </div>
                   <button
-                    className="btn btn-link dropdown-toggle text-decoration-none text-dark mx-2"
+                    className={`btn btn-link dropdown-toggle text-decoration-none mx-2 ${
+                      route().current("user_profile") ||
+                      route().current("update_profile")
+                        ? "fw-bold text-blue"
+                        : "text-dark"
+                    }`}
                     type="button"
                     data-bs-toggle="dropdown"
                     aria-expanded="false"

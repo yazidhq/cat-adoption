@@ -86,24 +86,20 @@ export default function DetailAdopsi({ auth, hewan }) {
                     </div>
                   </div>
                   <div className="d-flex gap-3 mt-5 mx-3">
-                    <Link
-                      href={
-                        auth.user
-                          ? hewan.user_id === auth.user.id
-                            ? ""
-                            : route("pendaftaran_adopsi")
-                          : route("login")
-                      }
-                    >
-                      <OrangeButton
-                        is_users_adoption={
-                          auth.user ? hewan.user_id === auth.user.id : false
-                        }
-                      >
-                        ADOPSI SEKARANG
-                      </OrangeButton>
-                    </Link>
-                    <OrangeOutlineButton>TAMBAH FAVORIT</OrangeOutlineButton>
+                    {auth.user && hewan.user_id === auth.user.id ? (
+                      <Heading size={"fs-5"} color={"text-blue"}>
+                        {hewan.kategori.toUpperCase()} INI MILIK ANDA
+                      </Heading>
+                    ) : (
+                      <>
+                        <Link href={route("pendaftaran_adopsi")}>
+                          <OrangeButton>ADOPSI SEKARANG</OrangeButton>
+                        </Link>
+                        <OrangeOutlineButton>
+                          TAMBAH FAVORIT
+                        </OrangeOutlineButton>
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -117,21 +113,28 @@ export default function DetailAdopsi({ auth, hewan }) {
                     img={
                       hewan.shelter_id
                         ? `/shelter-img/${hewan.shelter.foto}`
-                        : `/core-img/default-profile.jpg`
+                        : `/user-img/${hewan.user.foto}`
                     }
                     width={"100px"}
                   />
                   <div className="d-flex flex-column justify-content-center">
                     <Heading size={"fs-4"}>
-                      {capitalize(
-                        hewan.shelter_id
-                          ? hewan.shelter.nama
-                          : hewan.user.nama_depan
-                      )}
+                      {(hewan.shelter_id
+                        ? hewan.shelter.nama
+                        : hewan.user.nama_depan + " " + hewan.user.nama_belakang
+                      ).toUpperCase()}
                     </Heading>
                     <div className="d-flex gap-2">
-                      <BlueButton>Lokasi</BlueButton>
-                      <BlueOutlineButton>Hubungi</BlueOutlineButton>
+                      {auth.user && hewan.user_id === auth.user.id ? (
+                        <Link href={route("user_profile")}>
+                          <BlueButton>My Profile</BlueButton>
+                        </Link>
+                      ) : (
+                        <>
+                          <BlueButton>Lokasi</BlueButton>
+                          <BlueOutlineButton>Hubungi</BlueOutlineButton>
+                        </>
+                      )}
                     </div>
                   </div>
                 </div>
