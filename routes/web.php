@@ -80,7 +80,13 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
 
         Route::resource('/donasi', DonasiController::class);
         Route::resource('/event', EventController::class);
+        
         Route::resource('/adopsi_status', AdopsiController::class);
+        Route::controller(AdopsiController::class)->group(function() {
+            Route::post('/terima_adopsi/{id}', 'terima_adopsi')->name('terima_adopsi');
+            Route::post('/selesai_adopsi/{id}', 'selesai_adopsi')->name('selesai_adopsi');
+            Route::delete('/hapus_adopsi/{id}', 'hapus_adopsi')->name('hapus_adopsi');
+        });
     });
 });
 

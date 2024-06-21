@@ -29,12 +29,7 @@ export default function Authenticated({ user, header, children }) {
                 >
                   Dashboard
                 </NavLink>
-                <NavLink
-                  href={route("adopsi_status.index")}
-                  active={route().current("adopsi_status.*")}
-                >
-                  Adopsi
-                </NavLink>
+
                 <NavLink
                   href={route("user.index")}
                   active={
@@ -56,6 +51,12 @@ export default function Authenticated({ user, header, children }) {
                   }
                 >
                   Shelters
+                </NavLink>
+                <NavLink
+                  href={route("adopsi_status.index")}
+                  active={route().current("adopsi_status.*")}
+                >
+                  Adopsi
                 </NavLink>
                 <NavLink
                   href={route("berita.index")}

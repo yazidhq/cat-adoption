@@ -123,8 +123,34 @@ export default function Adopsi({
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <div className="flex gap-2 text-primary">
-                  <Link as="button">Terima</Link>
-                  <Link as="button">Hapus</Link>
+                  {item.status == "proses" ? (
+                    <Link
+                      href={route("terima_adopsi", item.id)}
+                      method="post"
+                      as="button"
+                    >
+                      Terima
+                    </Link>
+                  ) : (
+                    <>
+                      {item.status !== "selesai" && (
+                        <Link
+                          href={route("selesai_adopsi", item.id)}
+                          method="post"
+                          as="button"
+                        >
+                          Selesai
+                        </Link>
+                      )}
+                    </>
+                  )}
+                  <Link
+                    href={route("hapus_adopsi", item.id)}
+                    method="delete"
+                    as="button"
+                  >
+                    Hapus
+                  </Link>
                 </div>
               </td>
             </tr>

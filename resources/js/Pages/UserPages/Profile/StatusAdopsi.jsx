@@ -167,7 +167,7 @@ export default function StatusAdopsi({ auth, adopsi, filters }) {
                     </Description>
                   </div>
                   <div className="col-lg-2">
-                    <div className="mt-3">
+                    <div className="mt-3 text-end">
                       <button
                         className={`btn 
                             ${
