@@ -102,10 +102,19 @@ export default function DetailAdopsi({ auth, hewan, owned }) {
                     </div>
                   </div>
                   <div className="d-flex gap-3 mt-5 mx-3">
-                    {auth.user && hewan.user_id === auth.user.id ? (
-                      <Heading size={"fs-5"} color={"text-blue"}>
-                        {hewan.kategori.toUpperCase()} INI MILIK ANDA
-                      </Heading>
+                    {auth.user ? (
+                      <>
+                        {hewan.user_id === auth.user.id && (
+                          <Heading size={"fs-5"} color={"text-blue"}>
+                            {hewan.kategori.toUpperCase()} INI MILIK ANDA
+                          </Heading>
+                        )}
+                        {hewan.is_adopsi == true && (
+                          <Heading size={"fs-5"} color={"text-blue"}>
+                            {hewan.kategori.toUpperCase()} INI SUDAH DIADOPSI
+                          </Heading>
+                        )}
+                      </>
                     ) : (
                       <>
                         <Link href={route("pendaftaran_adopsi", hewan.id)}>
@@ -129,7 +138,7 @@ export default function DetailAdopsi({ auth, hewan, owned }) {
                     img={
                       hewan.shelter_id
                         ? `/shelter-img/${hewan.shelter.foto}`
-                        : auth.user.foto
+                        : auth.user && auth.user.foto
                         ? `/user-img/${hewan.user.foto}`
                         : `/core-img/default-profile.jpg`
                     }
