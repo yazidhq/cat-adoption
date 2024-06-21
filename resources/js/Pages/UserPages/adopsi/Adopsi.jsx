@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TextInput from "@/Components/TextInput";
 import BlueButton from "@/Components/UserComponents/BlueButton";
 import LinkButton from "@/Components/UserComponents/LinkButton";
@@ -11,8 +11,9 @@ import Pagination from "@/Components/Pagination";
 import { CiHeart } from "react-icons/ci";
 import { Link, router } from "@inertiajs/react";
 import ImgCard from "@/Components/UserComponents/ImgCard";
+import Swal from "sweetalert2";
 
-export default function Adopsi({ auth, hewan, filters }) {
+export default function Adopsi({ auth, hewan, filters, adopted }) {
   const [lokasi, setLokasi] = useState(filters.lokasi || "");
   const [kelamin, setKelamin] = useState(filters.kelamin || "");
   const [usia, setUsia] = useState(filters.usia || "");
@@ -73,6 +74,20 @@ export default function Adopsi({ auth, hewan, filters }) {
   const capitalize = (word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   };
+
+  useEffect(() => {
+    if (adopted) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: adopted,
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        router.reload({ preserveState: false });
+      });
+    }
+  }, [adopted]);
 
   return (
     <SectionPage title={"Adopsi"} auth={auth}>

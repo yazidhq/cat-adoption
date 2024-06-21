@@ -42,6 +42,8 @@ class ProsesController extends Controller
             $validated["shelter_id"] = $shelter_id;
             $validated["status"] = "proses";
 
+            $hewan->is_adopsi = true;
+            $hewan->save();
             Adopsi::create($validated);
 
             DB::commit();

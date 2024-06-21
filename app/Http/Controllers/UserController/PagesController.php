@@ -47,6 +47,7 @@ class PagesController extends Controller
         return Inertia::render('UserPages/adopsi/Adopsi', [
             'hewan' => $hewan,
             'filters' => $request->all(),
+            'adopted' => session('adopted'),
         ]);
     }
 
@@ -54,6 +55,7 @@ class PagesController extends Controller
     {
         return Inertia::render('UserPages/adopsi/DetailAdopsi', [
             'hewan' => Hewan::with("shelter", "user")->findOrFail($id),
+            'owned' => session('owned'),
         ]);
     }
 

@@ -10,9 +10,25 @@ import SosmedButton from "@/Components/UserComponents/SosmedButton";
 import SectionPage from "@/Layouts/UserLayouts/SectionPage";
 import { IoShareSocial } from "react-icons/io5";
 import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa6";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
+import Swal from "sweetalert2";
+import { useEffect } from "react";
 
-export default function DetailAdopsi({ auth, hewan }) {
+export default function DetailAdopsi({ auth, hewan, owned }) {
+  useEffect(() => {
+    if (owned) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: owned,
+        showConfirmButton: false,
+        timer: 1500,
+      }).then(() => {
+        router.reload({ preserveState: false });
+      });
+    }
+  }, [owned]);
+
   const capitalize = (word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   };
@@ -113,7 +129,9 @@ export default function DetailAdopsi({ auth, hewan }) {
                     img={
                       hewan.shelter_id
                         ? `/shelter-img/${hewan.shelter.foto}`
-                        : `/user-img/${hewan.user.foto}`
+                        : auth.user.foto
+                        ? `/user-img/${hewan.user.foto}`
+                        : `/core-img/default-profile.jpg`
                     }
                     width={"100px"}
                   />
