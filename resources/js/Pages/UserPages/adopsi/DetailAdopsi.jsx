@@ -129,43 +129,35 @@ export default function DetailAdopsi({
                     </div>
                   </div>
                   <div className="d-flex gap-3 mt-5 mx-3">
-                    {auth.user && (
-                      <>
-                        {hewan.user_id === auth.user.id ? (
-                          <Heading
-                            size={"fs-6"}
-                            color={
-                              "text-blue  bg-light border px-3 py-2 rounded-4"
-                            }
-                          >
-                            {hewan.kategori.toUpperCase()} INI MILIK ANDA
-                          </Heading>
-                        ) : (
-                          !hewan.is_adopsi && (
-                            <>
-                              <Link
-                                href={route("pendaftaran_adopsi", hewan.id)}
-                              >
-                                <OrangeButton>ADOPSI SEKARANG</OrangeButton>
-                              </Link>
-                              <OrangeOutlineButton>
-                                TAMBAH FAVORIT
-                              </OrangeOutlineButton>
-                            </>
-                          )
-                        )}
-                        {hewan.is_adopsi ? (
-                          <Heading
-                            size={"fs-6"}
-                            color={
-                              "text-dark-orange bg-light border px-3 py-2 rounded-4"
-                            }
-                          >
-                            {hewan.kategori.toUpperCase()} INI SUDAH DIADOPSI
-                          </Heading>
-                        ) : null}
-                      </>
+                    {auth.user && hewan.user_id === auth.user.id ? (
+                      <Heading
+                        size={"fs-6"}
+                        color={"text-blue  bg-light border px-3 py-2 rounded-4"}
+                      >
+                        {hewan.kategori.toUpperCase()} INI MILIK ANDA
+                      </Heading>
+                    ) : (
+                      !hewan.is_adopsi && (
+                        <>
+                          <Link href={route("pendaftaran_adopsi", hewan.id)}>
+                            <OrangeButton>ADOPSI SEKARANG</OrangeButton>
+                          </Link>
+                          <OrangeOutlineButton>
+                            TAMBAH FAVORIT
+                          </OrangeOutlineButton>
+                        </>
+                      )
                     )}
+                    {hewan.is_adopsi ? (
+                      <Heading
+                        size={"fs-6"}
+                        color={
+                          "text-dark-orange bg-light border px-3 py-2 rounded-4"
+                        }
+                      >
+                        {hewan.kategori.toUpperCase()} INI SUDAH DIADOPSI
+                      </Heading>
+                    ) : null}
                   </div>
                 </div>
               </div>

@@ -116,16 +116,30 @@ export default function DetailBerita({ auth, adopsi }) {
                 <IoCaretBackOutline /> <span className="pr-2">Back</span>
               </RedButton>
             </Link>
-            <Link
-              href={route("terima_adopsi", adopsi.id)}
-              method="post"
-              as="button"
-            >
-              <RedButton>
-                <span className="pl-2">Terima</span>
-                <FaCircleArrowRight className="mx-2" />
-              </RedButton>
-            </Link>
+            {adopsi.status === "proses" && (
+              <Link
+                href={route("terima_adopsi", adopsi.id)}
+                method="post"
+                as="button"
+              >
+                <RedButton>
+                  <span className="pl-2">Terima</span>
+                  <FaCircleArrowRight className="mx-2" />
+                </RedButton>
+              </Link>
+            )}
+            {adopsi.status === "terima" && (
+              <Link
+                href={route("selesai_adopsi", adopsi.id)}
+                method="post"
+                as="button"
+              >
+                <RedButton>
+                  <span className="pl-2">Selesai</span>
+                  <FaCircleArrowRight className="mx-2" />
+                </RedButton>
+              </Link>
+            )}
           </div>
         </div>
       </section>
