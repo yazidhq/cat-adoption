@@ -10,7 +10,9 @@ export default function Guest({ children }) {
       >
         <div
           className="card rounded-5 border-0 shadow"
-          style={{ width: "30rem" }}
+          style={
+            route().current("login") ? { width: "30rem" } : { width: "50rem" }
+          }
         >
           <div>
             <Link href="/">
@@ -24,7 +26,7 @@ export default function Guest({ children }) {
               </div>
             </Link>
           </div>
-          <div className="card-body pt-5 px-5 pb-5">{children}</div>
+          <div className="card-body px-5">{children}</div>
         </div>
       </div>
     </div>

@@ -33,6 +33,8 @@ export default function Register() {
     <GuestLayout>
       <Head title="Register" />
 
+      <p className="text-center fw-bold fs-4 text-blue">DAFTAR</p>
+
       <form onSubmit={submit}>
         <div className="row">
           <div className="col-md-6">
