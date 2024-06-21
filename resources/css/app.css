@@ -164,6 +164,24 @@
 }
 /* hero card */
 
+/* status adopsi img */
+.status_adopsi_img {
+    margin-top: -2.5rem;
+}
+@media (max-width: 768px) {
+    .status_adopsi_img {
+        margin-top: 0;
+        margin-bottom: 10rem;
+    }
+}
+@media (max-width: 1190px) {
+    .status_adopsi_img {
+        margin-top: 0;
+        margin-bottom: 5rem;
+    }
+}
+/* status adopsi img */
+
 /* hover hero card */
 .iconed-card {
     transition: background-color 0.3s ease !important;

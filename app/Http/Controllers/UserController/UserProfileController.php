@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
+use App\Models\Adopsi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -61,5 +62,12 @@ class UserProfileController extends Controller
             DB::rollback();
             return back()->withErrors(['error' => $e->getMessage()]);
         }
+    }
+
+    public function status_adopsi()
+    {
+        return Inertia::render("UserPages/profile/StatusAdopsi", [
+            "adopsi" => Adopsi::with("user", "hewan", "shelter")->where("user_id", auth()->user()->id)->get(),
+        ]);
     }
 }

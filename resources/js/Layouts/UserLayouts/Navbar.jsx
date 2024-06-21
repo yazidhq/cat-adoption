@@ -65,7 +65,8 @@ export default function Navbar({ auth }) {
                   <button
                     className={`btn btn-link dropdown-toggle text-decoration-none mx-2 ${
                       route().current("user_profile") ||
-                      route().current("update_profile")
+                      route().current("update_profile") ||
+                      route().current("status_adopsi")
                         ? "fw-bold text-blue"
                         : "text-dark"
                     }`}

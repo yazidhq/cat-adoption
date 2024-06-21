@@ -53,7 +53,7 @@ export default function Profile({ auth, title, children }) {
             <div className="row mt-5">
               <div className="d-flex flex-column gap-4 col-md-2">
                 <Link
-                  href={""}
+                  href={route("user_profile")}
                   className={`text-decoration-none ${
                     route().current("user_profile")
                       ? "text-blue fw-bold"
@@ -63,9 +63,11 @@ export default function Profile({ auth, title, children }) {
                   Profil Saya
                 </Link>
                 <Link
-                  href={""}
+                  href={route("status_adopsi")}
                   className={`text-decoration-none ${
-                    route().current("...") ? "text-blue" : "text-secondary"
+                    route().current("status_adopsi")
+                      ? "text-blue fw-bold"
+                      : "text-secondary"
                   }`}
                 >
                   Status Adopsi
@@ -73,7 +75,9 @@ export default function Profile({ auth, title, children }) {
                 <Link
                   href={""}
                   className={`text-decoration-none ${
-                    route().current("...") ? "text-blue" : "text-secondary"
+                    route().current("...")
+                      ? "text-blue fw-bold"
+                      : "text-secondary"
                   }`}
                 >
                   Event Terdaftar
@@ -81,7 +85,9 @@ export default function Profile({ auth, title, children }) {
                 <Link
                   href={""}
                   className={`text-decoration-none ${
-                    route().current("...") ? "text-blue" : "text-secondary"
+                    route().current("...")
+                      ? "text-blue fw-bold"
+                      : "text-secondary"
                   }`}
                 >
                   Favorit

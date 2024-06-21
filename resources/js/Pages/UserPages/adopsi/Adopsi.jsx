@@ -119,7 +119,9 @@ export default function Adopsi({ auth, hewan, filters, adopted }) {
                 </LinkButton>
               </div>
               <div>
-                <LinkButton btnClick={resetSearch}>RESET</LinkButton>
+                <LinkButton btnClick={resetSearch} color={"text-dark fw-bold"}>
+                  RESET
+                </LinkButton>
               </div>
             </div>
             <form action="" onSubmit={handleSearch}>

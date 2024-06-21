@@ -35,22 +35,23 @@ Route::controller(PagesController::class)->group(function() {
 
 Route::middleware([UserRole::class . ':user'])->group(function () {
     Route::controller(PagesController::class)->group(function() {
-
         Route::middleware([IsUserOwned::class])->group(function () {
             Route::middleware([IsAdopted::class])->group(function () {
                 Route::get('/pendaftaran_adopsi/{id}', 'pendaftaran_adopsi')->name('pendaftaran_adopsi');
             });
         });
-
     });
 
     Route::controller(ProsesController::class)->group(function() {
         Route::post('/proses_pendaftaran_adopsi/{id}', 'proses_pendaftaran_adopsi')->name('proses_pendaftaran_adopsi');
     });
 
-    Route::controller(UserProfileController::class)->group(function () {
-        Route::get('/user_profile', 'user_profile')->name('user_profile');
-        Route::post('/update_profile/{id}', 'update_profile')->name('update_profile');
+    Route::prefix('profile')->group(function () {
+        Route::controller(UserProfileController::class)->group(function () {
+            Route::get('/user_profile', 'user_profile')->name('user_profile');
+            Route::post('/update_profile/{id}', 'update_profile')->name('update_profile');
+            Route::get('/status_adopsi', 'status_adopsi')->name('status_adopsi');
+        });
     });
 });
 
