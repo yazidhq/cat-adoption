@@ -30,6 +30,12 @@ export default function Authenticated({ user, header, children }) {
                   Dashboard
                 </NavLink>
                 <NavLink
+                  href={route("adopsi_status.index")}
+                  active={route().current("adopsi_status.*")}
+                >
+                  Adopsi
+                </NavLink>
+                <NavLink
                   href={route("user.index")}
                   active={
                     route().current("user.*") ||

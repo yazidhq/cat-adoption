@@ -54,8 +54,10 @@ class PagesController extends Controller
     public function detail_adopsi(string $id)
     {
         return Inertia::render('UserPages/adopsi/DetailAdopsi', [
-            'hewan' => Hewan::with("shelter", "user")->findOrFail($id),
-            'owned' => session('owned'),
+            "hewan" => Hewan::with("shelter", "user")->findOrFail($id),
+            "owned" => session("owned"),
+            "successMessage" => session("success"),
+            "errorMessage" => session("error"),
         ]);
     }
 
@@ -63,8 +65,6 @@ class PagesController extends Controller
     {
         return Inertia::render('UserPages/adopsi/PendaftaranAdopsi', [
             'hewan' => Hewan::with("shelter", "user")->findOrFail($id),
-            "successMessage" => session("success"),
-            "errorMessage" => session("error"),
         ]);
     }
 }

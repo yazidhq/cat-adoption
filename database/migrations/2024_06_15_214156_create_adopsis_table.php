@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("user_id");
             $table->unsignedBigInteger("hewan_id");
-            $table->unsignedBigInteger("shelter_id");
             $table->string("usia");
             $table->string("dokumen_foto");
             $table->string("apakah_ada_peliharaan_lain");
@@ -25,7 +24,6 @@ return new class extends Migration
 
             $table->foreign("user_id")->references("id")->on("users")->onDelete("cascade");
             $table->foreign("hewan_id")->references("id")->on("hewans")->onDelete("cascade");
-            $table->foreign("shelter_id")->references("id")->on("shelters")->onDelete("cascade");
         });
     }
 

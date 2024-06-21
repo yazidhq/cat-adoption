@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdopsiController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\DonasiController;
 use App\Http\Controllers\EventController;
@@ -78,8 +79,8 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
         Route::delete("/berita/komentar/{id}", [BeritaController::class, 'destroy_komentar'])->name("destroy_komentar");
 
         Route::resource('/donasi', DonasiController::class);
-        
         Route::resource('/event', EventController::class);
+        Route::resource('/adopsi_status', AdopsiController::class);
     });
 });
 

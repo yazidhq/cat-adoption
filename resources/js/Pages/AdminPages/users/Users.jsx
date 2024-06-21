@@ -104,7 +104,7 @@ export default function Users({
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                     {item.lokaso || item.kode_pos ? (
                       <>
-                        {item.lokasi} - {item.kode_pos}
+                        {item.alamat} - {item.kode_pos}
                       </>
                     ) : (
                       <p>belum dibuat</p>

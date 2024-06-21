@@ -64,10 +64,20 @@ class UserProfileController extends Controller
         }
     }
 
-    public function status_adopsi()
+    public function status_adopsi(Request $request)
     {
+        $query = Adopsi::query();
+
+        if ($request->filled('status')) {
+            $status = $request->input('status');
+            $query->where('status', $status);
+        }
+
+        $adopsi = $query->with("user", "hewan")->where("user_id", auth()->user()->id)->orderBy('id', 'DESC')->paginate(5)->withQueryString();;
+
         return Inertia::render("UserPages/profile/StatusAdopsi", [
-            "adopsi" => Adopsi::with("user", "hewan", "shelter")->where("user_id", auth()->user()->id)->get(),
+            "adopsi" => $adopsi,
+            "filters" => $request->all(),
         ]);
     }
 }

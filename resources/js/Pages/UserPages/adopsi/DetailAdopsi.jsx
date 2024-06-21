@@ -12,9 +12,36 @@ import { IoShareSocial } from "react-icons/io5";
 import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa6";
 import { Link, router } from "@inertiajs/react";
 import Swal from "sweetalert2";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import OrangeRdButton from "@/Components/UserComponents/OrangeRdButton";
+import OrangeRdOutlineButton from "@/Components/UserComponents/OrangeRdOutlineButton";
+import { FaCircleCheck } from "react-icons/fa6";
 
-export default function DetailAdopsi({ auth, hewan, owned }) {
+export default function DetailAdopsi({
+  auth,
+  hewan,
+  owned,
+  successMessage,
+  errorMessage,
+}) {
+  const [modalVisible, setModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (successMessage || errorMessage) {
+      setModalVisible(true);
+    }
+  }, [successMessage, errorMessage]);
+
+  const handleBack = () => {
+    setModalVisible(false);
+    router.get(route("detail_adopsi", hewan.id));
+  };
+
+  const handleCheckStatus = () => {
+    setModalVisible(false);
+    router.get(route("status_adopsi"));
+  };
+
   useEffect(() => {
     if (owned) {
       Swal.fire({
@@ -102,27 +129,41 @@ export default function DetailAdopsi({ auth, hewan, owned }) {
                     </div>
                   </div>
                   <div className="d-flex gap-3 mt-5 mx-3">
-                    {auth.user ? (
+                    {auth.user && (
                       <>
-                        {hewan.user_id === auth.user.id && (
-                          <Heading size={"fs-5"} color={"text-blue"}>
+                        {hewan.user_id === auth.user.id ? (
+                          <Heading
+                            size={"fs-6"}
+                            color={
+                              "text-blue  bg-light border px-3 py-2 rounded-4"
+                            }
+                          >
                             {hewan.kategori.toUpperCase()} INI MILIK ANDA
                           </Heading>
+                        ) : (
+                          !hewan.is_adopsi && (
+                            <>
+                              <Link
+                                href={route("pendaftaran_adopsi", hewan.id)}
+                              >
+                                <OrangeButton>ADOPSI SEKARANG</OrangeButton>
+                              </Link>
+                              <OrangeOutlineButton>
+                                TAMBAH FAVORIT
+                              </OrangeOutlineButton>
+                            </>
+                          )
                         )}
-                        {hewan.is_adopsi == true && (
-                          <Heading size={"fs-5"} color={"text-blue"}>
+                        {hewan.is_adopsi ? (
+                          <Heading
+                            size={"fs-6"}
+                            color={
+                              "text-dark-orange bg-light border px-3 py-2 rounded-4"
+                            }
+                          >
                             {hewan.kategori.toUpperCase()} INI SUDAH DIADOPSI
                           </Heading>
-                        )}
-                      </>
-                    ) : (
-                      <>
-                        <Link href={route("pendaftaran_adopsi", hewan.id)}>
-                          <OrangeButton>ADOPSI SEKARANG</OrangeButton>
-                        </Link>
-                        <OrangeOutlineButton>
-                          TAMBAH FAVORIT
-                        </OrangeOutlineButton>
+                        ) : null}
                       </>
                     )}
                   </div>
@@ -192,6 +233,37 @@ export default function DetailAdopsi({ auth, hewan, owned }) {
           </div>
         </div>
       </div>
+
+      {modalVisible && (
+        <div className="modal fade show d-block" tabIndex="-1" role="dialog">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content border-0 shadow rounded-5">
+              <div className="modal-body p-5">
+                <div className="d-flex justify-content-center mb-4">
+                  <FaCircleCheck
+                    className="text-blue"
+                    style={{ fontSize: "7rem" }}
+                  />
+                </div>
+                <Heading size={"fs-4 text-center mb-2 text-blue"}>
+                  Berhasil Terkirim
+                </Heading>
+                <Heading size={"fs-6 text-center mb-5"}>
+                  {successMessage || errorMessage}
+                </Heading>
+                <div className="d-grid d-flex flex-column gap-3">
+                  <OrangeRdButton onClick={handleCheckStatus}>
+                    Cek Status Adopsi
+                  </OrangeRdButton>
+                  <OrangeRdOutlineButton onClick={handleBack}>
+                    Kembali
+                  </OrangeRdOutlineButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </SectionPage>
   );
 }

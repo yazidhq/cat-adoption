@@ -6,28 +6,17 @@ import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import OrangeButton from "@/Components/UserComponents/OrangeButton";
 import OrangeOutlineButton from "@/Components/UserComponents/OrangeOutlineButton";
-import OrangeRdButton from "@/Components/UserComponents/OrangeRdButton";
-import OrangeRdOutlineButton from "@/Components/UserComponents/OrangeRdOutlineButton";
 import SectionPage from "@/Layouts/UserLayouts/SectionPage";
-import { Link, router, useForm } from "@inertiajs/react";
-import { useEffect, useState } from "react";
-import { FaCircleCheck } from "react-icons/fa6";
+import { Link, useForm } from "@inertiajs/react";
 import Swal from "sweetalert2";
 
-export default function PendaftaranAdopsi({
-  auth,
-  hewan,
-  successMessage,
-  errorMessage,
-}) {
+export default function PendaftaranAdopsi({ auth, hewan }) {
   const { data, setData, post, errors } = useForm({
     usia: "",
     dokumen_foto: "",
     apakah_ada_peliharaan_lain: "",
     berapa_orang_yang_tinggal_bersama: "",
   });
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   const submit = (e) => {
     e.preventDefault();
@@ -36,22 +25,6 @@ export default function PendaftaranAdopsi({
 
   const capitalize = (word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
-  };
-
-  useEffect(() => {
-    if (successMessage || errorMessage) {
-      setModalVisible(true);
-    }
-  }, [successMessage, errorMessage]);
-
-  const handleBack = () => {
-    setModalVisible(false);
-    router.get(route("detail_adopsi", hewan.id));
-  };
-
-  const handleCheckStatus = () => {
-    setModalVisible(false);
-    router.get(route("user_profile"));
   };
 
   return (
@@ -250,37 +223,6 @@ export default function PendaftaranAdopsi({
           </div>
         </div>
       </div>
-
-      {modalVisible && (
-        <div className="modal fade show d-block" tabIndex="-1" role="dialog">
-          <div className="modal-dialog" role="document">
-            <div className="modal-content border-0 shadow rounded-5">
-              <div className="modal-body p-5">
-                <div className="d-flex justify-content-center mb-4">
-                  <FaCircleCheck
-                    className="text-blue"
-                    style={{ fontSize: "7rem" }}
-                  />
-                </div>
-                <Heading size={"fs-4 text-center mb-2 text-blue"}>
-                  Berhasil Terkirim
-                </Heading>
-                <Heading size={"fs-6 text-center mb-5"}>
-                  {successMessage || errorMessage}
-                </Heading>
-                <div className="d-grid d-flex flex-column gap-3">
-                  <OrangeRdButton onClick={handleCheckStatus}>
-                    Cek Status Adopsi
-                  </OrangeRdButton>
-                  <OrangeRdOutlineButton onClick={handleBack}>
-                    Kembali
-                  </OrangeRdOutlineButton>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </SectionPage>
   );
 }

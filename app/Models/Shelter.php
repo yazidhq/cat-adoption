@@ -31,9 +31,4 @@ class Shelter extends Model
     {
         return $this->hasMany(Hewan::class, 'shelter_id');
     }
-
-    public function adopsi(): HasMany
-    {
-        return $this->hasMany(Adopsi::class, 'shelter_id');
-    }
 }
