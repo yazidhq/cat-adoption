@@ -71,29 +71,45 @@ export default function BlogBerita({ auth, berita, filters }) {
             <div className="row mb-2 pt-5">
               <div className="col-lg-6 px-0">
                 <Link href={route("blog_berita")}>
-                  <LinkButton color={"text-white fw-medium"}>Semua</LinkButton>
+                  <LinkButton
+                    color={`text-white fw-medium ${
+                      kategori == "" ? "text-decoration-underline" : ""
+                    }`}
+                  >
+                    Semua
+                  </LinkButton>
                 </Link>
                 <LinkButton
                   btnClick={() => handleKategoriClick("Edukasi")}
-                  color={"text-white fw-medium"}
+                  color={`text-white fw-medium ${
+                    kategori == "Edukasi" ? "text-decoration-underline" : ""
+                  }`}
                 >
                   Edukasi
                 </LinkButton>
                 <LinkButton
                   btnClick={() => handleKategoriClick("Event")}
-                  color={"text-white fw-medium"}
+                  color={`text-white fw-medium ${
+                    kategori == "Event" ? "text-decoration-underline" : ""
+                  }`}
                 >
                   Event
                 </LinkButton>
                 <LinkButton
                   btnClick={() => handleKategoriClick("Penyaluran Donasi")}
-                  color={"text-white fw-medium"}
+                  color={`text-white fw-medium ${
+                    kategori == "Penyaluran Donasi"
+                      ? "text-decoration-underline"
+                      : ""
+                  }`}
                 >
                   Penyaluran Donasi
                 </LinkButton>
                 <LinkButton
                   btnClick={() => handleKategoriClick("Serba-Serbi")}
-                  color={"text-white fw-medium"}
+                  color={`text-white fw-medium ${
+                    kategori == "Serba-Serbi" ? "text-decoration-underline" : ""
+                  }`}
                 >
                   Serba-Serbi
                 </LinkButton>
@@ -113,7 +129,9 @@ export default function BlogBerita({ auth, berita, filters }) {
         <div className="py-4">
           <div className="container">
             <div className="border-start border-5 border-info">
-              <Heading color={"text-dark mx-3 mb-4"}>Terbaru</Heading>
+              <Heading color={"text-dark mx-3 mb-4"}>
+                {kategori ? kategori : "Terbaru"}
+              </Heading>
             </div>
             {berita.data.length === 0 ? (
               <div className="text-center">
@@ -130,13 +148,19 @@ export default function BlogBerita({ auth, berita, filters }) {
                       className="card border-0 rounded-4 shadow"
                       style={{ width: "19rem" }}
                     >
-                      <Link className="text-decoration-none">
+                      <Link
+                        href={route("detail_berita", item.id)}
+                        className="text-decoration-none"
+                      >
                         <ImgCard img={item.gambar} is_berita={true} />
                       </Link>
                       <div className="card-body">
                         <div className="card-text p-2">
                           <Heading color={"text-blue"} size={"fs-4 mb-1"}>
-                            <Link className="text-decoration-none text-dark">
+                            <Link
+                              href={route("detail_berita", item.id)}
+                              className="text-decoration-none text-dark"
+                            >
                               {capitalize(item.judul)}
                             </Link>
                           </Heading>
@@ -146,10 +170,15 @@ export default function BlogBerita({ auth, berita, filters }) {
                               {moment(item.created_at).format("DD MMMM YYYY")}
                             </Description>
                           </div>
-                          <OrangeButton className="rounded-5">
-                            Lebih Lanjut<span className="mx-2"></span>
-                            <FaArrowRight className="mb-1" />
-                          </OrangeButton>
+                          <Link
+                            href={route("detail_berita", item.id)}
+                            className="text-decoration-none"
+                          >
+                            <OrangeButton className="rounded-5">
+                              Lebih Lanjut<span className="mx-2"></span>
+                              <FaArrowRight className="mb-1" />
+                            </OrangeButton>
+                          </Link>
                         </div>
                       </div>
                     </div>

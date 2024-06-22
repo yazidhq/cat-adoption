@@ -5,6 +5,7 @@ namespace App\Http\Controllers\UserController;
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\Hewan;
+use App\Models\KomentarBerita;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -91,6 +92,17 @@ class PagesController extends Controller
         return Inertia::render('UserPages/berita/BlogBerita', [
             "berita" => $berita,
             "filters" => $request->all(),
+        ]);
+    }
+
+    public function detail_berita(string $id)
+    {
+        $query = Berita::query();
+        $berita = $query->with("komentar")->findOrFail($id);
+        $komentar = KomentarBerita::with("user")->where('berita_id', $id)->orderBy('id', 'DESC')->paginate(3)->withQueryString();
+        return Inertia::render('UserPages/berita/DetailBerita', [
+            "berita" => $berita,
+            "komentar" => $komentar,
         ]);
     }
 }

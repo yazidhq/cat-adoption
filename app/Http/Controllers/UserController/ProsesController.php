@@ -5,6 +5,7 @@ namespace App\Http\Controllers\UserController;
 use App\Http\Controllers\Controller;
 use App\Models\Adopsi;
 use App\Models\Hewan;
+use App\Models\KomentarBerita;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -50,5 +51,20 @@ class ProsesController extends Controller
             DB::rollback();
             return redirect()->route("detail_adopsi", $id)->with('error', $e->getMessage());
         }
+    }
+
+    public function tambah_komentar(Request $request, string $id)
+    {
+        $validated = $request->validate([
+            "user_id" => [""],
+            "berita_id" => [""],
+            "komentar" => ["required"],
+        ]);
+
+        $validated["user_id"] = auth()->user()->id;
+        $validated["berita_id"] = $id;
+        
+        KomentarBerita::create($validated);
+        return redirect()->back();
     }
 }

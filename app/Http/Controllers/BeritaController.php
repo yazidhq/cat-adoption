@@ -70,7 +70,7 @@ class BeritaController extends Controller
     {
         return Inertia::render("AdminPages/berita/DetailBerita", [
             "berita" => Berita::findOrFail($id),
-            "komentar" => KomentarBerita::with("user")->where("berita_id", $id)->get(),
+            "komentar" => KomentarBerita::with("user")->where("berita_id", $id)->orderBy('id','DESC')->paginate(3)->withQueryString(),
             "successMessage" => session("success"),
             "errorMessage" => session("error"),
         ]);

@@ -1,4 +1,5 @@
 import DashboardSection from "@/Components/DashboardSection";
+import Pagination from "@/Components/Pagination";
 import RedButton from "@/Components/RedButton";
 import { Link, router } from "@inertiajs/react";
 import moment from "moment";
@@ -48,7 +49,7 @@ export default function DetailBerita({
               />
               <div className="mt-4">
                 <p className="fw-bold">KOMENTAR BERITA</p>
-                {komentar.map((item) => (
+                {komentar.data.map((item) => (
                   <div className="mt-3 p-3 border rounded-lg" key={item.id}>
                     <div className="flex justify-content-between">
                       <p className="fw-bold">{item.user.nama_depan}</p>
@@ -66,6 +67,7 @@ export default function DetailBerita({
                     </p>
                   </div>
                 ))}
+                <Pagination links={komentar.links} />
               </div>
             </div>
             <div>

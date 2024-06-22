@@ -45,7 +45,10 @@ export default function Navbar({ auth }) {
               >
                 <ItemList
                   active={
-                    route().current("blog_berita") ? "fw-bold text-blue" : ""
+                    route().current("blog_berita") ||
+                    route().current("detail_berita")
+                      ? "fw-bold text-blue"
+                      : ""
                   }
                 >
                   BLOG

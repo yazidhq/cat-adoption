@@ -32,7 +32,6 @@ Route::get('/', function () {
 Route::controller(PagesController::class)->group(function() {
     Route::get('/adopsi', 'adopsi')->name('adopsi');
     Route::get('/detail_adopsi/{id}', 'detail_adopsi')->name('detail_adopsi');
-    
     Route::get('/blog_berita', 'blog_berita')->name('blog_berita');
 });
 
@@ -43,10 +42,12 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
                 Route::get('/pendaftaran_adopsi/{id}', 'pendaftaran_adopsi')->name('pendaftaran_adopsi');
             });
         });
+        Route::get('/detail_berita/{id}', 'detail_berita')->name('detail_berita');
     });
 
     Route::controller(ProsesController::class)->group(function() {
         Route::post('/proses_pendaftaran_adopsi/{id}', 'proses_pendaftaran_adopsi')->name('proses_pendaftaran_adopsi');
+        Route::post('/tambah_komentar/{id}', 'tambah_komentar')->name('tambah_komentar');
     });
 
     Route::prefix('profile')->group(function () {

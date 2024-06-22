@@ -49,14 +49,6 @@ export default function Berita({
     return word.charAt(0).toUpperCase() + word.slice(1);
   };
 
-  const truncateText = (text, wordLimit) => {
-    const words = text.split(" ");
-    if (words.length > wordLimit) {
-      return words.slice(0, wordLimit).join(" ") + "...";
-    }
-    return text;
-  };
-
   return (
     <DashboardSection auth={auth.user} heading={"Berita"} title={"Berita"}>
       <div className="d-flex justify-content-between">

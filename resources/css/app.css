@@ -218,3 +218,11 @@
     object-fit: cover;
 }
 /* suqare img */
+
+/* sticky top kategori */
+.sticky-sidebar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 100px;
+}
+/* sticky top kategori */
