@@ -12,6 +12,7 @@ import { FaArrowRight } from "react-icons/fa6";
 
 export default function BlogBerita({ auth, berita, filters }) {
   const [searchTerm, setSearchTerm] = useState(filters.search || "");
+  const [kategori, setKategori] = useState(filters.kategori || "");
 
   const handleSearch = (e) => {
     const query = e.target.value;
@@ -20,6 +21,20 @@ export default function BlogBerita({ auth, berita, filters }) {
     router.get(
       route(route().current()),
       { search: query },
+      {
+        preserveState: true,
+        replace: true,
+      }
+    );
+  };
+
+  const handleKategoriClick = (kategori) => {
+    setKategori(kategori);
+    router.get(
+      route(route().current()),
+      {
+        kategori: kategori,
+      },
       {
         preserveState: true,
         replace: true,
@@ -55,12 +70,31 @@ export default function BlogBerita({ auth, berita, filters }) {
           <div className="container">
             <div className="row mb-2 pt-5">
               <div className="col-lg-6 px-0">
-                <LinkButton color={"text-white fw-medium"}>Edukasi</LinkButton>
-                <LinkButton color={"text-white fw-medium"}>Event</LinkButton>
-                <LinkButton color={"text-white fw-medium"}>
+                <Link href={route("blog_berita")}>
+                  <LinkButton color={"text-white fw-medium"}>Semua</LinkButton>
+                </Link>
+                <LinkButton
+                  btnClick={() => handleKategoriClick("Edukasi")}
+                  color={"text-white fw-medium"}
+                >
+                  Edukasi
+                </LinkButton>
+                <LinkButton
+                  btnClick={() => handleKategoriClick("Event")}
+                  color={"text-white fw-medium"}
+                >
+                  Event
+                </LinkButton>
+                <LinkButton
+                  btnClick={() => handleKategoriClick("Penyaluran Donasi")}
+                  color={"text-white fw-medium"}
+                >
                   Penyaluran Donasi
                 </LinkButton>
-                <LinkButton color={"text-white fw-medium"}>
+                <LinkButton
+                  btnClick={() => handleKategoriClick("Serba-Serbi")}
+                  color={"text-white fw-medium"}
+                >
                   Serba-Serbi
                 </LinkButton>
               </div>
@@ -108,6 +142,7 @@ export default function BlogBerita({ auth, berita, filters }) {
                           </Heading>
                           <div className="my-2">
                             <Description color={"text-secondary"}>
+                              {item.kategori} |{" "}
                               {moment(item.created_at).format("DD MMMM YYYY")}
                             </Description>
                           </div>

@@ -77,15 +77,20 @@ class PagesController extends Controller
             $search = $request->get('search');
             $query->where(function ($q) use ($search) {
                 $q->where('judul', 'like', "%{$search}%")
-                    ->orWhere('deskripsi', 'like', "%{$search}%");
+                    ->orWhere('kategori', 'like', "%{$search}%");
             });
+        }
+
+        if ($request->filled('kategori')) {
+            $kategori = $request->input('kategori');
+            $query->where('kategori', $kategori);
         }
 
         $berita = $query->orderBy('id', 'DESC')->paginate(16)->withQueryString();
 
         return Inertia::render('UserPages/berita/BlogBerita', [
             "berita" => $berita,
-            "filters" => $request->only('search'),
+            "filters" => $request->all(),
         ]);
     }
 }
