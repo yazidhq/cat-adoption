@@ -88,7 +88,7 @@ export default function Berita({
               scope="col"
               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
             >
-              Deskripsi
+              Kategori
             </th>
             <th
               scope="col"
@@ -116,11 +116,7 @@ export default function Berita({
                 </Link>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: truncateText(item.deskripsi, 7),
-                  }}
-                ></p>
+                {item.kategori}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                 {moment(item.created_at).format("DD/MM/YY HH:mm")}

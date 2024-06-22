@@ -2,6 +2,7 @@ import DashboardSection from "@/Components/DashboardSection";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import RedButton from "@/Components/RedButton";
+import SelectOption from "@/Components/SelectOption";
 import TextInput from "@/Components/TextInput";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -13,6 +14,7 @@ export default function AddBerita({ auth }) {
   const { data, setData, post, errors } = useForm({
     judul: "",
     deskripsi: "",
+    kategori: "",
     gambar: "",
   });
 
@@ -47,6 +49,26 @@ export default function AddBerita({ auth }) {
               onChange={(e) => setData("judul", e.target.value)}
             />
             <InputError message={errors.judul} className="mt-2 text-red" />
+          </div>
+        </div>
+
+        <div className="mt-4">
+          <InputLabel htmlFor="kategori">Kategori</InputLabel>
+          <div className="mt-2">
+            <SelectOption
+              nameId={"kategori"}
+              value={data.kategori}
+              onChange={(e) => setData("kategori", e.target.value)}
+            >
+              <option hidden value="">
+                Pilih Opsi
+              </option>
+              <option value="Edukasi">Edukasi</option>
+              <option value="Event">Event</option>
+              <option value="Penyaluran Donasi">Penyaluran Donasi</option>
+              <option value="Serba-Serbi">Serba-Serbi</option>
+            </SelectOption>
+            <InputError message={errors.kategori} className="mt-2 text-red" />
           </div>
         </div>
 

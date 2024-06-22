@@ -39,8 +39,17 @@ export default function Navbar({ auth }) {
               <Link href={""} className="text-decoration-none">
                 <ItemList>SHELTER</ItemList>
               </Link>
-              <Link href={""} className="text-decoration-none">
-                <ItemList>BLOG</ItemList>
+              <Link
+                href={route("blog_berita")}
+                className="text-decoration-none"
+              >
+                <ItemList
+                  active={
+                    route().current("blog_berita") ? "fw-bold text-blue" : ""
+                  }
+                >
+                  BLOG
+                </ItemList>
               </Link>
             </ul>
             <div className="d-flex gap-2">

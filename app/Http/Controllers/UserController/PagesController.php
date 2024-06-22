@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
+use App\Models\Berita;
 use App\Models\Hewan;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -65,6 +66,26 @@ class PagesController extends Controller
     {
         return Inertia::render('UserPages/adopsi/PendaftaranAdopsi', [
             'hewan' => Hewan::with("shelter", "user")->findOrFail($id),
+        ]);
+    }
+
+    public function blog_berita(Request $request)
+    {
+        $query = Berita::query();
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', "%{$search}%")
+                    ->orWhere('deskripsi', 'like', "%{$search}%");
+            });
+        }
+
+        $berita = $query->orderBy('id', 'DESC')->paginate(16)->withQueryString();
+
+        return Inertia::render('UserPages/berita/BlogBerita', [
+            "berita" => $berita,
+            "filters" => $request->only('search'),
         ]);
     }
 }

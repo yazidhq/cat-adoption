@@ -1,15 +1,27 @@
 import Img from "../Img";
 
-export default function ImgCard({ img, shelterId, is_detail, is_status }) {
+export default function ImgCard({
+  img,
+  shelterId,
+  is_detail,
+  is_status,
+  is_berita,
+}) {
   return (
     <div
       className="position-relative"
       style={{ width: "100%", paddingTop: `${is_status ? "60%" : "90%"}` }}
     >
       <Img
-        src={`/hewan-img/${img}`}
+        src={is_berita ? `/berita-img/${img}` : `/hewan-img/${img}`}
         className={`img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-${
-          is_detail ? (is_status ? "4 " : "4 shadow") : "top-5"
+          is_detail
+            ? is_status
+              ? "4 "
+              : "4 shadow"
+            : is_berita
+            ? "top-4"
+            : "top-5"
         }`}
       />
       {shelterId && (

@@ -32,6 +32,8 @@ Route::get('/', function () {
 Route::controller(PagesController::class)->group(function() {
     Route::get('/adopsi', 'adopsi')->name('adopsi');
     Route::get('/detail_adopsi/{id}', 'detail_adopsi')->name('detail_adopsi');
+    
+    Route::get('/blog_berita', 'blog_berita')->name('blog_berita');
 });
 
 Route::middleware([UserRole::class . ':user'])->group(function () {

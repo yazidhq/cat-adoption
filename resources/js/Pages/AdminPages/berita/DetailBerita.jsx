@@ -35,11 +35,15 @@ export default function DetailBerita({
     >
       <section className="text-gray-700 body-font overflow-hidden bg-white">
         <div className="container">
-          <div className="flex pt-3">
-            <div className="lg:w-1/2 w-full object-cover">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="lg:mt-0">
               <img
                 src={`/berita-img/${berita.gambar}`}
-                style={{ maxHeight: "400px" }}
+                style={{
+                  maxHeight: "400px",
+                  width: "100%",
+                  objectFit: "cover",
+                }}
                 className="rounded-lg"
               />
               <div className="mt-4">
@@ -64,30 +68,29 @@ export default function DetailBerita({
                 ))}
               </div>
             </div>
-            <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
-              <div className="flex justify-content-between">
-                <div>
+            <div>
+              <div className="w-full">
+                <div className="flex justify-content-between">
                   <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">
-                    {berita.judul}
+                    {berita.judul} | {berita.kategori}
                   </h1>
-                  <h2 className="text-sm title-font text-gray-500 tracking-widest">
-                    Created At{" "}
-                    {moment(berita.created_at).format("DD/MM/YY HH:mm")}
-                  </h2>
+                  <Link href={route("berita.index")}>
+                    <RedButton>
+                      <IoCaretBackOutline /> <span className="pr-2">Back</span>
+                    </RedButton>
+                  </Link>
                 </div>
-                <Link href={route("berita.index")}>
-                  <RedButton>
-                    <IoCaretBackOutline /> <span className="pr-2">Back</span>
-                  </RedButton>
-                </Link>
+                <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                  Created At{" "}
+                  {moment(berita.created_at).format("DD/MM/YY HH:mm")}
+                </h2>
+                <p
+                  className="mt-3 text-justify"
+                  dangerouslySetInnerHTML={{
+                    __html: berita.deskripsi,
+                  }}
+                ></p>
               </div>
-              <p
-                className="mt-5 text-justify"
-                dangerouslySetInnerHTML={{
-                  __html: berita.deskripsi,
-                }}
-              ></p>
-              <div className="flex mt-4"></div>
             </div>
           </div>
         </div>

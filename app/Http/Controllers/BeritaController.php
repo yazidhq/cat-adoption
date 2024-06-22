@@ -16,10 +16,13 @@ class BeritaController extends Controller
 
         if ($request->has('search')) {
             $search = $request->get('search');
-            $query->where('judul', 'like', "%{$search}%");
+            $query->where(function ($q) use ($search) {
+                $q->where('judul', 'like', "%{$search}%")
+                    ->orWhere('kategori', 'like', "%{$search}%");
+            });
         }
 
-        $berita = $query->paginate(5)->withQueryString();
+        $berita = $query->orderBy('id', 'DESC')->paginate(5)->withQueryString();
 
         return Inertia::render("AdminPages/berita/Berita", [
             "berita" => $berita,
@@ -39,6 +42,7 @@ class BeritaController extends Controller
         $validated = $request->validate([
             'judul' => ['required', 'max:100'],
             'deskripsi' => ['required'],
+            'kategori' => ['required', 'max:100'],
             'gambar' => ['required', 'image', 'max:2048'], 
         ]);
 
@@ -84,6 +88,7 @@ class BeritaController extends Controller
         $validated = $request->validate([
             'judul' => ['required', 'max:100'],
             'deskripsi' => ['required'],
+            'kategori' => ['required', 'max:100'],
             'gambar' => ['nullable', 'max:2048'],
         ]);
 
