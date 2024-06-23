@@ -122,7 +122,7 @@ export default function Shelters({
                 <Link href={route("show_by_shelter_id", item.id)}>
                   {capitalize(item.khusus)} -{" "}
                   <span className="text-primary">
-                    {!item.hewan.is_adopsi && item.hewan.length} Tersedia
+                    {!item.hewan.is_adopsi && item.hewan.length}
                   </span>
                 </Link>
               </td>

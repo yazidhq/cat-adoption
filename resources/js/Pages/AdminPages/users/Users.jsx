@@ -119,7 +119,7 @@ export default function Users({
                         href={route("show_by_user_id", item.id)}
                         className="text-primary"
                       >
-                        {!item.hewan.is_adopsi && item.hewan.length} Tersedia
+                        {!item.hewan.is_adopsi && item.hewan.length} Hewan
                       </Link>
                     ) : (
                       <Link
