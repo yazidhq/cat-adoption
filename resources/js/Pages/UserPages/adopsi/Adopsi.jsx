@@ -218,7 +218,8 @@ export default function Adopsi({ auth, hewan, filters, adopted }) {
                                 <GiJasmine className="fs-3 text-red" />
                               ) : (
                                 <>
-                                  {item.favorite.some(
+                                  {auth.user &&
+                                  item.favorite.some(
                                     (fav) =>
                                       fav.hewan_id === item.id &&
                                       fav.user_id === auth.user.id

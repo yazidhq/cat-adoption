@@ -167,16 +167,18 @@ export default function DetailAdopsi({
             <div className="p-4 px-5">
               <div className="d-flex justify-content-between">
                 <div className="d-flex gap-4">
-                  <CircleImg
-                    img={
-                      hewan.shelter_id
-                        ? `/shelter-img/${hewan.shelter.foto}`
-                        : auth.user && auth.user.foto
-                        ? `/user-img/${hewan.user.foto}`
-                        : `/core-img/default-profile.jpg`
-                    }
-                    width={"100px"}
-                  />
+                  <Link href={route("shelter_profile", hewan.shelter.id)}>
+                    <CircleImg
+                      img={
+                        hewan.shelter_id
+                          ? `/shelter-img/${hewan.shelter.foto}`
+                          : auth.user && auth.user.foto
+                          ? `/user-img/${hewan.user.foto}`
+                          : `/core-img/default-profile.jpg`
+                      }
+                      width={"100px"}
+                    />
+                  </Link>
                   <div className="d-flex flex-column justify-content-center">
                     <Heading size={"fs-4"}>
                       {(hewan.shelter_id

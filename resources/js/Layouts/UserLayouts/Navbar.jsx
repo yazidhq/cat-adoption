@@ -36,8 +36,20 @@ export default function Navbar({ auth }) {
               <Link href={""} className="text-decoration-none">
                 <ItemList>EVENT</ItemList>
               </Link>
-              <Link href={""} className="text-decoration-none">
-                <ItemList>SHELTER</ItemList>
+              <Link
+                href={route("daftar_shelter")}
+                className="text-decoration-none"
+              >
+                <ItemList
+                  active={
+                    route().current("daftar_shelter") ||
+                    route().current("shelter_profile")
+                      ? "fw-bold text-blue"
+                      : ""
+                  }
+                >
+                  SHELTER
+                </ItemList>
               </Link>
               <Link
                 href={route("blog_berita")}

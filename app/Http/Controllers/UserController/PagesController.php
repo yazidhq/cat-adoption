@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Berita;
 use App\Models\Hewan;
 use App\Models\KomentarBerita;
+use App\Models\Shelter;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -67,6 +68,47 @@ class PagesController extends Controller
     {
         return Inertia::render('UserPages/adopsi/PendaftaranAdopsi', [
             'hewan' => Hewan::with("shelter", "user")->findOrFail($id),
+        ]);
+    }
+
+    public function daftar_shelter(Request $request)
+    {
+        $query = Shelter::query();
+        
+        if ($request->filled('nama_lokasi')) {
+            $lokasi = $request->input('nama_lokasi');
+            $query->where(function ($q) use ($lokasi) {
+                $q->where('nama', 'like', "%{$lokasi}%")
+                ->orWhere('provinsi', 'like', "%{$lokasi}%")
+                ->orWhere('kota', 'like', "%{$lokasi}%");
+            });
+        }
+
+        if ($request->filled('khusus')) {
+            $khusus = $request->input('khusus');
+            $query->where('khusus', $khusus);
+        }
+
+        return Inertia::render('UserPages/shelter/DaftarShelter', [
+            'shelters' => $query->orderBy('id', 'DESC')->paginate(6)->withQueryString(),
+            'filters' => $request->all(),
+        ]);
+    }
+
+    public function shelter_profile(string $id)
+    {
+        $shelter = Shelter::where('id', $id)->firstOrFail();
+        $hewan = Hewan::where('shelter_id', $shelter->id)
+                    ->where('is_adopsi', false)
+                    ->with(['favorite' => function ($query) {
+                        $query->where('user_id', auth()->id());
+                    }])
+                    ->paginate(8)
+                    ->withQueryString();
+
+        return Inertia::render('UserPages/shelter/ShelterProfile', [
+            'shelter' => $shelter,
+            'hewan' => $hewan,
         ]);
     }
 
