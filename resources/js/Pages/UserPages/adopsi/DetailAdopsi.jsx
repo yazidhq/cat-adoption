@@ -142,9 +142,32 @@ export default function DetailAdopsi({
                           <Link href={route("pendaftaran_adopsi", hewan.id)}>
                             <OrangeButton>ADOPSI SEKARANG</OrangeButton>
                           </Link>
-                          <OrangeOutlineButton>
-                            TAMBAH FAVORIT
-                          </OrangeOutlineButton>
+                          {auth.user &&
+                          hewan.favorite.some(
+                            (fav) =>
+                              fav.hewan_id === hewan.id &&
+                              fav.user_id === auth.user.id
+                          ) ? (
+                            <Link
+                              href={route("hapus_favorite", hewan.id)}
+                              method="post"
+                              className="text-blue"
+                            >
+                              <OrangeOutlineButton>
+                                HAPUS FAVORIT
+                              </OrangeOutlineButton>
+                            </Link>
+                          ) : (
+                            <Link
+                              href={route("tambah_favorite", hewan.id)}
+                              method="post"
+                              className="text-blue"
+                            >
+                              <OrangeOutlineButton>
+                                TAMBAH FAVORIT
+                              </OrangeOutlineButton>
+                            </Link>
+                          )}
                         </>
                       )
                     )}
@@ -167,12 +190,18 @@ export default function DetailAdopsi({
             <div className="p-4 px-5">
               <div className="d-flex justify-content-between">
                 <div className="d-flex gap-4">
-                  <Link href={route("shelter_profile", hewan.shelter.id)}>
+                  <Link
+                    href={
+                      hewan.shelter_id
+                        ? route("shelter_profile", hewan.shelter.id)
+                        : null
+                    }
+                  >
                     <CircleImg
                       img={
                         hewan.shelter_id
                           ? `/shelter-img/${hewan.shelter.foto}`
-                          : auth.user && auth.user.foto
+                          : hewan.user_id
                           ? `/user-img/${hewan.user.foto}`
                           : `/core-img/default-profile.jpg`
                       }

@@ -59,10 +59,14 @@ class ProsesController extends Controller
         $user_id = auth()->user()->id;
         $hewan_id = $id;
 
-        Favorite::create([
-            "user_id" => $user_id,
-            "hewan_id" => $hewan_id,
-        ]);
+        $favorite = Favorite::where('hewan_id', $hewan_id)->where('user_id', $user_id)->first();
+
+        if (!$favorite) {
+            Favorite::create([
+                'hewan_id' => $hewan_id,
+                'user_id' => $user_id,
+            ]);
+        }
 
         return redirect()->back();
     }
@@ -73,7 +77,10 @@ class ProsesController extends Controller
         $hewan_id = $id;
 
         $favorite = Favorite::where('hewan_id', $hewan_id)->where('user_id', $user_id)->first();
-        $favorite->delete();
+
+        if ($favorite) {
+            $favorite->delete();
+        }
 
         return redirect()->back();
     }
