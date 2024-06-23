@@ -37,17 +37,15 @@ Route::controller(PagesController::class)->group(function() {
 
 Route::middleware([UserRole::class . ':user'])->group(function () {
     Route::controller(PagesController::class)->group(function() {
-        Route::middleware([IsUserOwned::class])->group(function () {
-            Route::middleware([IsAdopted::class])->group(function () {
-                Route::get('/pendaftaran_adopsi/{id}', 'pendaftaran_adopsi')->name('pendaftaran_adopsi');
-            });
-        });
+        Route::get('/pendaftaran_adopsi/{id}', 'pendaftaran_adopsi')->name('pendaftaran_adopsi')->middleware([IsUserOwned::class])->middleware([IsAdopted::class]);
         Route::get('/detail_berita/{id}', 'detail_berita')->name('detail_berita');
     });
 
     Route::controller(ProsesController::class)->group(function() {
         Route::post('/proses_pendaftaran_adopsi/{id}', 'proses_pendaftaran_adopsi')->name('proses_pendaftaran_adopsi');
         Route::post('/tambah_komentar/{id}', 'tambah_komentar')->name('tambah_komentar');
+        Route::post('/tambah_favorite/{id}', 'tambah_favorite')->name('tambah_favorite');
+        Route::post('/hapus_favorite/{id}', 'hapus_favorite')->name('hapus_favorite');
     });
 
     Route::prefix('profile')->group(function () {
@@ -55,6 +53,7 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
             Route::get('/user_profile', 'user_profile')->name('user_profile');
             Route::post('/update_profile/{id}', 'update_profile')->name('update_profile');
             Route::get('/status_adopsi', 'status_adopsi')->name('status_adopsi');
+            Route::get('/favorite', 'favorite')->name('favorite');
         });
     });
 });

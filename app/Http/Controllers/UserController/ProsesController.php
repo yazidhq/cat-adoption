@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Adopsi;
+use App\Models\Favorite;
 use App\Models\Hewan;
 use App\Models\KomentarBerita;
 use Illuminate\Http\Request;
@@ -51,6 +52,30 @@ class ProsesController extends Controller
             DB::rollback();
             return redirect()->route("detail_adopsi", $id)->with('error', $e->getMessage());
         }
+    }
+
+    public function tambah_favorite(string $id)
+    {
+        $user_id = auth()->user()->id;
+        $hewan_id = $id;
+
+        Favorite::create([
+            "user_id" => $user_id,
+            "hewan_id" => $hewan_id,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function hapus_favorite(string $id)
+    {
+        $user_id = auth()->user()->id;
+        $hewan_id = $id;
+
+        $favorite = Favorite::where('hewan_id', $hewan_id)->where('user_id', $user_id)->first();
+        $favorite->delete();
+
+        return redirect()->back();
     }
 
     public function tambah_komentar(Request $request, string $id)

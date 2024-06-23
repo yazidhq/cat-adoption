@@ -44,7 +44,7 @@ class PagesController extends Controller
             $query->where('kategori', $kategori);
         }
 
-        $hewan = $query->orderBy('id', 'DESC')->paginate(10)->withQueryString();
+        $hewan = $query->orderBy('id', 'DESC')->with("favorite")->paginate(10)->withQueryString();
 
         return Inertia::render('UserPages/adopsi/Adopsi', [
             'hewan' => $hewan,

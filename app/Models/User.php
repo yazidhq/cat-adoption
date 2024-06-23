@@ -77,4 +77,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Adopsi::class, 'user_id');
     }
+
+    public function favorite(): HasMany
+    {
+        return $this->hasMany(Favorite::class, 'user_id');
+    }
 }

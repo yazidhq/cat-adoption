@@ -83,9 +83,9 @@ export default function Profile({ auth, title, children }) {
                   Event Terdaftar
                 </Link>
                 <Link
-                  href={""}
+                  href={route("favorite")}
                   className={`text-decoration-none ${
-                    route().current("...")
+                    route().current("favorite")
                       ? "text-blue fw-bold"
                       : "text-secondary"
                   }`}

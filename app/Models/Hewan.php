@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Hewan extends Model
@@ -50,5 +51,10 @@ class Hewan extends Model
     public function adopsi(): HasOne
     {
         return $this->hasOne(Adopsi::class, 'hewan_id');
+    }
+
+    public function favorite(): HasMany
+    {
+        return $this->hasMany(Favorite::class, 'hewan_id');
     }
 }

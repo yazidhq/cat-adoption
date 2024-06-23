@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Adopsi;
+use App\Models\Hewan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -78,6 +79,25 @@ class UserProfileController extends Controller
         return Inertia::render("UserPages/profile/StatusAdopsi", [
             "adopsi" => $adopsi,
             "filters" => $request->all(),
+        ]);
+    }
+
+    public function favorite()
+    {
+        $userId = auth()->user()->id;
+
+        $hewan = Hewan::orderBy('id', 'DESC')
+                    ->whereHas('favorite', function ($query) use ($userId) {
+                        $query->where('user_id', $userId);
+                    })
+                    ->with(['favorite' => function ($query) use ($userId) {
+                        $query->where('user_id', $userId);
+                    }])
+                    ->paginate(4)
+                    ->withQueryString();
+
+        return Inertia::render("UserPages/profile/Favorite", [
+            'hewan' => $hewan,
         ]);
     }
 }

@@ -4,14 +4,14 @@ import BlueButton from "@/Components/UserComponents/BlueButton";
 import LinkButton from "@/Components/UserComponents/LinkButton";
 import SectionPage from "@/Layouts/UserLayouts/SectionPage";
 import { IoMdSearch } from "react-icons/io";
-import { FaLocationDot } from "react-icons/fa6";
+import { FaHeart, FaLocationDot, FaRegHeart } from "react-icons/fa6";
 import Heading from "@/Components/Heading";
 import Description from "@/Components/Description";
 import Pagination from "@/Components/Pagination";
-import { CiHeart } from "react-icons/ci";
 import { Link, router } from "@inertiajs/react";
 import ImgCard from "@/Components/UserComponents/ImgCard";
 import Swal from "sweetalert2";
+import { GiJasmine } from "react-icons/gi";
 
 export default function Adopsi({ auth, hewan, filters, adopted }) {
   const [lokasi, setLokasi] = useState(filters.lokasi || "");
@@ -214,9 +214,33 @@ export default function Adopsi({ auth, hewan, filters, adopted }) {
                               >
                                 {capitalize(item.nama)}
                               </Link>
-                              <Link>
-                                <CiHeart className="fs-2" />
-                              </Link>
+                              {auth.user && item.user_id === auth.user.id ? (
+                                <GiJasmine className="fs-3 text-red" />
+                              ) : (
+                                <>
+                                  {item.favorite.some(
+                                    (fav) =>
+                                      fav.hewan_id === item.id &&
+                                      fav.user_id === auth.user.id
+                                  ) ? (
+                                    <Link
+                                      href={route("hapus_favorite", item.id)}
+                                      method="post"
+                                      className="text-blue"
+                                    >
+                                      <FaHeart className="fs-3" />
+                                    </Link>
+                                  ) : (
+                                    <Link
+                                      href={route("tambah_favorite", item.id)}
+                                      method="post"
+                                      className="text-blue"
+                                    >
+                                      <FaRegHeart className="fs-3" />
+                                    </Link>
+                                  )}
+                                </>
+                              )}
                             </div>
                           </Heading>
                           <Description size={"mb-0"}>
