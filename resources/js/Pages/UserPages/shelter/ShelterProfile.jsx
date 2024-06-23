@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { IoShareSocial } from "react-icons/io5";
 import {
   FaInstagram,
@@ -21,6 +21,27 @@ import Description from "@/Components/Description";
 import Pagination from "@/Components/Pagination";
 
 export default function ShelterProfile({ auth, shelter, hewan }) {
+  const handleLokasi = () => {
+    if (!auth.user) {
+      router.get(route("login"));
+    } else {
+      const address = `${shelter.kota}, ${shelter.provinsi}, ${shelter.alamat}`;
+      const formattedAddress = encodeURIComponent(address);
+      const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${formattedAddress}`;
+
+      window.open(googleMapsUrl, "_blank");
+    }
+  };
+
+  const handleHubungi = () => {
+    if (!auth.user) {
+      router.get(route("login"));
+    } else {
+      const whatsappUrl = `https://wa.me/${shelter.nomor_wa}`;
+      window.open(whatsappUrl, "_blank");
+    }
+  };
+
   const capitalize = (word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   };
@@ -42,13 +63,13 @@ export default function ShelterProfile({ auth, shelter, hewan }) {
                   }}
                 ></p>
                 <div>
-                  <OrangeButton>
+                  <OrangeButton onClick={handleHubungi}>
                     <FaWhatsapp className="fs-4" />
                     <span className="mx-1"></span>
                     Hubungi Sekarang
                   </OrangeButton>
                   <span className="mx-2"></span>
-                  <BlueButton>
+                  <BlueButton onClick={handleLokasi}>
                     <FaLocationDot className="fs-4" />
                     <span className="mx-1"></span>
                     Lokasi Shelter

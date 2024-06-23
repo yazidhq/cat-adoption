@@ -42,6 +42,31 @@ export default function DetailAdopsi({
     router.get(route("status_adopsi"));
   };
 
+  const handleLokasi = () => {
+    if (!auth.user) {
+      router.get(route("login"));
+    } else {
+      const address = `${hewan.kota}, ${hewan.provinsi}, ${
+        hewan.shelter_id ? hewan.shelter.alamat : hewan.user.alamat
+      }`;
+      const formattedAddress = encodeURIComponent(address);
+      const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${formattedAddress}`;
+
+      window.open(googleMapsUrl, "_blank");
+    }
+  };
+
+  const handleHubungi = () => {
+    if (!auth.user) {
+      router.get(route("login"));
+    } else {
+      const whatsappUrl = `https://wa.me/${
+        hewan.shelter_id ? hewan.shelter.nomor_wa : hewan.user.nomor_wa
+      }`;
+      window.open(whatsappUrl, "_blank");
+    }
+  };
+
   useEffect(() => {
     if (owned) {
       Swal.fire({
@@ -222,8 +247,10 @@ export default function DetailAdopsi({
                         </Link>
                       ) : (
                         <>
-                          <BlueButton>Lokasi</BlueButton>
-                          <BlueOutlineButton>Hubungi</BlueOutlineButton>
+                          <BlueButton onClick={handleLokasi}>Lokasi</BlueButton>
+                          <BlueOutlineButton onClick={handleHubungi}>
+                            Hubungi
+                          </BlueOutlineButton>
                         </>
                       )}
                     </div>
