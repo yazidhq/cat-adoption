@@ -71,6 +71,16 @@ class PagesController extends Controller
         ]);
     }
 
+    public function daftar_donasi()
+    {
+
+    }
+
+    public function daftar_event()
+    {
+        
+    }
+
     public function daftar_shelter(Request $request)
     {
         $query = Shelter::query();

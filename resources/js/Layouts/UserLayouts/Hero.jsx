@@ -2,7 +2,7 @@ import Description from "@/Components/Description";
 import Img from "@/Components/Img";
 import RoundedBlueButton from "@/Components/RundedBlueButton";
 import SuperHeading from "@/Components/SuperHeading";
-import { IoSearch } from "react-icons/io5";
+import { Link } from "@inertiajs/react";
 
 export default function Hero() {
   return (
@@ -24,7 +24,9 @@ export default function Hero() {
                   menjadi harapan bagi mereka!
                 </Description>
               </div>
-              <RoundedBlueButton>ADOPSI SEKARANG</RoundedBlueButton>
+              <Link href={route("adopsi")}>
+                <RoundedBlueButton>ADOPSI SEKARANG</RoundedBlueButton>
+              </Link>
             </div>
             <div className="col-lg-4">
               <div className="lc-block">

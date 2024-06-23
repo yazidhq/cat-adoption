@@ -30,11 +30,29 @@ export default function Navbar({ auth }) {
                   ADOPSI
                 </ItemList>
               </Link>
-              <Link href={""} className="text-decoration-none">
-                <ItemList>DONASI</ItemList>
+              <Link
+                href={route("daftar_donasi")}
+                className="text-decoration-none"
+              >
+                <ItemList
+                  active={
+                    route().current("daftar_donasi") ? "fw-bold text-blue" : ""
+                  }
+                >
+                  DONASI
+                </ItemList>
               </Link>
-              <Link href={""} className="text-decoration-none">
-                <ItemList>EVENT</ItemList>
+              <Link
+                href={route("daftar_event")}
+                className="text-decoration-none"
+              >
+                <ItemList
+                  active={
+                    route().current("daftar_event") ? "fw-bold text-blue" : ""
+                  }
+                >
+                  EVENT
+                </ItemList>
               </Link>
               <Link
                 href={route("daftar_shelter")}
