@@ -5,7 +5,6 @@ import ImgCard from "@/Components/UserComponents/ImgCard";
 import Profile from "@/Layouts/UserLayouts/Profile";
 import { Link } from "@inertiajs/react";
 import { FaHeart, FaLocationDot, FaRegHeart } from "react-icons/fa6";
-import { GiJasmine } from "react-icons/gi";
 
 export default function Favorite({ auth, hewan }) {
   const capitalize = (word) => {

@@ -78,7 +78,7 @@ class PagesController extends Controller
 
     public function daftar_event()
     {
-        
+        return Inertia::render('UserPages/event/DaftarEvent');
     }
 
     public function daftar_shelter(Request $request)

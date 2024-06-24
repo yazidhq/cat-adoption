@@ -4,12 +4,11 @@ import Img from "@/Components/Img";
 import Pagination from "@/Components/Pagination";
 import ImgCard from "@/Components/UserComponents/ImgCard";
 import LinkButton from "@/Components/UserComponents/LinkButton";
-import OrangeButton from "@/Components/UserComponents/OrangeButton";
 import Profile from "@/Layouts/UserLayouts/Profile";
 import { Link, router } from "@inertiajs/react";
 import moment from "moment";
 import "moment/locale/id";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function StatusAdopsi({ auth, adopsi, filters }) {
   const [status, setStatus] = useState(filters.status || "");
