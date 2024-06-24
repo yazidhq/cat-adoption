@@ -10,7 +10,10 @@ export default function ImgCard({
   return (
     <div
       className="position-relative"
-      style={{ width: "100%", paddingTop: `${is_status ? "60%" : "90%"}` }}
+      style={{
+        width: "100%",
+        paddingTop: `${is_status ? "60%" : is_detail ? "110%" : "90%"}`,
+      }}
     >
       <Img
         src={is_berita ? `/berita-img/${img}` : `/hewan-img/${img}`}

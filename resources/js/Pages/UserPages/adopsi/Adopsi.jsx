@@ -194,10 +194,7 @@ export default function Adopsi({ auth, hewan, filters, adopted }) {
               <div className="row row-cols-1 row-cols-md-4 g-4 pb-4">
                 {hewan.data.map((item) => (
                   <div className="col" key={item.id}>
-                    <div
-                      className="card border-0 rounded-5 shadow"
-                      style={{ width: "19rem" }}
-                    >
+                    <div className="card border-0 rounded-5 shadow">
                       <Link
                         href={route("detail_adopsi", item.id)}
                         className="text-decoration-none"
@@ -244,16 +241,20 @@ export default function Adopsi({ auth, hewan, filters, adopted }) {
                               )}
                             </div>
                           </Heading>
-                          <Description size={"mb-0"}>
-                            Jenis Kelamin : {capitalize(item.kelamin)}
-                          </Description>
-                          <Description size={"mb-0"}>
-                            Usia : {item.usia} Bulan
-                          </Description>
-                          <Description size={"text-muted mb-0 mt-2"}>
-                            <FaLocationDot /> {capitalize(item.kota)},{" "}
-                            {capitalize(item.provinsi)}
-                          </Description>
+                          <div className="mt-2" style={{ fontSize: "0.90rem" }}>
+                            <Description size={"mb-0"}>
+                              Jenis Kelamin : {capitalize(item.kelamin)}
+                            </Description>
+                            <Description size={"mb-0"}>
+                              Usia : {item.usia} Bulan
+                            </Description>
+                          </div>
+                          <div style={{ fontSize: "0.75rem" }}>
+                            <Description size={"text-muted mb-0 mt-2"}>
+                              <FaLocationDot /> {capitalize(item.kota)},{" "}
+                              {capitalize(item.provinsi)}
+                            </Description>
+                          </div>
                         </div>
                       </div>
                     </div>

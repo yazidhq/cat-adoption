@@ -144,10 +144,7 @@ export default function BlogBerita({ auth, berita, filters }) {
               <div className="row row-cols-1 row-cols-md-4 g-4 pb-4">
                 {berita.data.map((item) => (
                   <div className="col" key={item.id}>
-                    <div
-                      className="card border-0 rounded-4 shadow"
-                      style={{ width: "19rem" }}
-                    >
+                    <div className="card border-0 rounded-4 shadow">
                       <Link
                         href={route("detail_berita", item.id)}
                         className="text-decoration-none"
@@ -165,10 +162,12 @@ export default function BlogBerita({ auth, berita, filters }) {
                             </Link>
                           </Heading>
                           <div className="my-2">
-                            <Description color={"text-secondary"}>
-                              {item.kategori} |{" "}
-                              {moment(item.created_at).format("DD MMMM YYYY")}
-                            </Description>
+                            <div style={{ fontSize: "0.75rem" }}>
+                              <Description className="text-secondary">
+                                {item.kategori} |{" "}
+                                {moment(item.created_at).format("DD MMMM YYYY")}
+                              </Description>
+                            </div>
                           </div>
                           <Link
                             href={route("detail_berita", item.id)}

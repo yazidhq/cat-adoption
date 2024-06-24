@@ -108,7 +108,8 @@ export default function Navbar({ auth }) {
                     className={`btn btn-link dropdown-toggle text-decoration-none mx-2 ${
                       route().current("user_profile") ||
                       route().current("update_profile") ||
-                      route().current("status_adopsi")
+                      route().current("status_adopsi") ||
+                      route().current("favorite")
                         ? "fw-bold text-blue"
                         : "text-dark"
                     }`}
