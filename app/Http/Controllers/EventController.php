@@ -19,7 +19,7 @@ class EventController extends Controller
             $query->where('tema', 'like', "%{$search}%");
         }
 
-        $events = $query->paginate(5)->withQueryString();
+        $events = $query->orderBy('id', 'DESC')->paginate(5)->withQueryString();
 
         return Inertia::render("AdminPages/event/Events", [
             "events" => $events,
@@ -36,8 +36,11 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
+        
         $validated = $request->validate([
             'tema' => ['required', 'max:100'],
+            'kategori' => ['required', 'max:100'],
+            'keterangan' => ['required', 'max:100'],
             'hari_tanggal' => ['required'],
             'waktu_mulai' => ['required'],
             'waktu_selesai' => ['required'],
@@ -51,6 +54,10 @@ class EventController extends Controller
         DB::beginTransaction();
 
         try {
+            if($validated['kategori'] === "event"){
+                $validated['keterangan'] = "-";
+            }
+
             if ($request->hasFile('poster')) {
                 $image = $request->file('poster');
                 $imageName = time() . '_' . uniqid() . '.' . $image->getClientOriginalExtension();
@@ -89,6 +96,8 @@ class EventController extends Controller
     {
         $validated = $request->validate([
             'tema' => ['required', 'max:100'],
+            'kategori' => ['required', 'max:100'],
+            'keterangan' => ['required', 'max:100'],
             'hari_tanggal' => ['required'],
             'waktu_mulai' => ['required'],
             'waktu_selesai' => ['required'],
@@ -103,6 +112,10 @@ class EventController extends Controller
 
         try {
             $event = Event::findOrFail($id);
+
+            if($validated['kategori'] === "event"){
+                $validated['keterangan'] = "-";
+            }
 
             if ($request->hasFile('poster')) {
                 if ($event->poster) {

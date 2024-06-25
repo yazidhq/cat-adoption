@@ -2,6 +2,7 @@ import DashboardSection from "@/Components/DashboardSection";
 import InputError from "@/Components/InputError";
 import InputLabel from "@/Components/InputLabel";
 import RedButton from "@/Components/RedButton";
+import SelectOption from "@/Components/SelectOption";
 import TextInput from "@/Components/TextInput";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
@@ -12,6 +13,8 @@ import { IoCaretBackOutline } from "react-icons/io5";
 export default function EditEvent({ auth, event }) {
   const { data, setData, post, errors } = useForm({
     tema: event.tema || "",
+    kategori: event.kategori || "",
+    keterangan: event.keterangan || "",
     hari_tanggal: event.hari_tanggal || "",
     waktu_mulai: event.waktu_mulai || "",
     waktu_selesai: event.waktu_selesai || "",
@@ -62,6 +65,51 @@ export default function EditEvent({ auth, event }) {
           </div>
 
           <div className="sm:col-span-2">
+            <InputLabel htmlFor="kategori">Kategori</InputLabel>
+            <div className="mt-2">
+              <SelectOption
+                nameId={"kategori"}
+                value={data.kategori}
+                onChange={(e) => setData("kategori", e.target.value)}
+              >
+                <option hidden value="">
+                  Pilih Kategori
+                </option>
+                <option value="info">Info</option>
+                <option value="event">Event</option>
+              </SelectOption>
+              <InputError message={errors.kategori} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          {data.kategori === "info" && (
+            <div className="sm:col-span-2">
+              <InputLabel htmlFor="keterangan">Keterangan</InputLabel>
+              <div className="mt-2">
+                <SelectOption
+                  nameId={"keterangan"}
+                  value={data.keterangan}
+                  onChange={(e) => setData("keterangan", e.target.value)}
+                  required
+                >
+                  <option hidden value="">
+                    Pilih Keterangan
+                  </option>
+                  <option value="pengetahuan">Pengetahuan</option>
+                  <option value="adopsi">Adopsi</option>
+                  <option value="kesehatan">Kesehatan</option>
+                </SelectOption>
+                <InputError
+                  message={errors.keterangan}
+                  className="mt-2 text-red"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6 mt-4">
+          <div className="sm:col-span-2">
             <InputLabel htmlFor="hari_tanggal">Hari Tanggal</InputLabel>
             <div className="mt-2">
               <TextInput
@@ -79,7 +127,7 @@ export default function EditEvent({ auth, event }) {
             </div>
           </div>
 
-          <div className="sm:col-span-1">
+          <div className="sm:col-span-2">
             <InputLabel htmlFor="waktu_mulai">Waktu Mulai</InputLabel>
             <div className="mt-2">
               <TextInput
@@ -97,7 +145,7 @@ export default function EditEvent({ auth, event }) {
             </div>
           </div>
 
-          <div className="sm:col-span-1">
+          <div className="sm:col-span-2">
             <InputLabel htmlFor="waktu_selesai">Waktu Selesai</InputLabel>
             <div className="mt-2">
               <TextInput

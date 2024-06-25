@@ -62,9 +62,19 @@ export default function DetailEvent({
                   </h1>
                   <h2 className="text-sm title-font text-gray-500 tracking-widest">
                     Hari tanggal :{" "}
-                    {moment(event.hari_tanggal).format("DD/MM/YY")} <br />
-                    Waktu event : {event.waktu_mulai} s/d {event.waktu_selesai}
+                    {moment(event.hari_tanggal).format("DD/MM/YY")}
                   </h2>
+                  <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                    Waktu acara : {event.waktu_mulai} s/d {event.waktu_selesai}
+                  </h2>
+                  <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                    Kategori : {event.kategori}
+                  </h2>
+                  {event.kategori === "info" && (
+                    <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                      Keterangan : {event.keterangan}
+                    </h2>
+                  )}
                 </div>
                 <Link href={route("event.index")}>
                   <RedButton>
