@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
+use App\Models\Event;
 use App\Models\Hewan;
 use App\Models\KomentarBerita;
 use App\Models\Shelter;
@@ -76,9 +77,47 @@ class PagesController extends Controller
 
     }
 
-    public function daftar_event()
+    public function daftar_event(Request $request)
     {
-        return Inertia::render('UserPages/event/DaftarEvent');
+        $popular_events = Event::withCount('peserta') 
+                ->where("kategori", "event")
+                ->orderByDesc('peserta_count') 
+                ->take(4)
+                ->get(); 
+
+        $events = Event::where("kategori", "event")
+                ->orderBy('id', 'DESC')
+                ->take(6)
+                ->get();
+
+        $info = Event::where("kategori", "info")
+                ->orderBy('id', 'DESC')
+                ->take(3)
+                ->get();  
+                
+        $all_events = Event::where("kategori", "event")
+                ->orderBy('id', 'DESC')
+                ->paginate(8)
+                ->withQueryString();
+                
+        $all_info = Event::where("kategori", "info")
+                ->orderBy('id', 'DESC')
+                ->paginate(8)
+                ->withQueryString();
+
+        if ($request->filled('kategori')) {
+            $kategori = $request->input('kategori');
+            Event::where('kategori', $kategori);
+        }
+
+        return Inertia::render('UserPages/event/DaftarEvent', [
+            "popular_events" => $popular_events,
+            "events" => $events,
+            "info" => $info,
+            "all_events" => $all_events,
+            "all_info" => $all_info,
+            "filters" => $request->all(),
+        ]);
     }
 
     public function daftar_shelter(Request $request)

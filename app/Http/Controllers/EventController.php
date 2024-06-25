@@ -40,7 +40,7 @@ class EventController extends Controller
         $validated = $request->validate([
             'tema' => ['required', 'max:100'],
             'kategori' => ['required', 'max:100'],
-            'keterangan' => ['required', 'max:100'],
+            'keterangan' => ['max:100'],
             'hari_tanggal' => ['required'],
             'waktu_mulai' => ['required'],
             'waktu_selesai' => ['required'],

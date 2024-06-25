@@ -1,4 +1,4 @@
-export default function EventContent({ children }) {
+export default function EventCategory({ children }) {
   return (
     <div className="bg-light rounded-top-5" style={{ marginTop: "-3%" }}>
       <div className="container py-5">

@@ -132,11 +132,14 @@
 .bg-red {
     background-color: #cf3232 !important;
 }
-.bg-dark-orange {
+.bg-orange-dog {
     background-color: #f8d571 !important;
     background-repeat: no-repeat !important;
     background-size: cover !important;
     background-image: url("/core-img/event-hero.png") !important;
+}
+.bg-dark-orange {
+    background-color: #e89200 !important;
 }
 /* bg */
 

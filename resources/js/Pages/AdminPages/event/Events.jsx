@@ -80,6 +80,12 @@ export default function Events({
               scope="col"
               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
             >
+              Kategori
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+            >
               Hari Tanggal
             </th>
             <th
@@ -106,6 +112,9 @@ export default function Events({
                 >
                   {capitalize(item.tema)}
                 </Link>
+              </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                {capitalize(item.kategori)}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                 {moment(item.hari_tanggal).format("DD/MM/YYYY")}

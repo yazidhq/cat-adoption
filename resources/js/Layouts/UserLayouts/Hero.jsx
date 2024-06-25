@@ -2,14 +2,12 @@ import Description from "@/Components/Description";
 import Img from "@/Components/Img";
 import RoundedBlueButton from "@/Components/RundedBlueButton";
 import SuperHeading from "@/Components/SuperHeading";
-import LinkButton from "@/Components/UserComponents/LinkButton";
 import { Link } from "@inertiajs/react";
-import EventContent from "./EventContent";
 
 export default function Hero({ is_event }) {
   return (
     <div
-      className={`${is_event ? "bg-dark-orange" : "bg-orange-paw"} pt-5 mt-3`}
+      className={`${is_event ? "bg-orange-dog" : "bg-orange-paw"} pt-5 mt-3`}
     >
       <div className="pt-5">
         <div className="container">
