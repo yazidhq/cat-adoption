@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string("lokasi");
             $table->longText("deskripsi");
             $table->longText("syarat_partisipasi");
-            $table->longText("hadiah_event");
+            $table->longText("benefit");
             $table->string("poster");
             $table->timestamps();
         });

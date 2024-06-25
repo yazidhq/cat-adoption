@@ -47,7 +47,7 @@ class EventController extends Controller
             'lokasi' => ['required', 'max:100'],
             'deskripsi' => ['required'],
             'syarat_partisipasi' => ['required'],
-            'hadiah_event' => ['required'],
+            'benefit' => ['required'],
             'poster' => ['required', 'image', 'max:2048'], 
         ]);
 
@@ -104,7 +104,7 @@ class EventController extends Controller
             'lokasi' => ['required', 'max:100'],
             'deskripsi' => ['required'],
             'syarat_partisipasi' => ['required'],
-            'hadiah_event' => ['required'],
+            'benefit' => ['required'],
             'poster' => ['nullable', 'max:2048'],
         ]);
 

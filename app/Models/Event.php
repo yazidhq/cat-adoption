@@ -26,7 +26,7 @@ class Event extends Model
         "lokasi",
         "deskripsi",
         "syarat_partisipasi",
-        "hadiah_event",
+        "benefit",
         "poster",
     ];
 

@@ -21,7 +21,7 @@ export default function AddEvent({ auth }) {
     lokasi: "",
     deskripsi: "",
     syarat_partisipasi: "",
-    hadiah_event: "",
+    benefit: "",
     poster: "",
   });
 
@@ -209,17 +209,14 @@ export default function AddEvent({ auth }) {
           </div>
 
           <div className="sm:col-span-2">
-            <InputLabel htmlFor="hadiah_event">Hadiah Event</InputLabel>
+            <InputLabel htmlFor="benefit">Benefit Event</InputLabel>
             <div className="mt-2">
               <CKEditor
                 editor={ClassicEditor}
-                data={data.hadiah_event}
-                onChange={handleDescriptionChange("hadiah_event")}
+                data={data.benefit}
+                onChange={handleDescriptionChange("benefit")}
               />
-              <InputError
-                message={errors.hadiah_event}
-                className="mt-2 text-red"
-              />
+              <InputError message={errors.benefit} className="mt-2 text-red" />
             </div>
           </div>
 
