@@ -46,8 +46,8 @@ export default function EditEvent({ auth, event }) {
   return (
     <DashboardSection
       auth={auth.user}
-      heading={"Tambah Event"}
-      title={"Tambah Event"}
+      heading={"Edit Event"}
+      title={"Edit Event"}
     >
       <form onSubmit={submit} encType="multipart/form-data">
         <div className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">

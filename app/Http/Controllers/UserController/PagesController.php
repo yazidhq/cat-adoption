@@ -111,7 +111,6 @@ class PagesController extends Controller
             $all_events_query->where(function ($q) use ($search) {
                 $q->where('tema', 'like', "%{$search}%")
                 ->orWhere('kategori', 'like', "%{$search}%")
-                ->orWhere('keterangan', 'like', "%{$search}%")
                 ->orWhere('hari_tanggal', 'like', "%{$search}%")
                 ->orWhere('waktu_mulai', 'like', "%{$search}%")
                 ->orWhere('lokasi', 'like', "%{$search}%");

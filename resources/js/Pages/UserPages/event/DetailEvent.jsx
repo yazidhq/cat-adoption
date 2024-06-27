@@ -14,6 +14,7 @@ import {
   FaYoutube,
 } from "react-icons/fa6";
 import { IoShareSocial } from "react-icons/io5";
+import { GoDotFill } from "react-icons/go";
 
 export default function DetailEvent({ auth, event, events, info }) {
   const handleLokasi = () => {
@@ -58,10 +59,35 @@ export default function DetailEvent({ auth, event, events, info }) {
       <div className="bg-light pt-5">
         <div className="container pt-5 mt-3 pb-5">
           <div className="bg-white shadow-sm p-5 rounded-4">
-            <BlueButton>{capitalize(event.keterangan)}</BlueButton>
-            <div className="my-4">
-              <Heading>{event.tema}</Heading>
+            <div className="col-2">
+              {event.kategori == "info" && (
+                <Link
+                  href={route("daftar_event", {
+                    kategori: "info",
+                    search: event.keterangan,
+                  })}
+                  className="text-decoration-none"
+                >
+                  <div
+                    className={`p-1 text-center bg-${
+                      (event.keterangan === "adopsi" && "blue") ||
+                      (event.keterangan === "pengetahuan" && "red") ||
+                      (event.keterangan === "kesehatan" && "dark-orange")
+                    } text-white rounded-3`}
+                  >
+                    <strong>{capitalize(event.keterangan)}</strong>
+                  </div>
+                </Link>
+              )}
             </div>
+            <div className="mt-4 mb-3">
+              <Heading size={"display-4"}>{event.tema}</Heading>
+            </div>
+            <Heading size={"fs-3 text-center mb-4"}>
+              <GoDotFill />
+              <GoDotFill />
+              <GoDotFill />
+            </Heading>
             <div
               className="position-relative mb-5"
               style={{
@@ -138,6 +164,9 @@ export default function DetailEvent({ auth, event, events, info }) {
                   <SosmedButton icon={<FaFacebookF />} />
                   <SosmedButton icon={<FaYoutube />} />
                 </div>
+                <div className="mt-5">
+                  <Img src={"/core-img/jangan_lewatkan.png"} />
+                </div>
               </div>
             </div>
           </div>
@@ -151,66 +180,69 @@ export default function DetailEvent({ auth, event, events, info }) {
           <div>
             {event.kategori === "info" ? (
               <section>
-                <div className="row row-cols-1 row-cols-md-4 g-4">
+                <div className="row row-cols-1 row-cols-md-3 g-4">
                   {info.map((item) => (
                     <div className="col" key={item.id}>
                       <Link href={route("detail_event", item.id)}>
-                        <div className="card text-bg-dark rounded-4 border-0">
-                          <div
-                            className="position-relative"
-                            style={{
-                              width: "100%",
-                              paddingTop: "150%",
-                            }}
-                          >
-                            <Img
-                              src={`/event-img/${item.poster}`}
-                              className="img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-4"
-                            />
+                        {item.id !== event.id && (
+                          <div className="card text-bg-dark rounded-4 border-0">
                             <div
-                              className={`position-absolute top-0 start-0 m-4  p-2 px-3 bg-${
-                                (item.keterangan === "adopsi" && "blue") ||
-                                (item.keterangan === "pengetahuan" && "red") ||
-                                (item.keterangan === "kesehatan" &&
-                                  "dark-orange")
-                              } text-white rounded-3`}
-                            >
-                              <strong>{capitalize(item.keterangan)}</strong>
-                            </div>
-                            <button
-                              className="position-absolute top-0 end-0 m-4 btn btn-link text-decoration-none text-dark"
-                              style={{ zIndex: 1 }}
-                            >
-                              <FaArrowRightLong className="fs-3" />
-                            </button>
-                            <div
-                              className="card-img-overlay rounded-bottom-4 d-flex align-items-end"
+                              className="position-relative"
                               style={{
-                                padding: 0,
+                                width: "100%",
+                                paddingTop: "150%",
                               }}
                             >
+                              <Img
+                                src={`/event-img/${item.poster}`}
+                                className="img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-4"
+                              />
                               <div
+                                className={`position-absolute top-0 start-0 m-4  p-2 px-3 bg-${
+                                  (item.keterangan === "adopsi" && "blue") ||
+                                  (item.keterangan === "pengetahuan" &&
+                                    "red") ||
+                                  (item.keterangan === "kesehatan" &&
+                                    "dark-orange")
+                                } text-white rounded-3`}
+                              >
+                                <strong>{capitalize(item.keterangan)}</strong>
+                              </div>
+                              <button
+                                className="position-absolute top-0 end-0 m-4 btn btn-link text-decoration-none text-dark"
+                                style={{ zIndex: 1 }}
+                              >
+                                <FaArrowRightLong className="fs-3" />
+                              </button>
+                              <div
+                                className="card-img-overlay rounded-bottom-4 d-flex align-items-end"
                                 style={{
-                                  backgroundColor: "rgba(0, 0, 0, 0.35)",
-                                  width: "100%",
-                                  padding: "0px",
-                                  borderBottomLeftRadius: "1rem",
-                                  borderBottomRightRadius: "1rem",
+                                  padding: 0,
                                 }}
                               >
-                                <h5 className="card-title fw-bold text-white px-3 pt-2">
-                                  {item.tema}
-                                </h5>
-                                <p
-                                  className="mt-3 text-justify text-white px-3"
-                                  dangerouslySetInnerHTML={{
-                                    __html: truncateText(item.deskripsi, 15),
+                                <div
+                                  style={{
+                                    backgroundColor: "rgba(0, 0, 0, 0.35)",
+                                    width: "100%",
+                                    padding: "0px",
+                                    borderBottomLeftRadius: "1rem",
+                                    borderBottomRightRadius: "1rem",
                                   }}
-                                ></p>
+                                >
+                                  <h5 className="card-title fw-bold text-white px-3 pt-2">
+                                    {item.tema}
+                                  </h5>
+                                  <p
+                                    className="mt-3 text-justify text-white px-3"
+                                    dangerouslySetInnerHTML={{
+                                      __html: truncateText(item.deskripsi, 15),
+                                    }}
+                                  ></p>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        )}
                       </Link>
                     </div>
                   ))}
@@ -218,54 +250,56 @@ export default function DetailEvent({ auth, event, events, info }) {
               </section>
             ) : (
               <section>
-                <div className="row row-cols-1 row-cols-md-4 g-4 mb-5">
+                <div className="row row-cols-1 row-cols-md-3 g-4 mb-5">
                   {events.map((item) => (
                     <div className="col" key={item.id}>
                       <Link
                         href={route("detail_event", item.id)}
                         className="text-decoration-none"
                       >
-                        <div className="card rounded-4 border-0 shadow-sm">
-                          <div
-                            className="position-relative"
-                            style={{
-                              width: "100%",
-                              paddingTop: "60%",
-                            }}
-                          >
-                            <Img
-                              src={`/event-img/${item.poster}`}
-                              className={`img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-top-4`}
-                            />
-                          </div>
-                          <div className="card-body">
-                            <div className="d-flex gap-3">
-                              <div className="text-center">
-                                <div className="text-blue fw-bold mb-2">
-                                  {moment(item.hari_tanggal)
-                                    .format("MMMM")
-                                    .toUpperCase()}
+                        {item.id !== event.id && (
+                          <div className="card rounded-4 border-0 shadow-sm">
+                            <div
+                              className="position-relative"
+                              style={{
+                                width: "100%",
+                                paddingTop: "60%",
+                              }}
+                            >
+                              <Img
+                                src={`/event-img/${item.poster}`}
+                                className={`img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-top-4`}
+                              />
+                            </div>
+                            <div className="card-body">
+                              <div className="d-flex gap-3">
+                                <div className="text-center">
+                                  <div className="text-blue fw-bold mb-2">
+                                    {moment(item.hari_tanggal)
+                                      .format("MMMM")
+                                      .toUpperCase()}
+                                  </div>
+                                  <div className="text-dark fs-3 fw-bold mb-0">
+                                    {moment(item.hari_tanggal)
+                                      .format("DD")
+                                      .toUpperCase()}
+                                  </div>
                                 </div>
-                                <div className="text-dark fs-3 fw-bold mb-0">
-                                  {moment(item.hari_tanggal)
-                                    .format("DD")
-                                    .toUpperCase()}
+                                <div className="border-start border-2">
+                                  <Heading size={"fs-5 px-3"}>
+                                    {item.tema}
+                                  </Heading>
+                                  <p
+                                    className="mt-2 text-justify px-3"
+                                    dangerouslySetInnerHTML={{
+                                      __html: truncateText(item.deskripsi, 5),
+                                    }}
+                                  ></p>
                                 </div>
-                              </div>
-                              <div className="border-start border-2">
-                                <Heading size={"fs-5 px-3"}>
-                                  {item.tema}
-                                </Heading>
-                                <p
-                                  className="mt-2 text-justify px-3"
-                                  dangerouslySetInnerHTML={{
-                                    __html: truncateText(item.deskripsi, 5),
-                                  }}
-                                ></p>
                               </div>
                             </div>
                           </div>
-                        </div>
+                        )}
                       </Link>
                     </div>
                   ))}
