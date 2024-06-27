@@ -2,6 +2,7 @@ import Description from "@/Components/Description";
 import Heading from "@/Components/Heading";
 import Img from "@/Components/Img";
 import Pagination from "@/Components/Pagination";
+import TextInput from "@/Components/TextInput";
 import EventHeading from "@/Components/UserComponents/EventHeading";
 import LinkButton from "@/Components/UserComponents/LinkButton";
 import EventCategory from "@/Layouts/UserLayouts/EventCategory";
@@ -23,6 +24,7 @@ export default function DaftarEvent({
   filters,
 }) {
   const [kategori, setKategori] = useState(filters.kategori || "");
+  const [searchTerm, setSearchTerm] = useState(filters.search || "");
 
   const handleCategory = (kategori) => {
     setKategori(kategori);
@@ -31,6 +33,20 @@ export default function DaftarEvent({
       {
         kategori: kategori,
       },
+      {
+        preserveState: true,
+        replace: true,
+      }
+    );
+  };
+
+  const handleSearch = (e) => {
+    const query = e.target.value;
+    setSearchTerm(query);
+
+    router.get(
+      route(route().current()),
+      { search: query },
       {
         preserveState: true,
         replace: true,
@@ -101,10 +117,14 @@ export default function DaftarEvent({
               </LinkButton>
             </div>
             <div>
-              <input
+              <TextInput
+                name="search"
                 type="text"
-                placeholder="Search"
+                value={searchTerm}
+                onChange={handleSearch}
                 className="form-control rounded-5 border-dark"
+                placeholder="Search"
+                disabled={kategori == "" ? true : false}
               />
             </div>
           </div>
@@ -172,7 +192,7 @@ export default function DaftarEvent({
                                       dangerouslySetInnerHTML={{
                                         __html: truncateText(
                                           item.deskripsi,
-                                          20
+                                          15
                                         ),
                                       }}
                                     ></p>
@@ -227,10 +247,7 @@ export default function DaftarEvent({
                                     <p
                                       className="mt-2 text-justify px-3"
                                       dangerouslySetInnerHTML={{
-                                        __html: truncateText(
-                                          item.deskripsi,
-                                          10
-                                        ),
+                                        __html: truncateText(item.deskripsi, 5),
                                       }}
                                     ></p>
                                   </div>

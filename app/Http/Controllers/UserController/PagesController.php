@@ -94,21 +94,40 @@ class PagesController extends Controller
                 ->orderBy('id', 'DESC')
                 ->take(3)
                 ->get();  
-                
-        $all_events = Event::where("kategori", "event")
-                ->orderBy('id', 'DESC')
-                ->paginate(8)
-                ->withQueryString();
-                
-        $all_info = Event::where("kategori", "info")
-                ->orderBy('id', 'DESC')
-                ->paginate(8)
-                ->withQueryString();
+
+        $all_events_query = Event::where("kategori", "event")
+                ->orderBy('id', 'DESC');
+
+        $all_info_query = Event::where("kategori", "info")
+                ->orderBy('id', 'DESC');
 
         if ($request->filled('kategori')) {
             $kategori = $request->input('kategori');
             Event::where('kategori', $kategori);
         }
+
+        if ($request->has('search')) {
+            $search = $request->get('search');
+            $all_events_query->where(function ($q) use ($search) {
+                $q->where('tema', 'like', "%{$search}%")
+                ->orWhere('kategori', 'like', "%{$search}%")
+                ->orWhere('keterangan', 'like', "%{$search}%")
+                ->orWhere('hari_tanggal', 'like', "%{$search}%")
+                ->orWhere('waktu_mulai', 'like', "%{$search}%")
+                ->orWhere('lokasi', 'like', "%{$search}%");
+            });
+            $all_info_query->where(function ($q) use ($search) {
+                $q->where('tema', 'like', "%{$search}%")
+                ->orWhere('kategori', 'like', "%{$search}%")
+                ->orWhere('keterangan', 'like', "%{$search}%")
+                ->orWhere('hari_tanggal', 'like', "%{$search}%")
+                ->orWhere('waktu_mulai', 'like', "%{$search}%")
+                ->orWhere('lokasi', 'like', "%{$search}%");
+            });
+        }
+
+        $all_events = $all_events_query->paginate(8)->withQueryString();
+        $all_info = $all_info_query->paginate(8)->withQueryString();
 
         return Inertia::render('UserPages/event/DaftarEvent', [
             "popular_events" => $popular_events,
@@ -117,6 +136,7 @@ class PagesController extends Controller
             "all_events" => $all_events,
             "all_info" => $all_info,
             "filters" => $request->all(),
+            "search_filter" => $request->only('search'),
         ]);
     }
 
