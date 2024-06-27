@@ -134,12 +134,12 @@ export default function DaftarEvent({
             {kategori !== "" ? (
               <>
                 {kategori === "info" ? (
-                  <>
+                  <section>
                     <EventHeading text={"Paw Info"} />
                     <div className="row row-cols-1 row-cols-md-4 g-3">
                       {all_info.data.map((item) => (
                         <div className="col" key={item.id}>
-                          <Link className="text-decoration-none">
+                          <Link href={route("detail_event", item.id)}>
                             <div className="card text-bg-dark rounded-4 border-0">
                               <div
                                 className="position-relative"
@@ -205,14 +205,17 @@ export default function DaftarEvent({
                       ))}
                     </div>
                     <Pagination links={all_info.links} user={true} />
-                  </>
+                  </section>
                 ) : (
-                  <>
+                  <section>
                     <EventHeading text={"Paw Events"} />
                     <div className="row row-cols-1 row-cols-md-4 g-3 mb-5">
                       {all_events.data.map((item) => (
                         <div className="col" key={item.id}>
-                          <Link className="text-decoration-none">
+                          <Link
+                            href={route("detail_event", item.id)}
+                            className="text-decoration-none"
+                          >
                             <div className="card rounded-4 border-0 shadow-sm">
                               <div
                                 className="position-relative"
@@ -259,7 +262,7 @@ export default function DaftarEvent({
                       ))}
                     </div>
                     <Pagination links={all_events.links} user={true} />
-                  </>
+                  </section>
                 )}
               </>
             ) : (
@@ -269,7 +272,10 @@ export default function DaftarEvent({
                   <div className="row row-cols-1 row-cols-md-4 g-3 mb-5">
                     {popular_events.map((item) => (
                       <div className="col" key={item.id}>
-                        <Link className="text-decoration-none">
+                        <Link
+                          href={route("detail_event", item.id)}
+                          className="text-decoration-none"
+                        >
                           <div className="card rounded-4 border-0 shadow-sm">
                             <div
                               className="position-relative"
@@ -307,7 +313,10 @@ export default function DaftarEvent({
                   <div className="row row-cols-1 row-cols-md-3 g-3">
                     {info.map((item) => (
                       <div className="col" key={item.id}>
-                        <Link className="text-decoration-none">
+                        <Link
+                          href={route("detail_event", item.id)}
+                          className="text-decoration-none"
+                        >
                           <div className="card text-bg-dark rounded-4 border-0">
                             <div
                               className="position-relative"
@@ -380,7 +389,10 @@ export default function DaftarEvent({
                   <div className="row row-cols-1 row-cols-md-3 g-3 mb-5">
                     {events.map((item) => (
                       <div className="col" key={item.id}>
-                        <Link className="text-decoration-none">
+                        <Link
+                          href={route("detail_event", item.id)}
+                          className="text-decoration-none"
+                        >
                           <div className="card rounded-4 border-0 shadow-sm">
                             <div
                               className="position-relative"

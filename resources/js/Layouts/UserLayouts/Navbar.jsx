@@ -48,7 +48,10 @@ export default function Navbar({ auth }) {
               >
                 <ItemList
                   active={
-                    route().current("daftar_event") ? "fw-bold text-blue" : ""
+                    route().current("daftar_event") ||
+                    route().current("detail_event")
+                      ? "fw-bold text-blue"
+                      : ""
                   }
                 >
                   EVENT

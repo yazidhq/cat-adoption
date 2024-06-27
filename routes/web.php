@@ -42,6 +42,7 @@ Route::controller(PagesController::class)->group(function() {
 Route::middleware([UserRole::class . ':user'])->group(function () {
     Route::controller(PagesController::class)->group(function() {
         Route::get('/pendaftaran_adopsi/{id}', 'pendaftaran_adopsi')->name('pendaftaran_adopsi')->middleware([IsUserOwned::class])->middleware([IsAdopted::class]);
+        Route::get('/detail_event/{id}', 'detail_event')->name('detail_event');
         Route::get('/detail_berita/{id}', 'detail_berita')->name('detail_berita');
     });
 

@@ -140,6 +140,27 @@ class PagesController extends Controller
         ]);
     }
 
+    public function detail_event(string $id)
+    {
+        $event = Event::findOrFail($id);
+
+        $events = Event::where("kategori", "event")
+                    ->orderBy('id', 'DESC')
+                    ->take(6)
+                    ->get();
+
+        $info = Event::where("kategori", "info")
+                    ->orderBy('id', 'DESC')
+                    ->take(3)
+                    ->get();
+
+        return Inertia::render('UserPages/event/DetailEvent', [
+            "event" => $event,
+            "events" => $events,
+            "info" => $info,
+        ]);
+    }
+
     public function daftar_shelter(Request $request)
     {
         $query = Shelter::query();
