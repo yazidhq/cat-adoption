@@ -96,7 +96,7 @@ export default function DaftarShelter({ auth, shelters, filters }) {
             <div className="row row-cols-1 row-cols-md-2">
               {shelters.data.map((item) => (
                 <div className="col" key={item.id}>
-                  <div className="bg-white p-4 shadow-sm border border-2 rounded-5">
+                  <div className="bg-white p-4 shadow-sm border-2 rounded-5">
                     <div className="row">
                       <div className="col-md-5">
                         <div className="square-img">
