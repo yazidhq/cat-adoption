@@ -36,7 +36,6 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        
         $validated = $request->validate([
             'tema' => ['required', 'max:100'],
             'kategori' => ['required', 'max:100'],
@@ -44,7 +43,10 @@ class EventController extends Controller
             'hari_tanggal' => ['required'],
             'waktu_mulai' => ['required'],
             'waktu_selesai' => ['required'],
-            'lokasi' => ['required', 'max:100'],
+            'tempat' => ['required', 'max:255'],
+            'lokasi' => ['required', 'max:255'],
+            'longitude' => ['required', 'max:255'],
+            'latitude' => ['required', 'max:255'],
             'deskripsi' => ['required'],
             'syarat_partisipasi' => ['required'],
             'benefit' => ['required'],
@@ -101,7 +103,10 @@ class EventController extends Controller
             'hari_tanggal' => ['required'],
             'waktu_mulai' => ['required'],
             'waktu_selesai' => ['required'],
-            'lokasi' => ['required', 'max:100'],
+            'tempat' => ['required', 'max:255'],
+            'lokasi' => ['required', 'max:255'],
+            'longitude' => ['required', 'max:255'],
+            'latitude' => ['required', 'max:255'],
             'deskripsi' => ['required'],
             'syarat_partisipasi' => ['required'],
             'benefit' => ['required'],

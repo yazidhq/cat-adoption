@@ -75,6 +75,12 @@ export default function DetailEvent({
                       Keterangan : {event.keterangan}
                     </h2>
                   )}
+                  <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                    Nama Tempat : {event.tempat}
+                  </h2>
+                  <h2 className="text-sm title-font text-gray-500 tracking-widest">
+                    Alamat Lengkap : {event.lokasi}
+                  </h2>
                 </div>
                 <Link href={route("event.index")}>
                   <RedButton>
@@ -83,12 +89,11 @@ export default function DetailEvent({
                 </Link>
               </div>
               <p
-                className="mt-5 text-justify"
+                className="mt-3 text-justify"
                 dangerouslySetInnerHTML={{
                   __html: event.deskripsi,
                 }}
               ></p>
-              <div className="flex mt-4"></div>
             </div>
           </div>
         </div>

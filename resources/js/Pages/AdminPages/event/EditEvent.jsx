@@ -18,7 +18,10 @@ export default function EditEvent({ auth, event }) {
     hari_tanggal: event.hari_tanggal || "",
     waktu_mulai: event.waktu_mulai || "",
     waktu_selesai: event.waktu_selesai || "",
+    tempat: event.tempat || "",
     lokasi: event.lokasi || "",
+    longitude: event.longitude || "",
+    latitude: event.latitude || "",
     deskripsi: event.deskripsi || "",
     syarat_partisipasi: event.syarat_partisipasi || "",
     benefit: event.benefit || "",
@@ -163,8 +166,58 @@ export default function EditEvent({ auth, event }) {
             </div>
           </div>
 
+          <div className="sm:col-span-4">
+            <InputLabel htmlFor="tempat">Nama Tempat</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="text"
+                name="tempat"
+                id="tempat"
+                className="w-full"
+                value={data.tempat}
+                onChange={(e) => setData("tempat", e.target.value)}
+              />
+              <InputError message={errors.tempat} className="mt-2 text-red" />
+            </div>
+          </div>
+
+          <div className="sm:col-span-1">
+            <InputLabel htmlFor="longitude">Koordinat Longitude</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="text"
+                name="longitude"
+                id="longitude"
+                className="w-full"
+                value={data.longitude}
+                onChange={(e) => setData("longitude", e.target.value)}
+                placeholder="ex : 106.976055"
+              />
+              <InputError
+                message={errors.longitude}
+                className="mt-2 text-red"
+              />
+            </div>
+          </div>
+
+          <div className="sm:col-span-1">
+            <InputLabel htmlFor="latitude">Koordinat Latitude</InputLabel>
+            <div className="mt-2">
+              <TextInput
+                type="text"
+                name="latitude"
+                id="latitude"
+                className="w-full"
+                value={data.latitude}
+                onChange={(e) => setData("latitude", e.target.value)}
+                placeholder="ex : -6.2635805"
+              />
+              <InputError message={errors.latitude} className="mt-2 text-red" />
+            </div>
+          </div>
+
           <div className="sm:col-span-6">
-            <InputLabel htmlFor="lokasi">Lokasi</InputLabel>
+            <InputLabel htmlFor="lokasi">Alamat Lengkap</InputLabel>
             <div className="mt-2">
               <TextInput
                 type="text"

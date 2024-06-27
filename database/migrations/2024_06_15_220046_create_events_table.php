@@ -19,7 +19,10 @@ return new class extends Migration
             $table->string("hari_tanggal");
             $table->string("waktu_mulai");
             $table->string("waktu_selesai");
+            $table->string("tempat");
             $table->string("lokasi");
+            $table->string("longitude");
+            $table->string("latitude");
             $table->longText("deskripsi");
             $table->longText("syarat_partisipasi");
             $table->longText("benefit");
