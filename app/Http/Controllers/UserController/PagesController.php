@@ -141,14 +141,16 @@ class PagesController extends Controller
 
     public function detail_event(string $id)
     {
-        $event = Event::findOrFail($id);
+        $event = Event::with("peserta")->findOrFail($id);
 
         $events = Event::where("kategori", "event")
+                    ->whereNot('id', $id)
                     ->orderBy('id', 'DESC')
                     ->take(6)
                     ->get();
 
         $info = Event::where("kategori", "info")
+                    ->whereNot('id', $id)
                     ->orderBy('id', 'DESC')
                     ->take(3)
                     ->get();
@@ -157,6 +159,8 @@ class PagesController extends Controller
             "event" => $event,
             "events" => $events,
             "info" => $info,
+            "successMessage" => session("success"),
+            "registeredMessage" => session("registered"),
         ]);
     }
 

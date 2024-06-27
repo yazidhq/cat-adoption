@@ -7,6 +7,7 @@ use App\Models\Adopsi;
 use App\Models\Favorite;
 use App\Models\Hewan;
 use App\Models\KomentarBerita;
+use App\Models\PesertaEvent;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -52,6 +53,15 @@ class ProsesController extends Controller
             DB::rollback();
             return redirect()->route("detail_adopsi", $id)->with('error', $e->getMessage());
         }
+    }
+
+    public function proses_pendaftaran_event(string $id)
+    {
+        PesertaEvent::create([
+            "user_id" => auth()->user()->id,
+            "event_id" => $id,
+        ]);
+        return redirect()->back()->with('success', 'Terimakasih sudah Mendaftar!');
     }
 
     public function tambah_favorite(string $id)

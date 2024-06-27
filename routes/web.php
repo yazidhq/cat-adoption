@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserController\PagesController;
 use App\Http\Controllers\UserController\ProsesController;
 use App\Http\Middleware\IsAdopted;
+use App\Http\Middleware\IsEventRegistered;
 use App\Http\Middleware\IsUserOwned;
 use App\Http\Middleware\UserRole;
 use App\Models\Hewan;
@@ -45,12 +46,13 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
         Route::get('/pendaftaran_adopsi/{id}', 'pendaftaran_adopsi')->name('pendaftaran_adopsi')->middleware([IsUserOwned::class])->middleware([IsAdopted::class]);
         Route::get('/detail_berita/{id}', 'detail_berita')->name('detail_berita');
     });
-
+    
     Route::controller(ProsesController::class)->group(function() {
         Route::post('/proses_pendaftaran_adopsi/{id}', 'proses_pendaftaran_adopsi')->name('proses_pendaftaran_adopsi');
-        Route::post('/tambah_komentar/{id}', 'tambah_komentar')->name('tambah_komentar');
+        Route::get('/proses_pendaftaran_event/{id}', 'proses_pendaftaran_event')->name('proses_pendaftaran_event')->middleware([IsEventRegistered::class]);
         Route::post('/tambah_favorite/{id}', 'tambah_favorite')->name('tambah_favorite');
         Route::post('/hapus_favorite/{id}', 'hapus_favorite')->name('hapus_favorite');
+        Route::post('/tambah_komentar/{id}', 'tambah_komentar')->name('tambah_komentar');
     });
 
     Route::prefix('profile')->group(function () {
