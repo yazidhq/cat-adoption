@@ -7,6 +7,7 @@ import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
 import markerIcon from "leaflet/dist/images/marker-icon.png";
 import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
+// Mengatasi masalah ikon marker
 delete L.Icon.Default.prototype._getIconUrl;
 
 L.Icon.Default.mergeOptions({
@@ -15,28 +16,17 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow,
 });
 
-export default function MapLeaf({ location }) {
+export default function MapLeaf({ lat, long }) {
   const defaultPosition = [-6.24573, 106.991];
 
   let position;
 
-  if (location) {
-    const coords = location
-      .split(", ")
-      .slice(-2)
-      .join(", ")
-      .split(",")
-      .map((coord) => parseFloat(coord.trim()));
-    if (coords.length === 2 && !isNaN(coords[0]) && !isNaN(coords[1])) {
-      position = coords;
-    } else {
-      console.error(
-        "Invalid location format. Falling back to default position."
-      );
-      position = defaultPosition;
-    }
+  if (lat !== undefined && long !== undefined) {
+    position = [lat, long];
   } else {
-    console.error("Location is null. Falling back to default position.");
+    console.error(
+      "Koordinat lokasi tidak tersedia. Kembali ke posisi default."
+    );
     position = defaultPosition;
   }
 
@@ -49,10 +39,10 @@ export default function MapLeaf({ location }) {
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        attribution='© <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
       />
       <Marker position={position}>
-        <Popup>Lokasi: {location || "Default Location"}</Popup>
+        <Popup>Lokasi: {`${lat}, ${long}` || "Lokasi Default"}</Popup>
       </Marker>
     </MapContainer>
   );

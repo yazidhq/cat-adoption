@@ -5,7 +5,7 @@ import BlueButton from "@/Components/UserComponents/BlueButton";
 import MapLeaf from "@/Components/UserComponents/MapLeaf";
 import SosmedButton from "@/Components/UserComponents/SosmedButton";
 import SectionPage from "@/Layouts/UserLayouts/SectionPage";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import moment from "moment/moment";
 import {
   FaArrowRightLong,
@@ -16,6 +16,13 @@ import {
 import { IoShareSocial } from "react-icons/io5";
 
 export default function DetailEvent({ auth, event, events, info }) {
+  const handleLokasi = () => {
+    const address = event.lokasi;
+    const formattedAddress = encodeURIComponent(address);
+    const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${formattedAddress}`;
+    window.open(googleMapsUrl, "_blank");
+  };
+
   const capitalize = (word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   };
@@ -115,8 +122,14 @@ export default function DetailEvent({ auth, event, events, info }) {
                 </div>
               </div>
               <div className="col-md-4">
-                <MapLeaf location={event.lokasi} />
-                <div className="mt-4">
+                <MapLeaf lat={event.latitude} long={event.longitude} />
+                <div className="d-grid mt-2">
+                  <BlueButton onClick={handleLokasi}>Buka Map</BlueButton>
+                </div>
+                <Heading color={"text-blue"} size={"fs-4 mt-4"}>
+                  {event.tempat}
+                </Heading>
+                <div className="mt-3">
                   <Description>{event.lokasi}</Description>
                 </div>
                 <div className="d-flex align-items-center gap-2 mt-4">
