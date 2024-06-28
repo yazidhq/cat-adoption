@@ -61,6 +61,7 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
             Route::get('/user_profile', 'user_profile')->name('user_profile');
             Route::post('/update_profile/{id}', 'update_profile')->name('update_profile');
             Route::get('/status_adopsi', 'status_adopsi')->name('status_adopsi');
+            Route::get('/events', 'events')->name('events');
             Route::get('/favorite', 'favorite')->name('favorite');
         });
     });

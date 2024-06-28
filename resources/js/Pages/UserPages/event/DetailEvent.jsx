@@ -48,7 +48,7 @@ export default function DetailEvent({
       }).then((result) => {
         if (result.isConfirmed) {
           successMessage || registeredMessage
-            ? router.get(route("user_profile"))
+            ? router.get(route("events"))
             : router.get(route("daftar_event"));
         }
       });
@@ -137,7 +137,7 @@ export default function DetailEvent({
                     <strong>
                       Anda sudah terdaftar di Event ini, periksa{" "}
                       <Link
-                        href={route("user_profile")}
+                        href={route("events")}
                         className="text-decoration-none text-blue"
                       >
                         Event Terdaftar

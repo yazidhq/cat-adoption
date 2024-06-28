@@ -73,9 +73,9 @@ export default function Profile({ auth, title, children }) {
                   Status Adopsi
                 </Link>
                 <Link
-                  href={""}
+                  href={"events"}
                   className={`text-decoration-none ${
-                    route().current("...")
+                    route().current("events")
                       ? "text-blue fw-bold"
                       : "text-secondary"
                   }`}

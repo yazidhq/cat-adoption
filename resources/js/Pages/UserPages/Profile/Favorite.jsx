@@ -1,5 +1,6 @@
 import Description from "@/Components/Description";
 import Heading from "@/Components/Heading";
+import Img from "@/Components/Img";
 import Pagination from "@/Components/Pagination";
 import ImgCard from "@/Components/UserComponents/ImgCard";
 import Profile from "@/Layouts/UserLayouts/Profile";
@@ -13,12 +14,8 @@ export default function Favorite({ auth, hewan }) {
 
   return (
     <Profile auth={auth} title={"Favorite"}>
-      <div className="px-4 mb-4">
-        <Heading size={"fs-4"}>Favorite</Heading>
-        <Description>
-          Jangan lupa kamu pernah menyimpan ini sebagai hewan favorit! Mereka
-          masih menunggu kamu <br /> untuk bawa pulang mereka :(
-        </Description>
+      <div className="px-4 pb-4">
+        <Img src={"/core-img/fav-bar.png"} />
       </div>
       <div className="px-4">
         {hewan.data.length === 0 ? (

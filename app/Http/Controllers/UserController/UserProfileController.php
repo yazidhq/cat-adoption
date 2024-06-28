@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Adopsi;
+use App\Models\Event;
 use App\Models\Hewan;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -82,6 +83,22 @@ class UserProfileController extends Controller
         ]);
     }
 
+    public function events()
+    {
+        $userId = auth()->user()->id;
+
+        $events = Event::orderBy('id', 'DESC')
+                    ->whereHas('peserta', function ($query) use ($userId) {
+                        $query->where('user_id', $userId);
+                    })
+                    ->paginate(3)
+                    ->withQueryString();
+        
+        return Inertia::render("UserPages/profile/Events", [
+            'events' => $events,
+        ]);
+    }
+
     public function favorite()
     {
         $userId = auth()->user()->id;
@@ -93,7 +110,7 @@ class UserProfileController extends Controller
                     ->with(['favorite' => function ($query) use ($userId) {
                         $query->where('user_id', $userId);
                     }])
-                    ->paginate(4)
+                    ->paginate(3)
                     ->withQueryString();
 
         return Inertia::render("UserPages/profile/Favorite", [

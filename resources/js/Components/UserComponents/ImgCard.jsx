@@ -6,23 +6,32 @@ export default function ImgCard({
   is_detail,
   is_status,
   is_berita,
+  is_event,
 }) {
   return (
     <div
       className="position-relative"
       style={{
         width: "100%",
-        paddingTop: `${is_status ? "60%" : is_detail ? "110%" : "90%"}`,
+        paddingTop: `${
+          is_status || is_event ? "60%" : is_detail ? "110%" : "90%"
+        }`,
       }}
     >
       <Img
-        src={is_berita ? `/berita-img/${img}` : `/hewan-img/${img}`}
+        src={
+          is_event
+            ? `/event-img/${img}`
+            : is_berita
+            ? `/berita-img/${img}`
+            : `/hewan-img/${img}`
+        }
         className={`img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-${
           is_detail
             ? is_status
               ? "4 "
               : "4 shadow"
-            : is_berita
+            : is_berita || is_event
             ? "top-4"
             : "top-5"
         }`}
