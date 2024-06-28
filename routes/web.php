@@ -89,7 +89,10 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
         Route::delete("/berita/komentar/{id}", [BeritaController::class, 'destroy_komentar'])->name("destroy_komentar");
 
         Route::resource('/donasi', DonasiController::class);
+        
         Route::resource('/event', EventController::class);
+        Route::post("/tutup_event/{id}", [EventController::class, 'tutup_event'])->name("tutup_event");
+        Route::post("/buka_event/{id}", [EventController::class, 'buka_event'])->name("buka_event");
         
         Route::resource('/adopsi_status', AdopsiController::class);
         Route::controller(AdopsiController::class)->group(function() {

@@ -171,4 +171,20 @@ class EventController extends Controller
             return back()->with('error', 'error' . $e . '<span hidden>' . $id . '</span>');
         }
     }
+
+    public function tutup_event(string $id)
+    {
+        $event = Event::findOrFail($id);
+        $event->is_close = 1;
+        $event->save();
+        return back()->with('success', 'Event has been closed successfully!');
+    }
+
+    public function buka_event(string $id)
+    { 
+        $event = Event::findOrFail($id);
+        $event->is_close = 0;
+        $event->save();
+        return back()->with('success', 'Event has been opened successfully!');
+    }
 }

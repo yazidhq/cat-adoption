@@ -98,6 +98,12 @@ export default function Events({
               scope="col"
               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
             >
+              Status Event
+            </th>
+            <th
+              scope="col"
+              className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+            >
               Actions
             </th>
           </tr>
@@ -122,18 +128,29 @@ export default function Events({
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                 {item.waktu_mulai} - {item.waktu_selesai}
               </td>
+              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                {item.is_close ? "Pendaftaran Ditutup" : "Pendaftaran Dibuka"}
+              </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                 <div className="flex text-primary">
-                  <Link href={route("event.edit", item.id)} className="mr-2">
-                    Edit
-                  </Link>
+                  <Link href={route("event.edit", item.id)}>Edit</Link>
                   <Link
                     href={route("event.destroy", item.id)}
                     method="delete"
                     as="button"
+                    className="mx-2"
                   >
                     Hapus
                   </Link>
+                  {item.is_close ? (
+                    <Link href={route("buka_event", item.id)} method="post">
+                      Buka
+                    </Link>
+                  ) : (
+                    <Link href={route("tutup_event", item.id)} method="post">
+                      Tutup
+                    </Link>
+                  )}
                 </div>
               </td>
             </tr>
