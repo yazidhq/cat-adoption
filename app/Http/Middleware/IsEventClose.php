@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\PesertaEvent;
+use App\Models\Event;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsEventRegistered
+class IsEventClose
 {
     /**
      * Handle an incoming request.
@@ -17,13 +17,13 @@ class IsEventRegistered
     public function handle(Request $request, Closure $next): Response
     {
         $event_id = $request->route('id');
-        $user_id = auth()->id();
-        $peserta_event = PesertaEvent::where('event_id', $event_id)->where('user_id', $user_id)->first();
+        $event  =  Event::findOrFail($event_id);
+        $is_close = $event->is_close;
 
-        if ($peserta_event) {
-            return redirect()->back()->with('registered', 'Anda sudah mendaftar Event ini!');
+        if($is_close){
+            return redirect()->back()->with('close', 'Event telah ditutup!');
         }
-
+        
         return $next($request);
     }
 }

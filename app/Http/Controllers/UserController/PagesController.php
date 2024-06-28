@@ -161,6 +161,7 @@ class PagesController extends Controller
             "info" => $info,
             "successMessage" => session("success"),
             "registeredMessage" => session("registered"),
+            "closeMessage" => session("close"),
         ]);
     }
 

@@ -25,23 +25,35 @@ export default function DetailEvent({
   info,
   successMessage,
   registeredMessage,
+  closeMessage,
 }) {
   useEffect(() => {
-    if (successMessage || registeredMessage) {
+    if (successMessage || registeredMessage || closeMessage) {
       Swal.fire({
         title: successMessage ? "Selamat Bergabung" : "Maaf",
-        text: successMessage ? successMessage : registeredMessage,
-        icon: successMessage ? "success" : "question",
+        text: successMessage
+          ? successMessage
+          : registeredMessage || closeMessage,
+        icon: successMessage
+          ? "success"
+          : registeredMessage
+          ? "question"
+          : "error",
         showCancelButton: true,
-        confirmButtonText: "Periksa Event",
+        confirmButtonText:
+          successMessage || registeredMessage
+            ? "Periksa Event"
+            : "Perika Event Lain",
         cancelButtonText: "Kembali",
       }).then((result) => {
         if (result.isConfirmed) {
-          router.get(route("user_profile"));
+          successMessage || registeredMessage
+            ? router.get(route("user_profile"))
+            : router.get(route("daftar_event"));
         }
       });
     }
-  }, [successMessage, registeredMessage]);
+  }, [successMessage, registeredMessage, closeMessage]);
 
   const handleRegistration = () => {
     Swal.fire({
@@ -77,6 +89,8 @@ export default function DetailEvent({
     return text;
   };
 
+  const userId = auth.user ? auth.user.id : null;
+
   moment.updateLocale("id", {
     months: [
       "Januari",
@@ -100,24 +114,38 @@ export default function DetailEvent({
       <div className="bg-light pt-5">
         <div className="container pt-5 mt-3 pb-5">
           <div className="bg-white shadow-sm p-5 rounded-4">
-            <p>
-              {event.peserta.map(
-                (item) =>
-                  item.user_id === auth.user.id && (
-                    <div className="alert alert-warning  text-center">
-                      <strong>
-                        Anda sudah terdaftar di Event ini, periksa{" "}
-                        <Link
-                          href={route("user_profile")}
-                          className="text-decoration-none text-blue"
-                        >
-                          Event Terdaftar
-                        </Link>
-                      </strong>
-                    </div>
-                  )
-              )}
-            </p>
+            {event.is_close ? (
+              <div className="alert alert-danger text-center">
+                <strong>
+                  Maaf, event ini sudah ditutup, periksa{" "}
+                  <Link
+                    href={route("daftar_event")}
+                    className="text-decoration-none text-blue"
+                  >
+                    Event Lainnya
+                  </Link>
+                </strong>
+              </div>
+            ) : null}
+            {event.peserta.map(
+              (item) =>
+                item.user_id === userId && (
+                  <div
+                    className="alert alert-warning text-center"
+                    key={item.id}
+                  >
+                    <strong>
+                      Anda sudah terdaftar di Event ini, periksa{" "}
+                      <Link
+                        href={route("user_profile")}
+                        className="text-decoration-none text-blue"
+                      >
+                        Event Terdaftar
+                      </Link>
+                    </strong>
+                  </div>
+                )
+            )}
             <div className="col-2">
               {event.kategori == "info" && (
                 <Link
@@ -204,15 +232,23 @@ export default function DetailEvent({
                   <div className="d-flex justify-content-start">
                     <Link onClick={handleRegistration}>
                       <BlueButton
-                        disabled={event.peserta.some(
-                          (item) => item.user_id === auth.user.id
-                        )}
+                        disabled={
+                          event.peserta.some(
+                            (item) => item.user_id === userId
+                          ) || event.is_close
+                        }
                       >
-                        {event.peserta.some(
-                          (item) => item.user_id === auth.user.id
-                        )
-                          ? "Anda Sudah Daftar"
-                          : "Daftar Sekarang"}
+                        {event.is_close ? (
+                          "Event Sudah Ditutup"
+                        ) : (
+                          <>
+                            {event.peserta.some(
+                              (item) => item.user_id === userId
+                            )
+                              ? "Anda Sudah Daftar"
+                              : "Daftar Sekarang"}
+                          </>
+                        )}
                       </BlueButton>
                     </Link>
                   </div>

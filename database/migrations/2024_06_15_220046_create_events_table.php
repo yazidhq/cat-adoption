@@ -27,6 +27,7 @@ return new class extends Migration
             $table->longText("syarat_partisipasi");
             $table->longText("benefit");
             $table->string("poster");
+            $table->boolean("is_close")->default(false);
             $table->timestamps();
         });
     }
