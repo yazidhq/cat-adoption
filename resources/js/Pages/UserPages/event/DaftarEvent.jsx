@@ -294,7 +294,10 @@ export default function DaftarEvent({
             ) : (
               <>
                 <section>
-                  <EventHeading text={"Event Paling Populer"} />
+                  <EventHeading
+                    text={"Event Paling Populer"}
+                    is_orange={true}
+                  />
                   {popular_events.length == 0 ? (
                     <div className="text-center">
                       <h4>

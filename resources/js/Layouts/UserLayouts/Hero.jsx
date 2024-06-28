@@ -11,8 +11,8 @@ export default function Hero({ is_event }) {
     >
       <div className="pt-5">
         <div className="container">
-          <div className="row flex-lg-row pb-5">
-            <div className="col-lg-8 pt-4 pb-5">
+          <div className="row flex-lg-row">
+            <div className="col-lg-8 pt-4 pb-5 d-flex flex-column justify-content-center">
               <div className="mb-4">
                 {is_event ? (
                   <SuperHeading size={"display-3"} color={"text-white"}>

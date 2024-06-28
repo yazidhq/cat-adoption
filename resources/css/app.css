@@ -1,12 +1,12 @@
 /* scrollbar */
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 7px;
 }
 ::-webkit-scrollbar-track {
-    background: #f8d571;
+    background: #ffe2b0;
 }
 ::-webkit-scrollbar-thumb {
-    background: #32a5bb;
+    background: #e89200;
 }
 /* scrollbar */
 
