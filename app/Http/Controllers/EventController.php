@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\PesertaEvent;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -188,10 +189,18 @@ class EventController extends Controller
     }
 
     public function buka_event(string $id)
-    { 
+    {
         $event = Event::findOrFail($id);
         $event->is_close = 0;
         $event->save();
-        return back()->with('success', 'Event has been opened successfully!');
+
+        date_default_timezone_set('Asia/Jakarta');
+        $now = Carbon::now();
+
+        if ($event->hari_tanggal <= $now->toDateString() && $event->waktu_mulai <= $now->toTimeString()) {
+            return back()->with('error', 'Event has closed because it has passed the time limit!');
+        } else {
+            return back()->with('success', 'Event has been opened successfully!');
+        }
     }
 }
