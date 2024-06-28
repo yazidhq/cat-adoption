@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Event;
 use Illuminate\Support\ServiceProvider;
+use App\Observers\EventCloseObserver;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +21,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Event::observe(EventCloseObserver::class);
     }
 }
