@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 export default function DetailEvent({
   auth,
   event,
+  peserta,
   successMessage,
   errorMessage,
 }) {
@@ -43,15 +44,24 @@ export default function DetailEvent({
               />
               <div className="mt-3">
                 <p className="fw-bold fs-5">PESERTA EVENT</p>
-                {/* {komentar.map((item) => ( */}
-                <div className="mt-3 px-3 py-2 border rounded-lg">
-                  <div className="flex justify-content-between">
-                    <p className="fw-bold">Nama Peserta</p>
-                    <p>Daftar Pada: 20/20/2024</p>
-                    <Link className="text-red">delete</Link>
+                {peserta.map((item) => (
+                  <div className="mt-3 px-3 py-2 border rounded-lg">
+                    <div className="flex justify-content-between">
+                      <p className="fw-bold">{item.user.nama_depan}</p>
+                      <p>
+                        Daftar Pada :{" "}
+                        {moment(item.created_at).format("DD-MM-YYYY")}
+                      </p>
+                      <Link
+                        href={route("destroy_peserta", item.id)}
+                        method="post"
+                        className="text-red"
+                      >
+                        delete
+                      </Link>
+                    </div>
                   </div>
-                </div>
-                {/* ))} */}
+                ))}
               </div>
             </div>
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">

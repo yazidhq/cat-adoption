@@ -116,7 +116,7 @@ export default function Events({
                   href={route("event.show", item.id)}
                   className="text-primary"
                 >
-                  {capitalize(item.tema)}
+                  {capitalize(item.tema)} ({item.peserta.length})
                 </Link>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">

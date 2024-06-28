@@ -19,7 +19,7 @@ class EventController extends Controller
             $query->where('tema', 'like', "%{$search}%");
         }
 
-        $events = $query->orderBy('id', 'DESC')->paginate(5)->withQueryString();
+        $events = $query->with("peserta")->orderBy('id', 'DESC')->paginate(5)->withQueryString();
 
         return Inertia::render("AdminPages/event/Events", [
             "events" => $events,
@@ -170,6 +170,13 @@ class EventController extends Controller
             DB::rollback();
             return back()->with('error', 'error' . $e . '<span hidden>' . $id . '</span>');
         }
+    }
+
+    public function destroy_peserta(string $id)
+    {
+        $peserta_event = PesertaEvent::findOrFail($id);
+        $peserta_event->delete();
+        return back()->with('success', 'Event has been deleted successfully!');
     }
 
     public function tutup_event(string $id)

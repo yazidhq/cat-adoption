@@ -93,6 +93,7 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
         Route::resource('/event', EventController::class);
         Route::post("/tutup_event/{id}", [EventController::class, 'tutup_event'])->name("tutup_event");
         Route::post("/buka_event/{id}", [EventController::class, 'buka_event'])->name("buka_event");
+        Route::post("/destroy_peserta/{id}", [EventController::class, 'destroy_peserta'])->name("destroy_peserta");
         
         Route::resource('/adopsi_status', AdopsiController::class);
         Route::controller(AdopsiController::class)->group(function() {
