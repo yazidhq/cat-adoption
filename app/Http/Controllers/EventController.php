@@ -176,7 +176,7 @@ class EventController extends Controller
     {
         $peserta_event = PesertaEvent::findOrFail($id);
         $peserta_event->delete();
-        return back()->with('success', 'Event has been deleted successfully!');
+        return back()->with('success', 'Event participant has been deleted successfully!');
     }
 
     public function tutup_event(string $id)

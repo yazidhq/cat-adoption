@@ -73,7 +73,6 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
         })->name('dashboard');
     
         Route::resource('/shelter', ShelterController::class);
-
         Route::resource('/hewan', HewanController::class);
         Route::controller(HewanController::class)->group(function() {
             Route::get('/shelter/hewan/{id}', 'show_by_shelter_id')->name('show_by_shelter_id');
@@ -91,9 +90,11 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
         Route::resource('/donasi', DonasiController::class);
         
         Route::resource('/event', EventController::class);
-        Route::post("/tutup_event/{id}", [EventController::class, 'tutup_event'])->name("tutup_event");
-        Route::post("/buka_event/{id}", [EventController::class, 'buka_event'])->name("buka_event");
-        Route::post("/destroy_peserta/{id}", [EventController::class, 'destroy_peserta'])->name("destroy_peserta");
+        Route::controller(EventController::class)->group(function() {
+            Route::post("/tutup_event/{id}", 'tutup_event')->name("tutup_event");
+            Route::post("/buka_event/{id}", 'buka_event')->name("buka_event");
+            Route::post("/destroy_peserta/{id}", 'destroy_peserta')->name("destroy_peserta");
+        });
         
         Route::resource('/adopsi_status', AdopsiController::class);
         Route::controller(AdopsiController::class)->group(function() {
