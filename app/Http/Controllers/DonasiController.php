@@ -36,7 +36,7 @@ class DonasiController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'tema_donasi' => ['required', 'max:100'],
+            'tema_donasi' => ['required'],
             'deskripsi' => ['required'],
             'target_dana' => ['required'],
             'batas_waktu' => ['required'],
@@ -82,7 +82,7 @@ class DonasiController extends Controller
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
-            'tema_donasi' => ['required', 'max:100'],
+            'tema_donasi' => ['required'],
             'deskripsi' => ['required'],
             'target_dana' => ['required'],
             'batas_waktu' => ['required'],

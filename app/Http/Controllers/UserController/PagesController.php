@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Berita;
+use App\Models\Donasi;
 use App\Models\Event;
 use App\Models\Hewan;
 use App\Models\KomentarBerita;
@@ -74,7 +75,17 @@ class PagesController extends Controller
 
     public function daftar_donasi()
     {
+        return Inertia::render('UserPages/donasi/DaftarDonasi', [
+            'donasi' => Donasi::orderBy('id', 'DESC')->paginate(8)->withQueryString(),
+        ]);
+    }
 
+    public function detail_donasi(string $id)
+    {
+        return Inertia::render('UserPages/donasi/DetailDonasi', [
+            'donasi' => Donasi::with('pembayaran')->findOrFail($id),
+            'daftar_donasi' => Donasi::whereNot('id', $id)->orderBy('id', 'DESC')->take(4)->get(),
+        ]);
     }
 
     public function daftar_event(Request $request)

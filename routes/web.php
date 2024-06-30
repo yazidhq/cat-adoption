@@ -34,11 +34,16 @@ Route::get('/', function () {
 Route::controller(PagesController::class)->group(function() {
     Route::get('/adopsi', 'adopsi')->name('adopsi');
     Route::get('/detail_adopsi/{id}', 'detail_adopsi')->name('detail_adopsi');
+
     Route::get('/daftar_donasi', 'daftar_donasi')->name('daftar_donasi');
+    Route::get('/detail_donasi/{id}', 'detail_donasi')->name('detail_donasi');
+
     Route::get('/daftar_event', 'daftar_event')->name('daftar_event');
     Route::get('/detail_event/{id}', 'detail_event')->name('detail_event');
+
     Route::get('/daftar_shelter', 'daftar_shelter')->name('daftar_shelter');
     Route::get('/shelter_profile/{id}', 'shelter_profile')->name('shelter_profile');
+    
     Route::get('/blog_berita', 'blog_berita')->name('blog_berita');
 });
 
@@ -61,6 +66,7 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
             Route::get('/user_profile', 'user_profile')->name('user_profile');
             Route::post('/update_profile/{id}', 'update_profile')->name('update_profile');
             Route::get('/status_adopsi', 'status_adopsi')->name('status_adopsi');
+            Route::get('/donasi_saya', 'donasi_saya')->name('donasi_saya');
             Route::get('/events', 'events')->name('events');
             Route::get('/favorite', 'favorite')->name('favorite');
         });

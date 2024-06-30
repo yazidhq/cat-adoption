@@ -36,7 +36,10 @@ export default function Navbar({ auth }) {
               >
                 <ItemList
                   active={
-                    route().current("daftar_donasi") ? "fw-bold text-blue" : ""
+                    route().current("daftar_donasi") ||
+                    route().current("detail_donasi")
+                      ? "fw-bold text-blue"
+                      : ""
                   }
                 >
                   DONASI

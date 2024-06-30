@@ -83,6 +83,12 @@ class UserProfileController extends Controller
         ]);
     }
 
+    public function donasi_saya()
+    {
+        $userId = auth()->user()->id;
+        dd($userId);
+    }
+
     public function events()
     {
         $userId = auth()->user()->id;

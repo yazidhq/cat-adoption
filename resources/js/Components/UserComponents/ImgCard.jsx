@@ -7,6 +7,8 @@ export default function ImgCard({
   is_status,
   is_berita,
   is_event,
+  is_donasi,
+  is_detail_donasi,
 }) {
   return (
     <div
@@ -14,24 +16,32 @@ export default function ImgCard({
       style={{
         width: "100%",
         paddingTop: `${
-          is_status || is_event ? "60%" : is_detail ? "110%" : "90%"
+          is_status || is_event || is_donasi
+            ? "60%"
+            : is_detail || is_detail_donasi
+            ? "110%"
+            : "90%"
         }`,
       }}
     >
       <Img
         src={
-          is_event
+          is_donasi || is_detail_donasi
+            ? `/donasi-img/${img}`
+            : is_event
             ? `/event-img/${img}`
             : is_berita
             ? `/berita-img/${img}`
             : `/hewan-img/${img}`
         }
         className={`img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-${
-          is_detail
+          is_detail_donasi
+            ? "start-4 flex-fill"
+            : is_detail
             ? is_status
               ? "4 "
               : "4 shadow"
-            : is_berita || is_event
+            : is_berita || is_event || is_donasi
             ? "top-4"
             : "top-5"
         }`}
