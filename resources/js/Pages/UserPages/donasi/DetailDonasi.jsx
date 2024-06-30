@@ -114,17 +114,17 @@ export default function DetailDonasi({ auth, donasi, daftar_donasi }) {
                     <div className="row row-cols-1 row-cols-md-3 px-2 py-3 g-3">
                       <div className="col">
                         <div className="d-grid">
-                          <BlueOutlineButton>Rp. 200.000</BlueOutlineButton>
+                          <BlueOutlineButton>Pengobatan</BlueOutlineButton>
                         </div>
                       </div>
                       <div className="col">
                         <div className="d-grid">
-                          <BlueOutlineButton>Rp. 200.000</BlueOutlineButton>
+                          <BlueOutlineButton>Makanan</BlueOutlineButton>
                         </div>
                       </div>
                       <div className="col">
                         <div className="d-grid">
-                          <BlueOutlineButton>Rp. 200.000</BlueOutlineButton>
+                          <BlueOutlineButton>Kesehatan</BlueOutlineButton>
                         </div>
                       </div>
                     </div>
