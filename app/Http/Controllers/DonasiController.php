@@ -18,7 +18,7 @@ class DonasiController extends Controller
             $query->where('tema_donasi', 'like', "%{$search}%");
         }
 
-        $donasi = $query->paginate(5)->withQueryString();
+        $donasi = $query->orderBy('id', 'DESC')->paginate(5)->withQueryString();
 
         return Inertia::render("AdminPages/donasi/Donasi", [
             "donasi" => $donasi,
