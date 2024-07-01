@@ -123,8 +123,15 @@ export default function Donasi({
                 </Link>
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                0/{formatToRupiah(item.target_dana)}
+                {formatToRupiah(
+                  item.pembayaran.reduce(
+                    (total, pembayaran) => total + parseInt(pembayaran.dana),
+                    0
+                  )
+                )}
+                /{formatToRupiah(item.target_dana)}
               </td>
+
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                 {moment(item.batas_waktu).format("DD/MM/YY HH:mm")}
               </td>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donasi;
+use App\Models\PembayaranDonasi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -18,7 +19,7 @@ class DonasiController extends Controller
             $query->where('tema_donasi', 'like', "%{$search}%");
         }
 
-        $donasi = $query->orderBy('id', 'DESC')->paginate(5)->withQueryString();
+        $donasi = $query->orderBy('id', 'DESC')->with("pembayaran")->paginate(5)->withQueryString();
 
         return Inertia::render("AdminPages/donasi/Donasi", [
             "donasi" => $donasi,
@@ -66,7 +67,8 @@ class DonasiController extends Controller
     public function show(string $id)
     {
         return Inertia::render("AdminPages/donasi/DetailDonasi", [
-            "donasi" => Donasi::findOrFail($id),
+            "donasi" => Donasi::with("pembayaran")->findOrFail($id),
+            "pembayaran" => PembayaranDonasi::with("user")->where("donasi_id", $id)->where("status", "done")->paginate(5)->withQueryString(),
             "successMessage" => session("success"),
             "errorMessage" => session("error"),
         ]);

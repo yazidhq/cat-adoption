@@ -1,4 +1,5 @@
 import DashboardSection from "@/Components/DashboardSection";
+import Pagination from "@/Components/Pagination";
 import RedButton from "@/Components/RedButton";
 import { Link, router } from "@inertiajs/react";
 import moment from "moment";
@@ -11,6 +12,7 @@ export default function DetailDonasi({
   donasi,
   successMessage,
   errorMessage,
+  pembayaran,
 }) {
   useEffect(() => {
     if (successMessage || errorMessage) {
@@ -49,29 +51,40 @@ export default function DetailDonasi({
                 className="rounded-lg"
               />
               <div className="mt-4 mb-2">
-                <div className="flex justify-content-between">
-                  <p className="fw-bold fs-5">TARGET DANA</p>
-                  <p className="fs-5">{formatToRupiah(donasi.target_dana)}</p>
-                </div>
+                <p className="fw-bold fs-5">
+                  TARGET DANA:{" "}
+                  {formatToRupiah(
+                    donasi.pembayaran.reduce(
+                      (total, pembayaran) => total + parseInt(pembayaran.dana),
+                      0
+                    )
+                  )}
+                  /{formatToRupiah(donasi.target_dana)}
+                </p>
               </div>
               <hr />
               <div className="mt-3">
                 <p className="fw-bold fs-5">DAFTAR DONATUR</p>
-                {/* {komentar.map((item) => ( */}
-                <div className="mt-3 px-3 py-2 border rounded-lg">
-                  <div className="flex justify-content-between">
-                    <div>
-                      <p className="fw-bold">Nama Donatur</p>
-                      <p>20/20/2024</p>
-                    </div>
-                    <div className="text-end">
-                      <p className="fw-bold">Rp. 20.000</p>
-                      <Link className="text-red">delete</Link>
+                {pembayaran.data.map((item) => (
+                  <div className="mt-3 px-3 py-2 border rounded-lg">
+                    <div className="flex justify-content-between">
+                      <div>
+                        <p className="fw-bold">
+                          {item.user.nama_depan.toUpperCase()}{" "}
+                          {item.user.nama_belakang.toUpperCase()}
+                        </p>
+                        <p className="text-secondary">
+                          {moment(item.created_at).format("DD MMMM YYYY HH:mm")}
+                        </p>
+                      </div>
+                      <div className="text-end">
+                        <p className="fw-bold">{formatToRupiah(item.dana)}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-                {/* ))} */}
+                ))}
               </div>
+              <Pagination links={pembayaran.links} />
             </div>
             <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
               <div className="flex justify-content-between">
