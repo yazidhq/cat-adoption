@@ -1,16 +1,71 @@
 import Description from "@/Components/Description";
 import Heading from "@/Components/Heading";
 import Img from "@/Components/Img";
+import BlueButton from "@/Components/UserComponents/BlueButton";
 import BlueOutlineButton from "@/Components/UserComponents/BlueOutlineButton";
 import ImgCard from "@/Components/UserComponents/ImgCard";
 import OrangeButton from "@/Components/UserComponents/OrangeButton";
 import OrangeRdButton from "@/Components/UserComponents/OrangeRdButton";
 import SectionPage from "@/Layouts/UserLayouts/SectionPage";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import moment from "moment/moment";
+import { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa6";
+import Swal from "sweetalert2";
 
-export default function DetailDonasi({ auth, donasi, daftar_donasi }) {
+export default function DetailDonasi({
+  auth,
+  donasi,
+  daftar_donasi,
+  successMessage,
+  successPayMessage,
+  snapToken,
+}) {
+  const [nominal, setNominal] = useState("");
+  const [tipeDonasi, setTipeDonasi] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleDonate = () => {
+    if (!nominal || !tipeDonasi) {
+      setErrorMessage("Anda harus memilih nominal dan tipe donasi.");
+      return;
+    }
+
+    const data = {
+      user_id: auth.user && auth.user.id,
+      donasi_id: donasi.id,
+      dana: nominal,
+      tipe_donasi: tipeDonasi,
+    };
+
+    router.post(route("proses_buat_transaksi", data.donasi_id), data);
+  };
+
+  useEffect(() => {
+    if (successMessage || successPayMessage) {
+      Swal.fire({
+        title: "Terimakasih",
+        text: successMessage ? successMessage : successPayMessage,
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonText: successMessage ? "Bayar Sekarang" : "Lihat Lainnya",
+        cancelButtonText: "Lihat Donasimu",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          successMessage
+            ? snap.pay(snapToken, {
+                onSuccess: function (result) {
+                  router.post(route("proses_pembayaran_berhasil", snapToken));
+                },
+              })
+            : router.get(route("daftar_donasi"));
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          router.get(route("user_profile"));
+        }
+      });
+    }
+  }, [successMessage, successPayMessage]);
+
   const capitalize = (word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
   };
@@ -59,35 +114,52 @@ export default function DetailDonasi({ auth, donasi, daftar_donasi }) {
             <div className="col d-flex">
               <div className="rounded-end-4 shadow h-100 flex-fill d-flex flex-column">
                 <div className="px-4 py-4 h-100 flex-grow-1 d-flex flex-column">
+                  {errorMessage && (
+                    <div className="px-2">
+                      <div className="alert alert-danger">{errorMessage}</div>
+                    </div>
+                  )}
                   <div className="row row-cols-1 row-cols-md-3 px-2 py-3 g-3">
                     <div className="col">
                       <div className="d-grid">
-                        <BlueOutlineButton>Rp. 10.000</BlueOutlineButton>
+                        <BlueOutlineButton onClick={() => setNominal(10000)}>
+                          Rp. 10.000
+                        </BlueOutlineButton>
                       </div>
                     </div>
                     <div className="col">
                       <div className="d-grid">
-                        <BlueOutlineButton>Rp. 20.000</BlueOutlineButton>
+                        <BlueOutlineButton onClick={() => setNominal(20000)}>
+                          Rp. 20.000
+                        </BlueOutlineButton>
                       </div>
                     </div>
                     <div className="col">
                       <div className="d-grid">
-                        <BlueOutlineButton>Rp. 50.000</BlueOutlineButton>
+                        <BlueOutlineButton onClick={() => setNominal(50000)}>
+                          Rp. 50.000
+                        </BlueOutlineButton>
                       </div>
                     </div>
                     <div className="col">
                       <div className="d-grid">
-                        <BlueOutlineButton>Rp. 100.000</BlueOutlineButton>
+                        <BlueOutlineButton onClick={() => setNominal(100000)}>
+                          Rp. 100.000
+                        </BlueOutlineButton>
                       </div>
                     </div>
                     <div className="col">
                       <div className="d-grid">
-                        <BlueOutlineButton>Rp. 150.000</BlueOutlineButton>
+                        <BlueOutlineButton onClick={() => setNominal(150000)}>
+                          Rp. 150.000
+                        </BlueOutlineButton>
                       </div>
                     </div>
                     <div className="col">
                       <div className="d-grid">
-                        <BlueOutlineButton>Rp. 200.000</BlueOutlineButton>
+                        <BlueOutlineButton onClick={() => setNominal(200000)}>
+                          Rp. 200.000
+                        </BlueOutlineButton>
                       </div>
                     </div>
                     <div className="input-group mb-3 mt-5">
@@ -101,8 +173,10 @@ export default function DetailDonasi({ auth, donasi, daftar_donasi }) {
                         type="text"
                         className="form-control border-blue"
                         placeholder="Nominal Lainnya"
-                        aria-label="Username"
+                        aria-label="Nominal Lainnya"
                         aria-describedby="basic-addon1"
+                        value={nominal}
+                        onChange={(e) => setNominal(e.target.value)}
                       />
                     </div>
                   </div>
@@ -114,17 +188,53 @@ export default function DetailDonasi({ auth, donasi, daftar_donasi }) {
                     <div className="row row-cols-1 row-cols-md-3 px-2 py-3 g-3">
                       <div className="col">
                         <div className="d-grid">
-                          <BlueOutlineButton>Pengobatan</BlueOutlineButton>
+                          {tipeDonasi === "pengobatan" ? (
+                            <BlueButton
+                              onClick={() => setTipeDonasi("pengobatan")}
+                            >
+                              Pengobatan
+                            </BlueButton>
+                          ) : (
+                            <BlueOutlineButton
+                              onClick={() => setTipeDonasi("pengobatan")}
+                            >
+                              Pengobatan
+                            </BlueOutlineButton>
+                          )}
                         </div>
                       </div>
                       <div className="col">
                         <div className="d-grid">
-                          <BlueOutlineButton>Makanan</BlueOutlineButton>
+                          {tipeDonasi === "makanan" ? (
+                            <BlueButton
+                              onClick={() => setTipeDonasi("makanan")}
+                            >
+                              Makanan
+                            </BlueButton>
+                          ) : (
+                            <BlueOutlineButton
+                              onClick={() => setTipeDonasi("makanan")}
+                            >
+                              Makanan
+                            </BlueOutlineButton>
+                          )}
                         </div>
                       </div>
                       <div className="col">
                         <div className="d-grid">
-                          <BlueOutlineButton>Kesehatan</BlueOutlineButton>
+                          {tipeDonasi === "kesehatan" ? (
+                            <BlueButton
+                              onClick={() => setTipeDonasi("kesehatan")}
+                            >
+                              Kesehatan
+                            </BlueButton>
+                          ) : (
+                            <BlueOutlineButton
+                              onClick={() => setTipeDonasi("kesehatan")}
+                            >
+                              Kesehatan
+                            </BlueOutlineButton>
+                          )}
                         </div>
                       </div>
                     </div>
@@ -160,7 +270,9 @@ export default function DetailDonasi({ auth, donasi, daftar_donasi }) {
                     </div>
                   </div>
                   <div className="mt-auto px-2 d-grid">
-                    <OrangeRdButton>Donasi Sekarang</OrangeRdButton>
+                    <OrangeRdButton onClick={handleDonate}>
+                      Donasi Sekarang
+                    </OrangeRdButton>
                   </div>
                 </div>
               </div>

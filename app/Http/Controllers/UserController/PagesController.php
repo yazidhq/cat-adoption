@@ -85,6 +85,9 @@ class PagesController extends Controller
         return Inertia::render('UserPages/donasi/DetailDonasi', [
             'donasi' => Donasi::with('pembayaran')->findOrFail($id),
             'daftar_donasi' => Donasi::whereNot('id', $id)->orderBy('id', 'DESC')->take(4)->get(),
+            "successMessage" => session("success"),
+            "successPayMessage" => session("successPay"),
+            "snapToken" => session("snap_token"),
         ]);
     }
 

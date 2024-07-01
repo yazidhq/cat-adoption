@@ -19,7 +19,9 @@ class PembayaranDonasi extends Model
     protected $fillable = [
         "user_id",
         "donasi_id",
+        "dana",
         "status",
+        "tipe_donasi",
         "snap_token",
     ];
 
