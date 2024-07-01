@@ -21,6 +21,7 @@ export default function DetailDonasi({
   successPayMessage,
   snapToken,
   total_donasi,
+  closeMessage,
 }) {
   const [nominal, setNominal] = useState("");
   const [tipeDonasi, setTipeDonasi] = useState("");
@@ -66,6 +67,21 @@ export default function DetailDonasi({
       });
     }
   }, [successMessage, successPayMessage]);
+
+  useEffect(() => {
+    if (closeMessage) {
+      Swal.fire({
+        title: "Maaf",
+        text: closeMessage,
+        icon: "error",
+        confirmButtonText: "Lihat Donasi Lainnya",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.get(route("daftar_donasi"));
+        }
+      });
+    }
+  }, [closeMessage]);
 
   const capitalize = (word) => {
     return word.charAt(0).toUpperCase() + word.slice(1);
@@ -127,6 +143,19 @@ export default function DetailDonasi({
                       <div className="alert alert-danger">{errorMessage}</div>
                     </div>
                   )}
+                  {donasi.is_close ? (
+                    <div className="px-2">
+                      <div className="alert alert-danger">
+                        Maaf, donasi ini telah ditutup.{" "}
+                        <Link
+                          href={route("daftar_donasi")}
+                          className="text-decoration-none fw-bold text-blue"
+                        >
+                          Perika Donasi Lain
+                        </Link>
+                      </div>
+                    </div>
+                  ) : null}
                   <div className="row row-cols-1 row-cols-md-3 px-2 py-3 g-3">
                     <div className="col">
                       <div className="d-grid">
@@ -313,9 +342,17 @@ export default function DetailDonasi({
                     </div>
                   </div>
                   <div className="mt-auto px-2 d-grid">
-                    <OrangeRdButton onClick={handleDonate}>
-                      Donasi Sekarang
-                    </OrangeRdButton>
+                    {donasi.is_close ? (
+                      <div onClick={handleDonate} className="d-grid">
+                        <OrangeRdButton disabled>
+                          Donasi Telah Ditutup
+                        </OrangeRdButton>
+                      </div>
+                    ) : (
+                      <OrangeRdButton onClick={handleDonate}>
+                        Donasi Sekarang
+                      </OrangeRdButton>
+                    )}
                   </div>
                 </div>
               </div>

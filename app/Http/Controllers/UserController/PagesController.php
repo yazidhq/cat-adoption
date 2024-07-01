@@ -91,7 +91,8 @@ class PagesController extends Controller
             "successMessage" => session("success"),
             "successPayMessage" => session("successPay"),
             "snapToken" => session("snap_token"),
-            "total_donasi" => $total_donasi
+            "total_donasi" => $total_donasi,
+            "closeMessage" => session("close"),
         ]);
     }
 

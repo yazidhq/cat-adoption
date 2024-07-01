@@ -12,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserController\PagesController;
 use App\Http\Controllers\UserController\ProsesController;
 use App\Http\Middleware\IsAdopted;
+use App\Http\Middleware\IsDonationClose;
 use App\Http\Middleware\IsEventClose;
 use App\Http\Middleware\IsEventRegistered;
 use App\Http\Middleware\IsUserOwned;
@@ -55,7 +56,7 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
     
     Route::controller(ProsesController::class)->group(function() {
         Route::post('/proses_pendaftaran_adopsi/{id}', 'proses_pendaftaran_adopsi')->name('proses_pendaftaran_adopsi');
-        Route::post('/proses_buat_transaksi/{id}', 'proses_buat_transaksi')->name('proses_buat_transaksi');
+        Route::post('/proses_buat_transaksi/{id}', 'proses_buat_transaksi')->name('proses_buat_transaksi')->middleware([IsDonationClose::class]);
         Route::post('/proses_pembayaran_berhasil/{snapToken}', 'proses_pembayaran_berhasil')->name('proses_pembayaran_berhasil');
         Route::get('/proses_pendaftaran_event/{id}', 'proses_pendaftaran_event')->name('proses_pendaftaran_event')->middleware([IsEventRegistered::class])->middleware([IsEventClose::class]);
         Route::post('/tambah_favorite/{id}', 'tambah_favorite')->name('tambah_favorite');
