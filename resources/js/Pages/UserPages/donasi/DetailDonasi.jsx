@@ -278,14 +278,18 @@ export default function DetailDonasi({
                     </div>
                   </div>
                   <div className="px-2 my-5">
-                    <div className="d-flex justify-content-between">
-                      <Description size={"fw-medium mb-2"}>
-                        Target Dana Terkumpul
-                      </Description>
-                      <Description size={"fw-medium mb-2"}>
-                        {formatToRupiah(total_donasi)}/
-                        {formatToRupiah(donasi.target_dana)}
-                      </Description>
+                    <div className="row">
+                      <div className="col-md-6">
+                        <Description size={"fw-medium mb-2"}>
+                          Target Dana Terkumpul
+                        </Description>
+                      </div>
+                      <div className="col-md-6 d-flex justify-content-end">
+                        <Description size={"fw-medium mb-2"}>
+                          {formatToRupiah(total_donasi)}/
+                          {formatToRupiah(donasi.target_dana)}
+                        </Description>
+                      </div>
                     </div>
                     <div
                       className="progress"
