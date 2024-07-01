@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Donasi;
 use App\Models\Event;
-use Illuminate\Support\ServiceProvider;
+use App\Observers\DonasiCloseObserver;
 use App\Observers\EventCloseObserver;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Event::observe(EventCloseObserver::class);
+        Donasi::observe(DonasiCloseObserver::class);
     }
 }

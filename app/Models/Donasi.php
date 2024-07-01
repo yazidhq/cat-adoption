@@ -19,10 +19,10 @@ class Donasi extends Model
     protected $fillable = [
         "tema_donasi",
         "deskripsi",
-        "tipe_donasi",
         "target_dana",
         "batas_waktu",
         "gambar",
+        "is_close"
     ];
 
     public function pembayaran(): HasMany

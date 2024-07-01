@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Donasi;
 use App\Models\PembayaranDonasi;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
@@ -143,6 +144,31 @@ class DonasiController extends Controller
         } catch (\Throwable $e) {
             DB::rollback();
             return back()->with('error', 'error' . $e . '<span hidden>' . $id . '</span>');
+        }
+    }
+
+    public function tutup_donasi(string $id)
+    {
+        $donasi = Donasi::findOrFail($id);
+        $donasi->is_close = 1;
+        $donasi->save();
+        return redirect()->back()->with('success', 'Donation has been closed successfully!');
+    }
+
+    public function buka_donasi(string $id)
+    {
+        $donasi = Donasi::findOrFail($id);
+        $donasi->is_close = 0;
+        $donasi->save();
+
+        date_default_timezone_set('Asia/Jakarta');
+        $now = Carbon::now();
+        $batasWaktu = Carbon::parse($donasi->batas_waktu);
+
+        if ($batasWaktu <= $now) {
+            return back()->with('error', 'Donasi has closed because it has passed the time limit!');
+        } else {
+            return redirect()->back()->with('success', 'Donasi has been opened successfully!');
         }
     }
 }

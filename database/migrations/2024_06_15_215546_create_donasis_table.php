@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string("target_dana");
             $table->string("batas_waktu");
             $table->string("gambar");
+            $table->boolean("is_close")->default(false);
             $table->timestamps();
         });
     }
