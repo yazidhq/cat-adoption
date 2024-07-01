@@ -8,6 +8,7 @@ use App\Models\Donasi;
 use App\Models\Event;
 use App\Models\Hewan;
 use App\Models\KomentarBerita;
+use App\Models\PembayaranDonasi;
 use App\Models\Shelter;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -82,12 +83,15 @@ class PagesController extends Controller
 
     public function detail_donasi(string $id)
     {
+        $total_donasi = PembayaranDonasi::where('donasi_id', $id)->where("status", "done")->sum('dana');
+
         return Inertia::render('UserPages/donasi/DetailDonasi', [
             'donasi' => Donasi::with('pembayaran')->findOrFail($id),
             'daftar_donasi' => Donasi::whereNot('id', $id)->orderBy('id', 'DESC')->take(4)->get(),
             "successMessage" => session("success"),
             "successPayMessage" => session("successPay"),
             "snapToken" => session("snap_token"),
+            "total_donasi" => $total_donasi
         ]);
     }
 

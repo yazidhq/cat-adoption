@@ -115,6 +115,8 @@ export default function Navbar({ auth }) {
                       route().current("user_profile") ||
                       route().current("update_profile") ||
                       route().current("status_adopsi") ||
+                      route().current("events") ||
+                      route().current("donasi_saya") ||
                       route().current("favorite")
                         ? "fw-bold text-blue"
                         : "text-dark"

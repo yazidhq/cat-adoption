@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Adopsi;
 use App\Models\Event;
 use App\Models\Hewan;
+use App\Models\PembayaranDonasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -86,7 +87,17 @@ class UserProfileController extends Controller
     public function donasi_saya()
     {
         $userId = auth()->user()->id;
-        dd($userId);
+
+        $donasi = PembayaranDonasi::orderBy('id', 'DESC')
+                    ->with("donasi")
+                    ->where('user_id', $userId)
+                    ->paginate(3)
+                    ->withQueryString();
+        
+        return Inertia::render("UserPages/profile/Donasi", [
+            'donasi' => $donasi,
+            "successPayMessage" => session("successPay"),
+        ]);
     }
 
     public function events()

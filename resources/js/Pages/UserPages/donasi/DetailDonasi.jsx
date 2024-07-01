@@ -20,6 +20,7 @@ export default function DetailDonasi({
   successMessage,
   successPayMessage,
   snapToken,
+  total_donasi,
 }) {
   const [nominal, setNominal] = useState("");
   const [tipeDonasi, setTipeDonasi] = useState("");
@@ -60,7 +61,7 @@ export default function DetailDonasi({
               })
             : router.get(route("daftar_donasi"));
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          router.get(route("user_profile"));
+          router.get(route("donasi_saya"));
         }
       });
     }
@@ -76,6 +77,13 @@ export default function DetailDonasi({
       return words.slice(0, wordLimit).join(" ") + "...";
     }
     return text;
+  };
+
+  const formatToRupiah = (number) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(number);
   };
 
   return (
@@ -267,6 +275,37 @@ export default function DetailDonasi({
                         defaultValue={auth.user && auth.user.nomor_wa}
                         disabled={auth.user && true}
                       />
+                    </div>
+                  </div>
+                  <div className="px-2 my-5">
+                    <div className="d-flex justify-content-between">
+                      <Description size={"fw-medium mb-2"}>
+                        Target Dana Terkumpul
+                      </Description>
+                      <Description size={"fw-medium mb-2"}>
+                        {formatToRupiah(total_donasi)}/
+                        {formatToRupiah(donasi.target_dana)}
+                      </Description>
+                    </div>
+                    <div
+                      className="progress"
+                      role="progressbar"
+                      aria-label="Basic example"
+                      aria-valuenow={(total_donasi / donasi.target_dana) * 100}
+                      aria-valuemin="0"
+                      aria-valuemax="100"
+                    >
+                      <div
+                        className="progress-bar"
+                        style={{
+                          width: `${
+                            (total_donasi / donasi.target_dana) * 100
+                          }%`,
+                        }}
+                      >
+                        {((total_donasi / donasi.target_dana) * 100).toFixed(2)}
+                        %
+                      </div>
                     </div>
                   </div>
                   <div className="mt-auto px-2 d-grid">
