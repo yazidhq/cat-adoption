@@ -13,6 +13,7 @@ import moment from "moment/moment";
 import { useState } from "react";
 import { CgCalendarDates } from "react-icons/cg";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { IoIosNotifications, IoIosNotificationsOutline } from "react-icons/io";
 
 export default function DaftarEvent({
   auth,
@@ -234,55 +235,88 @@ export default function DaftarEvent({
                       <div className="row row-cols-1 row-cols-md-4 g-3 mb-5">
                         {all_events.data.map((item) => (
                           <div className="col" key={item.id}>
-                            <Link
-                              href={route("detail_event", item.id)}
-                              className="text-decoration-none"
-                            >
-                              <div className="card rounded-4 border-0 shadow-sm">
-                                <div
-                                  className="position-relative"
-                                  style={{
-                                    width: "100%",
-                                    paddingTop: "60%",
-                                  }}
+                            <div className="card rounded-4 border-0 shadow-sm">
+                              <div
+                                className="position-relative"
+                                style={{ width: "100%", paddingTop: "60%" }}
+                              >
+                                <Link
+                                  href={route("detail_event", item.id)}
+                                  className="text-decoration-none"
                                 >
                                   <Img
                                     src={`/event-img/${item.poster}`}
-                                    className={`img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-top-4`}
+                                    className="img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-top-4"
                                   />
+                                </Link>
+                                <div className="position-absolute top-0 end-0 m-4">
+                                  {auth.user &&
+                                  item.event_notif.some(
+                                    (notif) =>
+                                      notif.event_id === item.id &&
+                                      notif.user_id === auth.user.id
+                                  ) ? (
+                                    <Link
+                                      href={route(
+                                        "hapus_notifikasi",
+                                        item.event_notif.find(
+                                          (notif) =>
+                                            notif.event_id === item.id &&
+                                            notif.user_id === auth.user.id
+                                        ).id
+                                      )}
+                                      method="post"
+                                      className="position-absolute top-0 end-0 m-2"
+                                    >
+                                      <IoIosNotifications className="text-blue fs-1 bg-white rounded-circle p-1" />
+                                    </Link>
+                                  ) : (
+                                    <Link
+                                      href={route("tambah_notifikasi", item.id)}
+                                      method="post"
+                                      className="position-absolute top-0 end-0 m-2"
+                                    >
+                                      <IoIosNotificationsOutline className="text-dark fs-1 bg-white rounded-circle p-1" />
+                                    </Link>
+                                  )}
                                 </div>
-                                <div className="card-body">
-                                  <div className="d-flex gap-3">
-                                    <div className="text-center">
-                                      <div className="text-blue fw-bold mb-2">
-                                        {moment(item.hari_tanggal)
-                                          .format("MMMM")
-                                          .toUpperCase()}
-                                      </div>
-                                      <div className="text-dark fs-3 fw-bold mb-0">
-                                        {moment(item.hari_tanggal)
-                                          .format("DD")
-                                          .toUpperCase()}
-                                      </div>
+                              </div>
+                              <div className="card-body">
+                                <div className="d-flex gap-3">
+                                  <div className="text-center">
+                                    <div className="text-blue fw-bold mb-2">
+                                      {moment(item.hari_tanggal)
+                                        .format("MMMM")
+                                        .toUpperCase()}
                                     </div>
-                                    <div className="border-start border-2">
+                                    <div className="text-dark fs-3 fw-bold mb-0">
+                                      {moment(item.hari_tanggal)
+                                        .format("DD")
+                                        .toUpperCase()}
+                                    </div>
+                                  </div>
+                                  <div className="border-start border-2">
+                                    <Link
+                                      href={route("detail_event", item.id)}
+                                      className="text-decoration-none text-dark"
+                                    >
                                       <Heading size={"fs-5 px-3"}>
                                         {item.tema}
                                       </Heading>
-                                      <p
-                                        className="mt-2 text-justify px-3"
-                                        dangerouslySetInnerHTML={{
-                                          __html: truncateText(
-                                            item.deskripsi,
-                                            5
-                                          ),
-                                        }}
-                                      ></p>
-                                    </div>
+                                    </Link>
+                                    <p
+                                      className="mt-2 text-justify px-3"
+                                      dangerouslySetInnerHTML={{
+                                        __html: truncateText(
+                                          item.deskripsi,
+                                          10
+                                        ),
+                                      }}
+                                    ></p>
                                   </div>
                                 </div>
                               </div>
-                            </Link>
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -452,55 +486,85 @@ export default function DaftarEvent({
                     <div className="row row-cols-1 row-cols-md-3 g-3 mb-5">
                       {events.map((item) => (
                         <div className="col" key={item.id}>
-                          <Link
-                            href={route("detail_event", item.id)}
-                            className="text-decoration-none"
-                          >
-                            <div className="card rounded-4 border-0 shadow-sm">
-                              <div
-                                className="position-relative"
-                                style={{
-                                  width: "100%",
-                                  paddingTop: "60%",
-                                }}
+                          <div className="card rounded-4 border-0 shadow-sm">
+                            <div
+                              className="position-relative"
+                              style={{ width: "100%", paddingTop: "60%" }}
+                            >
+                              <Link
+                                href={route("detail_event", item.id)}
+                                className="text-decoration-none"
                               >
                                 <Img
                                   src={`/event-img/${item.poster}`}
-                                  className={`img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-top-4`}
+                                  className="img-fluid position-absolute top-0 start-0 w-100 h-100 object-fit-cover rounded-top-4"
                                 />
+                              </Link>
+                              <div className="position-absolute top-0 end-0 m-4">
+                                {auth.user &&
+                                item.event_notif.some(
+                                  (notif) =>
+                                    notif.event_id === item.id &&
+                                    notif.user_id === auth.user.id
+                                ) ? (
+                                  <Link
+                                    href={route(
+                                      "hapus_notifikasi",
+                                      item.event_notif.find(
+                                        (notif) =>
+                                          notif.event_id === item.id &&
+                                          notif.user_id === auth.user.id
+                                      ).id
+                                    )}
+                                    method="post"
+                                    className="position-absolute top-0 end-0 m-2"
+                                  >
+                                    <IoIosNotifications className="text-blue fs-1 bg-white rounded-circle p-1" />
+                                  </Link>
+                                ) : (
+                                  <Link
+                                    href={route("tambah_notifikasi", item.id)}
+                                    method="post"
+                                    className="position-absolute top-0 end-0 m-2"
+                                  >
+                                    <IoIosNotificationsOutline className="text-dark fs-1 bg-white rounded-circle p-1" />
+                                  </Link>
+                                )}
                               </div>
-                              <div className="card-body">
-                                <div className="d-flex gap-3">
-                                  <div className="text-center">
-                                    <div className="text-blue fw-bold mb-2">
-                                      {moment(item.hari_tanggal)
-                                        .format("MMMM")
-                                        .toUpperCase()}
-                                    </div>
-                                    <div className="text-dark fs-3 fw-bold mb-0">
-                                      {moment(item.hari_tanggal)
-                                        .format("DD")
-                                        .toUpperCase()}
-                                    </div>
+                            </div>
+                            <div className="card-body">
+                              <div className="d-flex gap-3">
+                                <div className="text-center">
+                                  <div className="text-blue fw-bold mb-2">
+                                    {moment(item.hari_tanggal)
+                                      .format("MMMM")
+                                      .toUpperCase()}
                                   </div>
-                                  <div className="border-start border-2">
+                                  <div className="text-dark fs-3 fw-bold mb-0">
+                                    {moment(item.hari_tanggal)
+                                      .format("DD")
+                                      .toUpperCase()}
+                                  </div>
+                                </div>
+                                <div className="border-start border-2">
+                                  <Link
+                                    href={route("detail_event", item.id)}
+                                    className="text-decoration-none text-dark"
+                                  >
                                     <Heading size={"fs-5 px-3"}>
                                       {item.tema}
                                     </Heading>
-                                    <p
-                                      className="mt-2 text-justify px-3"
-                                      dangerouslySetInnerHTML={{
-                                        __html: truncateText(
-                                          item.deskripsi,
-                                          10
-                                        ),
-                                      }}
-                                    ></p>
-                                  </div>
+                                  </Link>
+                                  <p
+                                    className="mt-2 text-justify px-3"
+                                    dangerouslySetInnerHTML={{
+                                      __html: truncateText(item.deskripsi, 10),
+                                    }}
+                                  ></p>
                                 </div>
                               </div>
                             </div>
-                          </Link>
+                          </div>
                         </div>
                       ))}
                     </div>

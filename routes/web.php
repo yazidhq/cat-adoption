@@ -62,6 +62,8 @@ Route::middleware([UserRole::class . ':user'])->group(function () {
         Route::post('/tambah_favorite/{id}', 'tambah_favorite')->name('tambah_favorite');
         Route::post('/hapus_favorite/{id}', 'hapus_favorite')->name('hapus_favorite');
         Route::post('/tambah_komentar/{id}', 'tambah_komentar')->name('tambah_komentar');
+        Route::post('/tambah_notifikasi/{id}', 'tambah_notifikasi')->name('tambah_notifikasi');
+        Route::post('/hapus_notifikasi/{id}', 'hapus_notifikasi')->name('hapus_notifikasi');
     });
 
     Route::prefix('profile')->group(function () {

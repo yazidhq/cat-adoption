@@ -106,6 +106,7 @@ class PagesController extends Controller
 
         $events = Event::where("kategori", "event")
                 ->orderBy('id', 'DESC')
+                ->with("event_notif")
                 ->take(6)
                 ->get();
 
@@ -115,7 +116,8 @@ class PagesController extends Controller
                 ->get();  
 
         $all_events_query = Event::where("kategori", "event")
-                ->orderBy('id', 'DESC');
+                ->orderBy('id', 'DESC')
+                ->with("event_notif");
 
         $all_info_query = Event::where("kategori", "info")
                 ->orderBy('id', 'DESC');
