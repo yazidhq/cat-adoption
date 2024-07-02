@@ -82,4 +82,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Favorite::class, 'user_id');
     }
+
+    public function event_notif(): HasMany
+    {
+        return $this->hasMany(EventNotif::class, 'user_id');
+    }
 }

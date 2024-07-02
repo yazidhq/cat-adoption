@@ -1,12 +1,23 @@
 import HamburgerButton from "@/Components/HamburgerButton";
+import Heading from "@/Components/Heading";
 import Img from "@/Components/Img";
 import ItemList from "@/Components/ItemList";
 import BlueButton from "@/Components/UserComponents/BlueButton";
 import BlueOutlineButton from "@/Components/UserComponents/BlueOutlineButton";
+import OrangeButton from "@/Components/UserComponents/OrangeButton";
 import { Link } from "@inertiajs/react";
 import { IoIosNotifications } from "react-icons/io";
+import { FaTrashAlt } from "react-icons/fa";
 
 export default function Navbar({ auth }) {
+  const truncateText = (text, wordLimit) => {
+    const words = text.split(" ");
+    if (words.length > wordLimit) {
+      return words.slice(0, wordLimit).join(" ") + "...";
+    }
+    return text;
+  };
+
   return (
     <div className="fixed-top shadow-sm">
       <nav className="navbar navbar-expand-lg bg-white">
@@ -94,7 +105,47 @@ export default function Navbar({ auth }) {
             <div className="d-flex gap-2">
               {auth.user ? (
                 <div className="dropdown d-flex align-items-center">
-                  <IoIosNotifications className="mx-4 fs-3 text-blue" />
+                  <div className="dropdown-center">
+                    <button
+                      className="btn btn-link"
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <IoIosNotifications className="mx-2 fs-3 text-blue" />
+                    </button>
+                    <ul className="dropdown-menu dropdown-menu-custom">
+                      <li className="border-bottom">
+                        <div className="row px-4 p-3">
+                          <div className="col-md-5">
+                            <div className="square-img">
+                              <Img
+                                src={`/core-img/default-profile.jpg`}
+                                classes="rounded-4"
+                              />
+                            </div>
+                          </div>
+                          <div className="col-md-7">
+                            <Heading size={"fs-4 mt-2"} color={"text-blue"}>
+                              {truncateText(
+                                "Judul Event yang sangat amat panajng judulnya",
+                                2
+                              )}
+                            </Heading>
+                            <Heading size={"fs-6 mb-4"}>10 Juni 2024</Heading>
+                            <div className="d-flex align-items-center gap-3">
+                              <Link>
+                                <OrangeButton>Lihat Event</OrangeButton>
+                              </Link>
+                              <Link>
+                                <FaTrashAlt className="text-red" />
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
                   <div
                     className="position-relative"
                     style={{ width: "35px", height: "35px" }}

@@ -37,4 +37,9 @@ class Event extends Model
     {
         return $this->hasMany(PesertaEvent::class, 'event_id');
     }
+
+    public function event_notif(): HasMany
+    {
+        return $this->hasMany(EventNotif::class, 'event_id');
+    }
 }
