@@ -183,7 +183,7 @@ export default function AddEvent({ auth }) {
             <InputLabel htmlFor="longitude">Koordinat Longitude</InputLabel>
             <div className="mt-2">
               <TextInput
-                type="text"
+                type="number"
                 name="longitude"
                 id="longitude"
                 className="w-full"
@@ -202,7 +202,7 @@ export default function AddEvent({ auth }) {
             <InputLabel htmlFor="latitude">Koordinat Latitude</InputLabel>
             <div className="mt-2">
               <TextInput
-                type="text"
+                type="number"
                 name="latitude"
                 id="latitude"
                 className="w-full"
