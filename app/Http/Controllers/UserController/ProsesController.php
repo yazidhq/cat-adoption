@@ -4,6 +4,7 @@ namespace App\Http\Controllers\UserController;
 
 use App\Http\Controllers\Controller;
 use App\Models\Adopsi;
+use App\Models\Event;
 use App\Models\EventNotif;
 use App\Models\Favorite;
 use App\Models\Hewan;
@@ -167,11 +168,17 @@ class ProsesController extends Controller
 
     public function tambah_notifikasi(string $id)
     {
+        $event = Event::find($id);
+
+        if (!$event || $event->is_close) {
+            return redirect()->back();
+        }
+
         EventNotif::create([
             "user_id" => auth()->user()->id,
             "event_id" => $id,
         ]);
-        
+
         return redirect()->back();
     }
 

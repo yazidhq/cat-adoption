@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Event;
+use App\Models\EventNotif;
 use Carbon\Carbon;
 
 class EventCloseObserver
@@ -13,6 +14,8 @@ class EventCloseObserver
         $now = Carbon::now();
 
         if (!$event->is_close && $event->hari_tanggal <= $now->toDateString() && $event->waktu_mulai <= $now->toTimeString()) {
+            $eventNotif = EventNotif::where("event_id", $event->id);
+            $eventNotif->delete();
             $event->is_close = true;
             $event->save();
         }
