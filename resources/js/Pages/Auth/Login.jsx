@@ -83,7 +83,7 @@ export default function Login({ status, canResetPassword }) {
               />
               <span className="mx-2 form-label">Remember me</span>
             </div>
-            <div>
+            {/* <div>
               {canResetPassword && (
                 <Link
                   href={route("password.request")}
@@ -92,7 +92,7 @@ export default function Login({ status, canResetPassword }) {
                   Forgot your password?
                 </Link>
               )}
-            </div>
+            </div> */}
           </label>
         </div>
 
