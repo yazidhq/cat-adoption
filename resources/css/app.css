@@ -261,4 +261,16 @@
     left: 55%;
     transform: translateX(-55%);
 }
+
+.dropdown-container {
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.event-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
 /* notif dropdown */

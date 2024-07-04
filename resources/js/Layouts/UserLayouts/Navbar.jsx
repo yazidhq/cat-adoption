@@ -136,62 +136,75 @@ export default function Navbar({ auth }) {
                       <IoIosNotifications className="mx-2 fs-3 text-blue" />
                     </button>
                     <ul className="dropdown-menu dropdown-menu-custom">
-                      {event_notif.length == 0 ? (
-                        <div className="text-center my-3">
-                          <h4>
-                            OOPS.. NO{" "}
-                            <span className="fw-bold text-blue">EVENTS</span>{" "}
-                            FOUND!
-                          </h4>
-                        </div>
-                      ) : (
-                        event_notif.map((item) => (
-                          <li className="border-bottom" key={item.id}>
-                            <div className="row px-4 p-3">
-                              <div className="col-md-5">
-                                <div className="square-img">
-                                  <Img
-                                    src={`/event-img/${item.event.poster}`}
-                                    classes="rounded-4"
-                                  />
+                      <div className="dropdown-container">
+                        {event_notif.length === 0 ? (
+                          <div className="text-center my-3">
+                            <h4>
+                              OOPS.. NO{" "}
+                              <span className="fw-bold text-blue">EVENTS</span>{" "}
+                              FOUND!
+                            </h4>
+                          </div>
+                        ) : (
+                          <ul className="event-list">
+                            {event_notif.map((item) => (
+                              <li className="border-bottom" key={item.id}>
+                                <div className="row px-4 p-3">
+                                  <div className="col-md-5">
+                                    <div className="square-img">
+                                      <Img
+                                        src={`/event-img/${item.event.poster}`}
+                                        classes="rounded-4"
+                                      />
+                                    </div>
+                                  </div>
+                                  <div className="col-md-7">
+                                    <Heading
+                                      size={"fs-4 mt-1"}
+                                      color={"text-blue"}
+                                    >
+                                      {truncateText(item.event.tema, 2)}
+                                    </Heading>
+                                    <Heading size={"fs-6 mb-0"}>
+                                      {moment(item.event.hari_tanggal).format(
+                                        "DD MMMM YYYY"
+                                      )}
+                                    </Heading>
+                                    <div
+                                      className="mt-0"
+                                      style={{ fontSize: "0.80rem" }}
+                                    >
+                                      <Description size={"mb-2"}>
+                                        {item.event.waktu_mulai} -{" "}
+                                        {item.event.waktu_selesai}
+                                      </Description>
+                                    </div>
+                                    <div className="d-flex align-items-center gap-3">
+                                      <Link
+                                        href={route(
+                                          "detail_event",
+                                          item.event.id
+                                        )}
+                                      >
+                                        <OrangeButton>Lihat Event</OrangeButton>
+                                      </Link>
+                                      <Link
+                                        href={route(
+                                          "hapus_notifikasi",
+                                          item.id
+                                        )}
+                                        method="post"
+                                      >
+                                        <FaTrashAlt className="text-red" />
+                                      </Link>
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className="col-md-7">
-                                <Heading size={"fs-4 mt-1"} color={"text-blue"}>
-                                  {truncateText(item.event.tema, 2)}
-                                </Heading>
-                                <Heading size={"fs-6 mb-0"}>
-                                  {moment(item.event.hari_tanggal).format(
-                                    "DD MMMM YYYY"
-                                  )}
-                                </Heading>
-                                <div
-                                  className="mt-0"
-                                  style={{ fontSize: "0.80rem" }}
-                                >
-                                  <Description size={"mb-2"}>
-                                    {item.event.waktu_mulai} -{" "}
-                                    {item.event.waktu_selesai}
-                                  </Description>
-                                </div>
-                                <div className="d-flex align-items-center gap-3">
-                                  <Link
-                                    href={route("detail_event", item.event.id)}
-                                  >
-                                    <OrangeButton>Lihat Event</OrangeButton>
-                                  </Link>
-                                  <Link
-                                    href={route("hapus_notifikasi", item.id)}
-                                    method="post"
-                                  >
-                                    <FaTrashAlt className="text-red" />
-                                  </Link>
-                                </div>
-                              </div>
-                            </div>
-                          </li>
-                        ))
-                      )}
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </div>
                     </ul>
                   </div>
                   <div
