@@ -39,7 +39,7 @@ export default function Authenticated({ user, header, children }) {
                     route().current("hewan.edit")
                   }
                 >
-                  Users
+                  Akun
                 </NavLink>
                 <NavLink
                   href={route("shelter.index")}

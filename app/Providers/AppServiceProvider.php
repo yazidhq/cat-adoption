@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Donasi;
 use App\Models\Event;
 use App\Models\EventNotif;
+use App\Models\PawSosmed;
 use App\Observers\DonasiCloseObserver;
 use App\Observers\EventCloseObserver;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
                 return EventNotif::with("event")->where('user_id', Auth::id())->get();
             }
             return [];
+        });
+
+        Inertia::share('paw_sosmed', function () {
+            return PawSosmed::find(1); 
         });
     }
 }

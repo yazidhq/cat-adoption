@@ -42,7 +42,7 @@ export default function DaftarShelter({ auth, shelters, filters }) {
           <div className="container pt-4">
             <form onSubmit={handleSearch}>
               <div className="row">
-                <div className="col-md-7">
+                <div className="col-md-6">
                   <TextInput
                     name="nama_lokasi"
                     className="form-control"
@@ -51,9 +51,9 @@ export default function DaftarShelter({ auth, shelters, filters }) {
                     onChange={(e) => setNama_lokasi(e.target.value)}
                   />
                 </div>
-                <div className="col-md-5">
+                <div className="col-md-6">
                   <div className="row">
-                    <div className="col-md-8">
+                    <div className="col-md-6">
                       <select
                         name="khusus"
                         className="form-control"
@@ -67,7 +67,7 @@ export default function DaftarShelter({ auth, shelters, filters }) {
                         <option value="anjing">Khusus Anjing</option>
                       </select>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-6">
                       <div className="d-grid">
                         <BlueButton type="submit">
                           <IoMdSearch />

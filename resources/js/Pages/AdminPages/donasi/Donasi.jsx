@@ -61,11 +61,6 @@ export default function Donasi({
     <DashboardSection auth={auth.user} heading={"Donasi"} title={"Donasi"}>
       <div className="d-flex justify-content-between">
         <div className="flex gap-2">
-          <Link>
-            <RedButton>
-              <IoMdSettings className="text-white m-1" />
-            </RedButton>
-          </Link>
           <Link href={route("donasi.create")}>
             <RedButton>
               <GoPlus className="text-white" />

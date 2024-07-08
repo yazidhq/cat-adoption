@@ -1,6 +1,7 @@
 import DashboardSection from "@/Components/DashboardSection";
 import Pagination from "@/Components/Pagination";
 import TextInput from "@/Components/TextInput";
+import LinkButton from "@/Components/UserComponents/LinkButton";
 import { Link, router } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
@@ -13,6 +14,15 @@ export default function Users({
   errorMessage,
 }) {
   const [searchTerm, setSearchTerm] = useState(filters.search || "");
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const handleIsAdmin = () => {
+    setIsAdmin(true);
+  };
+
+  const handleIsUser = () => {
+    setIsAdmin(false);
+  };
 
   useEffect(() => {
     if (successMessage || errorMessage) {
@@ -47,8 +57,22 @@ export default function Users({
   };
 
   return (
-    <DashboardSection auth={auth.user} heading={"Users"} title={"Users"}>
-      <div className="d-flex justify-content-end">
+    <DashboardSection auth={auth.user} heading={"Akun"} title={"Akun"}>
+      <div className="d-flex justify-content-between">
+        <div>
+          <LinkButton
+            color={isAdmin ? "text-dark" : ""}
+            btnClick={handleIsUser}
+          >
+            Users
+          </LinkButton>
+          <LinkButton
+            color={isAdmin ? "" : "text-dark"}
+            btnClick={handleIsAdmin}
+          >
+            Admin
+          </LinkButton>
+        </div>
         <TextInput
           type="text"
           value={searchTerm}
@@ -67,24 +91,28 @@ export default function Users({
             >
               Nama - Email
             </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-            >
-              Alamat
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-            >
-              WhatsApp
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-            >
-              Adopsi
-            </th>
+            {auth.user.role == "user" && isAdmin == false && (
+              <>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                >
+                  Alamat
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                >
+                  WhatsApp
+                </th>
+                <th
+                  scope="col"
+                  className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                >
+                  Adopsi
+                </th>
+              </>
+            )}
             <th
               scope="col"
               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
@@ -96,53 +124,83 @@ export default function Users({
         <tbody className="divide-y divide-gray-200">
           {users.data.map((item) => (
             <tr key={item.id}>
-              {item.role == "user" && (
-                <>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    {capitalize(item.nama_depan)} - {item.email}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    {item.lokaso || item.kode_pos ? (
-                      <>
-                        {item.alamat} - {item.kode_pos}
-                      </>
-                    ) : (
-                      <p>belum dibuat</p>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    {item.nomor_wa ? <>{item.nomor_wa}</> : <p>belum dibuat</p>}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    {item.hewan.length > 0 ? (
+              <>
+                {item.role == "user" && isAdmin == false && (
+                  <>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                      {capitalize(item.nama_depan)} - {item.email}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                      {item.lokaso || item.kode_pos ? (
+                        <>
+                          {item.alamat} - {item.kode_pos}
+                        </>
+                      ) : (
+                        <p>belum dibuat</p>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                      {item.nomor_wa ? (
+                        <>{item.nomor_wa}</>
+                      ) : (
+                        <p>belum dibuat</p>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                      {item.hewan.length > 0 ? (
+                        <Link
+                          href={route("show_by_user_id", item.id)}
+                          className="text-primary"
+                        >
+                          {!item.hewan.is_adopsi && item.hewan.length} Hewan
+                        </Link>
+                      ) : (
+                        <Link
+                          href={route("add_by_user_id", item.id)}
+                          className="text-primary"
+                        >
+                          Buka adopsi
+                        </Link>
+                      )}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                       <Link
-                        href={route("show_by_user_id", item.id)}
-                        className="text-primary"
+                        href={route("make_user_to_admin_or_reverse", item.id)}
+                        method="post"
                       >
-                        {!item.hewan.is_adopsi && item.hewan.length} Hewan
+                        {capitalize(item.role)} -{" "}
+                        <span className="text-primary">
+                          {item.role == "user"
+                            ? "Jadikan Admin"
+                            : "Jadikan User"}
+                        </span>
                       </Link>
-                    ) : (
+                    </td>
+                  </>
+                )}
+              </>
+              <>
+                {item.role == "admin" && isAdmin == true && (
+                  <>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
+                      {capitalize(item.nama_depan)} - {item.email}
+                    </td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
                       <Link
-                        href={route("add_by_user_id", item.id)}
-                        className="text-primary"
+                        href={route("make_user_to_admin_or_reverse", item.id)}
+                        method="post"
                       >
-                        Buka adopsi
+                        {capitalize(item.role)} -{" "}
+                        <span className="text-primary">
+                          {item.role == "user"
+                            ? "Jadikan Admin"
+                            : "Jadikan User"}
+                        </span>
                       </Link>
-                    )}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    <Link
-                      href={route("make_user_to_admin_or_reverse", item.id)}
-                      method="post"
-                    >
-                      {capitalize(item.role)} -{" "}
-                      <span className="text-primary">
-                        {item.role == "user" ? "Jadikan Admin" : "Jadikan User"}
-                      </span>
-                    </Link>
-                  </td>
-                </>
-              )}
+                    </td>
+                  </>
+                )}
+              </>
             </tr>
           ))}
         </tbody>

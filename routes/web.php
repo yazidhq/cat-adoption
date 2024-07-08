@@ -18,9 +18,11 @@ use App\Http\Middleware\IsEventRegistered;
 use App\Http\Middleware\IsUserOwned;
 use App\Http\Middleware\UserRole;
 use App\Models\Hewan;
+use App\Models\PawSosmed;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return Inertia::render('Home', [
@@ -83,6 +85,42 @@ Route::middleware([UserRole::class . ':admin'])->group(function () {
         Route::get('/dashboard', function () {
             return Inertia::render('AdminPages/Dashboard');
         })->name('dashboard');
+
+        Route::post('paw_sosmed', function(Request $request) {
+            $request->validate([
+                'fb' => 'nullable|string|max:255',
+                'ig' => 'nullable|string|max:255',
+                'yt' => 'nullable|string|max:255',
+                'wa' => 'nullable|string|max:255',
+                'line' => 'nullable|string|max:255',
+                'email' => 'nullable|string|email|max:255',
+            ]);
+
+            $sosmed = PawSosmed::find(1);
+
+            if ($sosmed) {
+                $sosmed->update([
+                    'fb' => $request->fb,
+                    'ig' => $request->ig,
+                    'yt' => $request->yt,
+                    'wa' => $request->wa,
+                    'line' => $request->line,
+                    'email' => $request->email,
+                ]);
+            } else {
+                PawSosmed::create([
+                    'id' => 1,
+                    'fb' => $request->fb,
+                    'ig' => $request->ig,
+                    'yt' => $request->yt,
+                    'wa' => $request->wa,
+                    'line' => $request->line,
+                    'email' => $request->email,
+                ]);
+            }
+
+            return redirect()->back();
+        })->name('paw_sosmed');
     
         Route::resource('/shelter', ShelterController::class);
         Route::resource('/hewan', HewanController::class);
